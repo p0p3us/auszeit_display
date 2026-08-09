@@ -62,6 +62,20 @@ class DisplayStateTests(unittest.TestCase):
 
         self.assertEqual(display_state.get_display_state(), expected)
 
+    def test_existing_active_page_is_returned(self):
+        display_state.save_display_state({"active_page": "news/current.html"})
+
+        with patch.object(display_state, "page_exists", return_value=True):
+            self.assertEqual(display_state.get_active_page(), "news/current.html")
+
+    def test_missing_active_page_falls_back_and_repairs_state(self):
+        display_state.save_display_state({"active_page": "news/missing.html"})
+
+        with patch.object(display_state, "page_exists", return_value=False):
+            self.assertEqual(display_state.get_active_page(), display_state.DEFAULT_PAGE)
+
+        self.assertEqual(self.read_saved_state(), display_state.DEFAULT_STATE)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -2,6 +2,7 @@ import json
 import os
 import tempfile
 
+from modules.page_manager import page_exists
 from modules.settings import DATA_DIR, DEFAULT_PAGE
 
 STATE_FILE = DATA_DIR / "display_state.json"
@@ -75,4 +76,12 @@ def set_active_page(page_path: str) -> None:
 
 def get_active_page() -> str:
     state = get_display_state()
-    return state.get("active_page", DEFAULT_STATE["active_page"])
+    active_page = state.get("active_page", DEFAULT_STATE["active_page"])
+
+    if not page_exists(active_page):
+        if active_page != DEFAULT_PAGE:
+            state["active_page"] = DEFAULT_PAGE
+            save_display_state(state)
+        return DEFAULT_PAGE
+
+    return active_page
