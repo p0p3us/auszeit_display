@@ -106,7 +106,7 @@ def delete_page(page_path):
         }), 500
 
     if get_active_page() == page_path:
-        set_active_page("news/test.html")
+        set_active_page("system/default.html")
 
     return redirect(url_for("admin"))
 

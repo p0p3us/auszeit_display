@@ -1,0 +1,16 @@
+[Unit]
+Description=Auszeit Digital Signage Flask App
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=simple
+User=pi
+WorkingDirectory=/home/pi/auszeit_display
+Environment="PATH=/home/pi/auszeit_display/venv/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+ExecStart=/home/pi/auszeit_display/venv/bin/python /home/pi/auszeit_display/app.py
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

@@ -6,7 +6,7 @@ DATA_DIR = BASE_DIR / "data"
 STATE_FILE = DATA_DIR / "display_state.json"
 
 DEFAULT_STATE = {
-    "active_page": "news/test.html"
+    "active_page": "system/default.html"
 }
 
 

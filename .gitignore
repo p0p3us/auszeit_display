@@ -23,6 +23,7 @@ Thumbs.db
 
 #Sicherungen
 *.bak
+*.old
 
 #publish.env mit API und FTP Zugansdaten
 config/*.env
