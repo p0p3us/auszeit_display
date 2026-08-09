@@ -1,4 +1,6 @@
 import json
+import os
+import tempfile
 
 from modules.settings import DATA_DIR, DEFAULT_PAGE
 
@@ -33,8 +35,30 @@ def get_display_state() -> dict:
 def save_display_state(state: dict) -> None:
     DATA_DIR.mkdir(parents=True, exist_ok=True)
 
-    with STATE_FILE.open("w", encoding="utf-8") as file:
-        json.dump(state, file, indent=2, ensure_ascii=False)
+    temp_path = None
+
+    try:
+        with tempfile.NamedTemporaryFile(
+            mode="w",
+            encoding="utf-8",
+            dir=DATA_DIR,
+            prefix=f".{STATE_FILE.name}.",
+            suffix=".tmp",
+            delete=False,
+        ) as file:
+            temp_path = file.name
+            json.dump(state, file, indent=2, ensure_ascii=False)
+            file.write("\n")
+            file.flush()
+            os.fsync(file.fileno())
+
+        os.replace(temp_path, STATE_FILE)
+    finally:
+        if temp_path is not None:
+            try:
+                os.unlink(temp_path)
+            except FileNotFoundError:
+                pass
 
 
 def set_active_page(page_path: str) -> None:
