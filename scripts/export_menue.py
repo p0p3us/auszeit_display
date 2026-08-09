@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import os
 import sys
 from datetime import date, datetime, timedelta
 from pathlib import Path
@@ -11,7 +12,9 @@ from typing import Any
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
 
-PROJECT_DIR = Path("/home/pi/auszeit_display")
+PROJECT_DIR = Path(
+    os.environ.get("AUSZEIT_DISPLAY_BASE_DIR", Path(__file__).resolve().parent.parent)
+).expanduser().resolve()
 
 DATA_FILE = PROJECT_DIR / "data" / "menue.json"
 STATUS_FILE = PROJECT_DIR / "data" / "menue_status.json"

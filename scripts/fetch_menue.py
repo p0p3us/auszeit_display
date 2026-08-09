@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import os
 import re
 import sys
 from datetime import date, datetime, timedelta
@@ -13,7 +14,9 @@ from urllib.parse import urljoin, urlparse
 import requests
 
 
-PROJECT_DIR = Path("/home/pi/auszeit_display")
+PROJECT_DIR = Path(
+    os.environ.get("AUSZEIT_DISPLAY_BASE_DIR", Path(__file__).resolve().parent.parent)
+).expanduser().resolve()
 
 INDEX_URL = (
     "https://populorum.eu/"

@@ -2,12 +2,15 @@
 from __future__ import annotations
 
 import json
+import os
 import sys
 from pathlib import Path
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
 
-BASE_DIR = Path("/home/pi/auszeit_display")
+BASE_DIR = Path(
+    os.environ.get("AUSZEIT_DISPLAY_BASE_DIR", Path(__file__).resolve().parent.parent)
+).expanduser().resolve()
 DATA_FILE = BASE_DIR / "data" / "weather.json"
 TEMPLATE_DIR = BASE_DIR / "templates" / "display_pages"
 OUTPUT_DIR = BASE_DIR / "pages" / "weather"

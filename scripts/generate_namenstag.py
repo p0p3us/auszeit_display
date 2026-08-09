@@ -2,12 +2,15 @@
 from pathlib import Path
 from datetime import datetime
 import json
+import os
 import socket
 import sys
 
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
-BASE_DIR = Path("/home/pi/auszeit_display")
+BASE_DIR = Path(
+    os.environ.get("AUSZEIT_DISPLAY_BASE_DIR", Path(__file__).resolve().parent.parent)
+).expanduser().resolve()
 
 DATA_FILE = BASE_DIR / "data" / "namenstage.json"
 TEMPLATE_DIR = BASE_DIR / "templates" / "display_pages"

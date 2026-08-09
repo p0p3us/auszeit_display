@@ -11,7 +11,9 @@ from datetime import datetime, timezone, timedelta
 from pathlib import Path
 
 
-BASE_DIR = Path("/home/pi/auszeit_display")
+BASE_DIR = Path(
+    os.environ.get("AUSZEIT_DISPLAY_BASE_DIR", Path(__file__).resolve().parent.parent)
+).expanduser().resolve()
 CONFIG_FILE = BASE_DIR / "config" / "publish.env"
 OUTPUT_FILE = BASE_DIR / "data" / "weather.json"
 

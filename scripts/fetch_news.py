@@ -5,12 +5,15 @@ from urllib.parse import urlparse, urljoin
 import email.utils
 import html
 import json
+import os
 import re
 import sys
 import urllib.request
 import xml.etree.ElementTree as ET
 
-BASE_DIR = Path("/home/pi/auszeit_display")
+BASE_DIR = Path(
+    os.environ.get("AUSZEIT_DISPLAY_BASE_DIR", Path(__file__).resolve().parent.parent)
+).expanduser().resolve()
 
 SOURCES_FILE = BASE_DIR / "data" / "news_sources.json"
 OUTPUT_FILE = BASE_DIR / "data" / "news.json"
