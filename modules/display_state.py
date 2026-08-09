@@ -25,7 +25,13 @@ def get_display_state() -> dict:
         state = DEFAULT_STATE.copy()
         save_display_state(state)
 
-    if "active_page" not in state:
+    if not isinstance(state, dict):
+        state = DEFAULT_STATE.copy()
+        save_display_state(state)
+        return state
+
+    active_page = state.get("active_page")
+    if not isinstance(active_page, str) or not active_page.strip():
         state["active_page"] = DEFAULT_STATE["active_page"]
         save_display_state(state)
 
