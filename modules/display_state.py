@@ -1,12 +1,11 @@
 import json
-from pathlib import Path
 
-BASE_DIR = Path("/home/pi/auszeit_display")
-DATA_DIR = BASE_DIR / "data"
+from modules.settings import DATA_DIR, DEFAULT_PAGE
+
 STATE_FILE = DATA_DIR / "display_state.json"
 
 DEFAULT_STATE = {
-    "active_page": "system/default.html"
+    "active_page": DEFAULT_PAGE
 }
 
 

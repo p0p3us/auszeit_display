@@ -1,7 +1,6 @@
 from pathlib import Path
 
-BASE_DIR = Path("/home/pi/auszeit_display")
-PAGES_DIR = BASE_DIR / "pages"
+from modules.settings import PAGES_DIR
 
 
 def list_html_pages() -> list[dict]:

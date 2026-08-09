@@ -1,16 +1,11 @@
 from flask import Flask, jsonify, send_from_directory, redirect, url_for, render_template, request
 from pathlib import Path
 from datetime import datetime
-import platform
-import shutil
 
 from modules.display_state import get_active_page, set_active_page
 from modules.page_manager import list_html_pages, page_exists
+from modules.settings import DEFAULT_PAGE, PAGES_DIR, RESOURCES_DIR, STATIC_DIR, UPLOAD_DIR
 from modules.system_status import get_system_status
-
-BASE_DIR = Path("/home/pi/auszeit_display")
-PAGES_DIR = BASE_DIR / "pages"
-UPLOAD_DIR = PAGES_DIR / "upload"
 
 app = Flask(__name__)
 
@@ -106,7 +101,7 @@ def delete_page(page_path):
         }), 500
 
     if get_active_page() == page_path:
-        set_active_page("system/default.html")
+        set_active_page(DEFAULT_PAGE)
 
     return redirect(url_for("admin"))
 
@@ -147,15 +142,15 @@ def add_no_cache_headers(response):
 
 @app.route("/resources/<path:filename>")
 def resources(filename):
-    return send_from_directory(BASE_DIR / "resources", filename)
+    return send_from_directory(RESOURCES_DIR, filename)
 
 @app.route("/auszeit-display/resources/<path:filename>")
 def serve_public_resources(filename):
-    return send_from_directory(BASE_DIR / "resources", filename)
+    return send_from_directory(RESOURCES_DIR, filename)
 
 @app.route("/auszeit-display/static/<path:filename>")
 def serve_public_static(filename):
-    return send_from_directory(BASE_DIR / "static", filename)
+    return send_from_directory(STATIC_DIR, filename)
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
