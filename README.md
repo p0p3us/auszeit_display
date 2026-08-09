@@ -34,7 +34,7 @@ Vorausgesetzt werden Raspberry Pi OS, Git und Python 3 mit Unterstützung für v
 
 ```bash
 sudo apt update
-sudo apt install -y git python3 python3-venv tesseract-ocr
+sudo apt install -y git python3 python3-venv tesseract-ocr lftp rsync
 cd /home/pi
 git clone https://github.com/p0p3us/auszeit_display.git
 cd /home/pi/auszeit_display
@@ -58,7 +58,26 @@ WEATHER_LON=...
 WEATHER_LOCATION_NAME=Eggendorf
 ```
 
-Weitere FTP- oder Veröffentlichungswerte richten sich nach den verwendeten Publish-Skripten. Echte Schlüssel, Passwörter und Tokens dürfen niemals committed werden.
+Für die Veröffentlichung per FTP werden zusätzlich diese Werte benötigt:
+
+```dotenv
+FTP_HOST=...
+FTP_USER=...
+FTP_PASS=...
+FTP_REMOTE_DIR=/auszeit-display
+```
+
+`FTP_REMOTE_DIR` bezeichnet den gemeinsamen Webordner. Der vollständige FTP-Export synchronisiert diesen Ordner mit `--delete`. Das Namenstag-Skript beschränkt seine Synchronisierung dagegen auf dessen Unterordner `namenstag` und kann andere Folien nicht löschen.
+
+Die optionale rsync-Variante für den Namenstag benötigt:
+
+```dotenv
+RSYNC_REMOTE_USER=...
+RSYNC_REMOTE_HOST=...
+RSYNC_REMOTE_PATH=/pfad/zum/webroot/auszeit-display
+```
+
+Echte Schlüssel, Passwörter und Tokens dürfen niemals committed werden. Die Publish-Skripte verweigern leere Werte und unsichere Zielpfade wie `/`.
 
 ## Systemdienst einrichten
 

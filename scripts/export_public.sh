@@ -1,18 +1,31 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-BASE_DIR="/home/pi/auszeit_display"
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+BASE_DIR_INPUT="${AUSZEIT_DISPLAY_BASE_DIR:-$SCRIPT_DIR/..}"
+BASE_DIR="$(cd -- "$BASE_DIR_INPUT" && pwd)"
 EXPORT_DIR="$BASE_DIR/public_export"
+PYTHON_BIN="${AUSZEIT_DISPLAY_PYTHON:-$BASE_DIR/venv/bin/python}"
+
+if [ ! -x "$PYTHON_BIN" ]; then
+  echo "FEHLER: Python-Interpreter nicht ausführbar: $PYTHON_BIN" >&2
+  exit 1
+fi
+
+if [ "$EXPORT_DIR" != "$BASE_DIR/public_export" ] || [ "$EXPORT_DIR" = "/public_export" ]; then
+  echo "FEHLER: Unsicherer Exportpfad: $EXPORT_DIR" >&2
+  exit 1
+fi
 
 echo "===== Öffentliche Folien generieren ====="
-"$BASE_DIR/venv/bin/python" "$BASE_DIR/scripts/generate_namenstag.py"
-"$BASE_DIR/venv/bin/python" "$BASE_DIR/scripts/generate_bauernregel.py"
-"$BASE_DIR/venv/bin/python" "$BASE_DIR/scripts/fetch_news.py"
-"$BASE_DIR/venv/bin/python" "$BASE_DIR/scripts/generate_news.py"
-"$BASE_DIR/venv/bin/python" "$BASE_DIR/scripts/fetch_weather.py"
-"$BASE_DIR/venv/bin/python" "$BASE_DIR/scripts/generate_weather.py"
-"$BASE_DIR/venv/bin/python" "$BASE_DIR/scripts/fetch_menue.py"
-"$BASE_DIR/venv/bin/python" "$BASE_DIR/scripts/export_menue.py"
+"$PYTHON_BIN" "$BASE_DIR/scripts/generate_namenstag.py"
+"$PYTHON_BIN" "$BASE_DIR/scripts/generate_bauernregel.py"
+"$PYTHON_BIN" "$BASE_DIR/scripts/fetch_news.py"
+"$PYTHON_BIN" "$BASE_DIR/scripts/generate_news.py"
+"$PYTHON_BIN" "$BASE_DIR/scripts/fetch_weather.py"
+"$PYTHON_BIN" "$BASE_DIR/scripts/generate_weather.py"
+"$PYTHON_BIN" "$BASE_DIR/scripts/fetch_menue.py"
+"$PYTHON_BIN" "$BASE_DIR/scripts/export_menue.py"
 
 echo "===== Export-Ordner vorbereiten ====="
 rm -rf "$EXPORT_DIR"
