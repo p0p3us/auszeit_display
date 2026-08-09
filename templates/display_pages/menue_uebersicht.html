@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>{{ page_title }}</title>
+
+    <link
+        rel="stylesheet"
+        href="/auszeit-display/static/css/display_pages/base_display.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="/auszeit-display/static/css/display_pages/menue.css"
+    >
+</head>
+
+<body class="display-page menu-page menu-overview-page">
+
+    <div class="display-background"></div>
+
+    <img
+        class="display-logo"
+        src="/auszeit-display/resources/images/logo.png"
+        alt="Café Auszeit"
+    >
+
+    <main class="menu-stage">
+
+        {% if is_fallback %}
+
+            <section class="menu-fallback">
+
+                <div class="menu-eyebrow">
+                    {{ page_title }}
+                </div>
+
+                <h1 class="menu-title menu-title-fallback">
+                    {{ fallback.headline }}
+                </h1>
+
+                <p class="menu-fallback-text">
+                    {{ fallback.text }}
+                </p>
+
+                <p class="menu-fallback-footer">
+                    {{ fallback.footer }}
+                </p>
+
+            </section>
+
+        {% else %}
+
+            <header class="menu-header">
+
+                <div class="menu-eyebrow">
+                    Café Auszeit
+                </div>
+
+                <h1 class="menu-title">
+                    Mittagsmenü
+                </h1>
+
+                {% if period_text %}
+                    <div class="menu-period">
+                        {{ period_text }}
+                    </div>
+                {% endif %}
+
+            </header>
+
+            <section class="menu-overview-grid">
+
+                {% for day in days %}
+
+                    <article class="menu-overview-card">
+
+                        <header class="menu-card-header">
+
+                            <div class="menu-card-weekday">
+                                {{ day.weekday }}
+                            </div>
+
+                            <div class="menu-card-date">
+                                {{ day.date_text }}
+                            </div>
+
+                        </header>
+
+                        <div class="menu-card-content">
+
+                            {% if day.soup %}
+                                <div class="menu-card-soup">
+                                    {{ day.soup }}
+                                </div>
+                            {% endif %}
+
+                            <h2 class="menu-card-title">
+                                {{ day.title }}
+                            </h2>
+
+                            {% if day.description %}
+                                <p class="menu-card-description">
+                                    {{ day.description }}
+                                </p>
+                            {% endif %}
+
+                        </div>
+
+                        {% if day.price %}
+                            <div class="menu-card-price">
+                                € {{ day.price }}
+                            </div>
+                        {% endif %}
+
+                    </article>
+
+                {% endfor %}
+
+            </section>
+
+            <footer class="menu-page-footer">
+                Von 11 bis 14 Uhr – solange der Topf etwas hergibt.
+            </footer>
+
+        {% endif %}
+
+    </main>
+
+</body>
+</html>

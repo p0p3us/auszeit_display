@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256">
+
+<defs>
+  <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
+    <feDropShadow dx="0" dy="5" stdDeviation="5" flood-color="#000000" flood-opacity="0.22"/>
+  </filter>
+  <linearGradient id="sunGrad" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0%" stop-color="#FFF4A8"/>
+    <stop offset="52%" stop-color="#F6C64A"/>
+    <stop offset="100%" stop-color="#D99A18"/>
+  </linearGradient>
+  <linearGradient id="cloudGrad" x1="0" y1="0" x2="0.9" y2="1">
+    <stop offset="0%" stop-color="#FFFFFF"/>
+    <stop offset="70%" stop-color="#E8EEF4"/>
+    <stop offset="100%" stop-color="#C8D3DE"/>
+  </linearGradient>
+  <linearGradient id="cloudDarkGrad" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0%" stop-color="#E4EAF0"/>
+    <stop offset="100%" stop-color="#8795A6"/>
+  </linearGradient>
+  <linearGradient id="moonGrad" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0%" stop-color="#FFF8D6"/>
+    <stop offset="60%" stop-color="#EFD783"/>
+    <stop offset="100%" stop-color="#BFA451"/>
+  </linearGradient>
+  <linearGradient id="rainGrad" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0%" stop-color="#65D8FF"/>
+    <stop offset="100%" stop-color="#1D77D3"/>
+  </linearGradient>
+  <linearGradient id="mistGrad" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.25"/>
+    <stop offset="50%" stop-color="#F7FBFF" stop-opacity="0.95"/>
+    <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0.25"/>
+  </linearGradient>
+</defs>
+
+
+<g transform="translate(12,4) scale(.56)">
+<g filter="url(#shadow)">
+  <path d="M172 45c-18 8-34 25-40 47-12 43 17 86 60 96 10 2 20 2 30 0-18 24-48 40-82 39-53-2-94-46-92-99 2-47 38-86 84-92 14-2 28 1 40 9z"
+        fill="url(#moonGrad)" stroke="#F9E9A9" stroke-width="5"/>
+  <circle cx="103" cy="104" r="8" fill="#C8AF65" opacity=".45"/>
+  <circle cx="120" cy="156" r="12" fill="#C8AF65" opacity=".32"/>
+</g>
+</g>
+
+<g filter="url(#shadow)">
+  <path d="M54 159h139c25 0 45-17 45-39 0-20-17-37-39-39-9-29-36-49-69-49-36 0-66 23-72 56-24 1-44 17-44 38 0 18 18 33 40 33z"
+        fill="url(#cloudDarkGrad)" stroke="#EAF0F5" stroke-width="5" stroke-linejoin="round"/>
+</g>
+
+
+<g fill="url(#rainGrad)" stroke="#BDEFFF" stroke-width="2">
+  <path d="M78 176c0 0-12 17-12 25 0 7 5 12 12 12s12-5 12-12c0-8-12-25-12-25z"/>
+  <path d="M128 184c0 0-12 17-12 25 0 7 5 12 12 12s12-5 12-12c0-8-12-25-12-25z"/>
+  <path d="M178 176c0 0-12 17-12 25 0 7 5 12 12 12s12-5 12-12c0-8-12-25-12-25z"/>
+</g>
+
+
+</svg>

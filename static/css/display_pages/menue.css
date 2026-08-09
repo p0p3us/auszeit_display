@@ -1,0 +1,612 @@
+:root {
+    --menu-gold-light: #f8e3a3;
+    --menu-gold: #d9b458;
+    --menu-gold-dark: #9f7722;
+
+    --menu-cream: #fff7e6;
+    --menu-cream-soft: rgba(255, 247, 230, 0.82);
+
+    --menu-wine-dark: rgba(39, 8, 18, 0.94);
+    --menu-wine-medium: rgba(78, 14, 31, 0.84);
+    --menu-wine-light: rgba(112, 24, 48, 0.62);
+
+    --menu-card-border: rgba(226, 188, 94, 0.46);
+    --menu-card-highlight: rgba(255, 231, 166, 0.12);
+    --menu-card-shadow: rgba(0, 0, 0, 0.38);
+
+    --menu-stage-left: 105px;
+    --menu-stage-right: 105px;
+    --menu-stage-top: 118px;
+    --menu-stage-bottom: 62px;
+}
+
+
+/* =========================================================
+   GRUNDLAYOUT
+   ========================================================= */
+
+.menu-page {
+    margin: 0;
+    overflow: hidden;
+    color: var(--menu-cream);
+}
+
+.menu-stage {
+    position: relative;
+    z-index: 5;
+
+    width: 100%;
+    height: 100vh;
+
+    box-sizing: border-box;
+
+    padding:
+        var(--menu-stage-top)
+        var(--menu-stage-right)
+        var(--menu-stage-bottom)
+        var(--menu-stage-left);
+
+    display: flex;
+    flex-direction: column;
+}
+
+.menu-header {
+    position: relative;
+    z-index: 2;
+
+    flex: 0 0 auto;
+
+    text-align: center;
+}
+
+.menu-eyebrow {
+    margin-bottom: 8px;
+
+    font-size: 24px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+
+    color: rgba(255, 240, 199, 0.8);
+}
+
+.menu-title {
+    margin: 0;
+
+    font-size: 82px;
+    line-height: 0.98;
+    font-weight: 700;
+    letter-spacing: 0.015em;
+
+    background:
+        linear-gradient(
+            180deg,
+            #fff6c8 0%,
+            #edcf77 35%,
+            #c29434 70%,
+            #f5dc8a 100%
+        );
+
+    -webkit-background-clip: text;
+    background-clip: text;
+
+    color: transparent;
+
+    text-shadow:
+        0 3px 12px rgba(0, 0, 0, 0.34),
+        0 0 22px rgba(222, 180, 69, 0.12);
+}
+
+.menu-period {
+    margin-top: 12px;
+
+    font-size: 30px;
+    line-height: 1.2;
+    letter-spacing: 0.04em;
+
+    color: var(--menu-cream-soft);
+}
+
+.menu-page-footer {
+    flex: 0 0 auto;
+
+    margin-top: 18px;
+
+    font-size: 23px;
+    line-height: 1.25;
+    text-align: center;
+    letter-spacing: 0.025em;
+
+    color: rgba(255, 244, 216, 0.76);
+}
+
+
+/* =========================================================
+   WOCHENÜBERSICHT 2 × 2
+   ========================================================= */
+
+.menu-overview-page .menu-stage {
+    padding-top: 96px;
+}
+
+.menu-overview-page .menu-header {
+    margin-bottom: 26px;
+}
+
+.menu-overview-grid {
+    flex: 1 1 auto;
+
+    min-height: 0;
+
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: repeat(2, minmax(0, 1fr));
+
+    gap: 22px 26px;
+}
+
+.menu-overview-card {
+    position: relative;
+
+    min-width: 0;
+    min-height: 0;
+
+    box-sizing: border-box;
+
+    padding: 22px 28px 22px 28px;
+
+    display: flex;
+    flex-direction: column;
+
+    border: 1px solid var(--menu-card-border);
+    border-radius: 23px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(102, 21, 43, 0.50) 0%,
+            rgba(49, 9, 21, 0.62) 58%,
+            rgba(28, 5, 13, 0.68) 100%
+        );
+
+    box-shadow:
+        0 16px 32px var(--menu-card-shadow),
+        inset 0 1px 0 var(--menu-card-highlight),
+        inset 0 0 38px rgba(255, 218, 126, 0.03);
+
+    overflow: hidden;
+}
+
+.menu-overview-card::before {
+    content: "";
+
+    position: absolute;
+    inset: 0;
+
+    pointer-events: none;
+
+    background:
+        radial-gradient(
+            circle at 12% 0%,
+            rgba(255, 224, 139, 0.11),
+            transparent 36%
+        );
+}
+
+.menu-overview-card::after {
+    content: "";
+
+    position: absolute;
+
+    left: 28px;
+    right: 28px;
+    top: 77px;
+
+    height: 1px;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(215, 176, 79, 0.08),
+            rgba(232, 199, 111, 0.6),
+            rgba(215, 176, 79, 0.08)
+        );
+}
+
+.menu-card-header {
+    position: relative;
+    z-index: 2;
+
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+
+    gap: 20px;
+
+    padding-bottom: 17px;
+}
+
+.menu-card-weekday {
+    font-size: 35px;
+    line-height: 1;
+    font-weight: 700;
+    letter-spacing: 0.055em;
+    text-transform: uppercase;
+
+    color: var(--menu-gold-light);
+}
+
+.menu-card-date {
+    flex: 0 0 auto;
+
+    font-size: 22px;
+    line-height: 1;
+
+    color: rgba(255, 240, 200, 0.72);
+}
+
+.menu-card-content {
+    position: relative;
+    z-index: 2;
+
+    flex: 1 1 auto;
+
+    min-height: 0;
+
+    padding-top: 18px;
+    padding-right: 118px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.menu-card-soup {
+    margin-bottom: 8px;
+
+    font-size: 21px;
+    line-height: 1.2;
+    font-style: italic;
+    letter-spacing: 0.025em;
+
+    color: rgba(255, 245, 219, 0.67);
+}
+
+/* Tagessuppe */
+.menu-card-title { 
+    margin: 0;
+
+    font-size: 72px;
+    line-height: 1.08;
+    font-weight: 650;
+
+    color: var(--menu-cream);
+
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+}
+
+/* Hauptgericht */
+.menu-card-description {
+    margin: 11px 0 0;
+
+    max-width: 94%;
+
+    font-size: 40px;
+    line-height: 1.28;
+
+    color: rgba(255, 247, 229, 0.84);
+}
+
+.menu-card-price {
+    position: absolute;
+    z-index: 3;
+
+    right: 28px;
+    bottom: 24px;
+
+    font-size: 36px;
+    line-height: 1;
+    font-weight: 700;
+    white-space: nowrap;
+
+    color: var(--menu-gold-light);
+
+    text-shadow:
+        0 2px 8px rgba(0, 0, 0, 0.28),
+        0 0 16px rgba(223, 184, 82, 0.08);
+}
+
+.menu-overview-page .menu-page-footer {
+    margin-top: 15px;
+}
+
+
+/* =========================================================
+   FREIE MOTIVFOLIEN: HEUTE, MORGEN UND SAMSTAG
+   ========================================================= */
+
+.menu-feature-stage {
+    position: relative;
+    z-index: 5;
+
+    padding:
+        var(--display-content-top, 310px)
+        150px
+        110px
+        var(--display-content-left, 86px);
+
+    justify-content: flex-start;
+}
+
+.menu-text-shade {
+    position: absolute;
+    z-index: 2;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(29, 3, 11, 0.78) 0%,
+            rgba(39, 5, 15, 0.6) 38%,
+            rgba(42, 6, 16, 0.25) 62%,
+            rgba(42, 6, 16, 0) 82%
+        );
+}
+
+.menu-side-image {
+    position: absolute;
+    z-index: 3;
+
+    right: 0;
+    bottom: 0;
+
+    width: 52vw;
+    max-width: 1050px;
+    height: 78vh;
+
+    object-fit: contain;
+    object-position: right bottom;
+
+    pointer-events: none;
+}
+
+.menu-side-image {
+    right: 0;
+    bottom: 0;
+    max-width: none;
+    object-fit: contain;
+    object-position: right bottom;
+}
+
+.menu-side-image.menu-day-image {
+    width: 1500px;
+    height: auto;
+}
+
+.menu-side-image.menu-saturday-image {
+    width: 1900px;
+    height: auto;
+}
+
+.menu-feature-content {
+    position: relative;
+    z-index: 5;
+
+    width: 78vw;
+    max-width: 1450px;
+    min-height: 0;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.menu-feature-header {
+    margin-bottom: 54px;
+}
+
+.menu-feature-date,
+.menu-feature-kicker {
+    margin-bottom: 12px;
+
+    font-size: 36px;
+    line-height: 1.15;
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+
+    color: rgba(255, 255, 255, 0.9);
+
+    text-shadow:
+        0 4px 12px rgba(0, 0, 0, 0.65);
+}
+
+.menu-feature-title {
+    margin: 0 0 28px 0;
+    padding-bottom: 10px;
+
+    max-width: none;
+
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 118px;
+    line-height: 1.08;
+    font-weight: 800;
+    letter-spacing: -0.05em;
+
+    white-space: nowrap;
+
+    background: linear-gradient(
+        180deg,
+        #fff1ad 0%,
+        #d7b25a 18%,
+        #8a6120 42%,
+        #c99a3a 58%,
+        #f0d178 74%,
+        #7a4d18 100%
+    );
+
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    text-shadow:
+        0 2px 2px rgba(255, 235, 160, 0.18),
+        0 0 12px rgba(212, 165, 64, 0.22),
+        0 0 26px rgba(160, 95, 24, 0.16),
+        0 8px 18px rgba(0, 0, 0, 0.72);
+}
+
+.menu-feature-title-saturday {
+    font-size: 90px;
+}
+
+.menu-feature-dish-block {
+    position: relative;
+
+    width: min(930px, 55vw);
+
+    padding-left: 34px;
+
+    border-left: 3px solid rgba(220, 179, 72, 0.62);
+}
+
+.menu-feature-soup {
+    margin-bottom: 12px;
+
+    font-size: 29px;
+    line-height: 1.2;
+    font-style: italic;
+
+    color: rgba(255, 246, 220, 0.76);
+}
+
+.menu-feature-dish {
+    margin: 0;
+
+    max-width: 980px;
+
+    font-size: 76px;
+    line-height: 1.08;
+    font-weight: 800;
+    letter-spacing: -0.025em;
+
+    color: #ffffff;
+
+    text-shadow:
+        0 6px 16px rgba(0, 0, 0, 0.76),
+        0 0 22px rgba(246, 211, 107, 0.12);
+}
+
+.menu-feature-dish-saturday {
+    font-size: 81px;
+}
+
+.menu-feature-description {
+    margin: 24px 0 0;
+
+    max-width: 850px;
+
+    font-size: 37px;
+    line-height: 1.28;
+
+    color: rgba(255, 247, 229, 0.9);
+
+    text-shadow:
+        0 2px 9px rgba(0, 0, 0, 0.42);
+}
+
+.menu-feature-price {
+    margin-top: 30px;
+
+    font-size: 60px;
+    line-height: 1;
+    font-weight: 760;
+
+    color: var(--menu-gold-light);
+
+    text-shadow:
+        0 3px 12px rgba(0, 0, 0, 0.38);
+}
+
+.menu-feature-footer {
+    margin-top: auto;
+    padding-top: 50px;
+
+    max-width: 900px;
+
+    font-size: 25px;
+    line-height: 1.3;
+    font-style: italic;
+
+    color: rgba(255, 244, 216, 0.76);
+}
+
+
+/* =========================================================
+   FALLBACK AUF FREIER FLÄCHE
+   ========================================================= */
+
+.menu-feature-fallback {
+    justify-content: center;
+
+    width: min(1070px, 61vw);
+}
+
+.menu-feature-title-fallback {
+    max-width: 1020px;
+
+    font-size: 76px;
+    line-height: 1.08;
+}
+
+.menu-feature-description-fallback {
+    max-width: 900px;
+
+    margin-top: 37px;
+
+    font-size: 39px;
+    line-height: 1.34;
+}
+
+.menu-feature-fallback .menu-feature-footer {
+    margin-top: 35px;
+    padding-top: 0;
+
+    font-size: 31px;
+
+    color: var(--menu-gold-light);
+}
+
+
+/* =========================================================
+   LANGE TEXTE
+   ========================================================= */
+
+.menu-feature-title,
+.menu-feature-dish,
+.menu-feature-description {
+    overflow-wrap: anywhere;
+    hyphens: auto;
+}
+
+
+/* =========================================================
+   SICHERHEIT BEI LANGEN TEXTEN
+   ========================================================= */
+
+.menu-card-title,
+.menu-card-description,
+.menu-day-dish,
+.menu-day-description,
+.menu-saturday-dish,
+.menu-saturday-description {
+    overflow-wrap: normal;
+    hyphens: auto;
+}
+
+.menu-overview-card:nth-child(n + 5) {
+    display: none;
+}
+

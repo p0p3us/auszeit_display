@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <title>Wetter morgen für Angeber</title>
+
+  <link rel="stylesheet" href="/auszeit-display/static/css/display_pages/base_display.css">
+  <link rel="stylesheet" href="/auszeit-display/static/css/display_pages/weather.css">
+</head>
+
+<body>
+  <main class="display-page weather-page weather-deluxe-page">
+    <img class="display-logo" src="/auszeit-display/resources/images/logo.png" alt="Auszeit">
+
+    <section class="display-content">
+      <article class="weather-deluxe-card">
+        <div class="weather-kicker">{{ location }} · {{ day.weekday }}, {{ day.date_display }}</div>
+        <h1>Wetter morgen für Angeber</h1>
+
+        <div class="weather-deluxe-layout">
+          <section class="weather-deluxe-main">
+            <div class="weather-deluxe-temp-row">
+              <div class="weather-deluxe-temp">{{ day.temp_max }}°</div>
+              <img class="weather-deluxe-icon" src="{{ day.icon_path }}" alt="">
+            </div>
+
+            <div class="weather-deluxe-description">
+              {{ day.description }}
+            </div>
+
+            <div class="weather-deluxe-minmax">
+              Min. {{ day.temp_min }}° · Gefühlt {{ day.feels_like_day }}°
+            </div>
+          </section>
+
+          <section class="weather-index-card">
+            <div class="weather-panel-label">Auszeit-Wetterindex</div>
+            <div class="weather-index-value">{{ day.weather_index }}</div>
+            <div class="weather-index-scale">von 10</div>
+
+            <div class="weather-index-lines">
+              <div>
+                <span>Terrassenfaktor</span>
+                <strong>{{ day.terrace_score }}/10</strong>
+              </div>
+              <div>
+                <span>Schirmbedarf</span>
+                <strong>{{ day.rain_probability }}%</strong>
+              </div>
+              <div>
+                <span>Frisur-Risiko</span>
+                <strong>{{ day.wind_text }}</strong>
+              </div>
+            </div>
+          </section>
+
+          <section class="weather-pro-card">
+            <div class="weather-panel-label">Profiwerte</div>
+
+            <div class="weather-pro-grid">
+              <div>
+                <span>Max</span>
+                <strong>{{ day.temp_max }}°</strong>
+              </div>
+              <div>
+                <span>Min</span>
+                <strong>{{ day.temp_min }}°</strong>
+              </div>
+              <div>
+                <span>Gefühlt</span>
+                <strong>{{ day.feels_like_day }}°</strong>
+              </div>
+              <div>
+                <span>Regen</span>
+                <strong>{{ day.rain_probability }}%</strong>
+              </div>
+              <div>
+                <span>Wind</span>
+                <strong>{{ day.wind_kmh }} km/h</strong>
+              </div>
+              <div>
+                <span>Feuchte</span>
+                <strong>{{ day.humidity }}%</strong>
+              </div>
+              <div>
+                <span>Wolken</span>
+                <strong>{{ day.clouds }}%</strong>
+              </div>
+              <div>
+                <span>Code</span>
+                <strong>{{ day.weather_id }}</strong>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <section class="weather-snark-row">
+          <div>
+            <span>Sonnenbrille</span>
+            <strong>{{ day.sunglasses_text }}</strong>
+          </div>
+          <div>
+            <span>Jacke</span>
+            <strong>{{ day.jacket_text }}</strong>
+          </div>
+          <div>
+            <span>Kreislauf</span>
+            <strong>{{ day.heat_text }}</strong>
+          </div>
+        </section>
+
+        <section class="weather-deluxe-comment">
+          <span>Offizielle Empfehlung:</span>
+          <strong>{{ day.deluxe_comment }}</strong>
+        </section>
+
+        <div class="weather-updated">
+          Aktualisiert: {{ updated }} · Datenpunkte: {{ day.forecast_count }} · Quelle: OpenWeatherMap
+        </div>
+      </article>
+    </section>
+  </main>
+</body>
+</html>

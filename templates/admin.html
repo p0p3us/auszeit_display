@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="de">
+<head>
+    <meta charset="utf-8">
+    <title>Auszeit Digital Signage Admin</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+</head>
+<body>
+    <main class="container">
+        <section class="box">
+            <h1>Auszeit Digital Signage</h1>
+
+            <p>
+                Aktive Seite:
+                <strong>{{ active_page }}</strong>
+            </p>
+
+            <nav class="toplinks">
+                <a href="/display" target="_blank">Display öffnen</a>
+                <a href="/status" target="_blank">Status anzeigen</a>
+                <a href="/admin/upload">HTML-Seite hochladen</a>
+            </nav>
+        </section>
+
+        <section class="box">
+            <h2>Systemstatus</h2>
+
+            <div class="status-grid">
+                <div class="status-item">
+                    <span class="label">Zeit</span>
+                    <strong>{{ system_status.time }}</strong>
+                </div>
+
+                <div class="status-item">
+                    <span class="label">Hostname</span>
+                    <strong>{{ system_status.hostname }}</strong>
+                </div>
+
+                <div class="status-item">
+                    <span class="label">Root-Dateisystem</span>
+                    <strong>{{ system_status.root_source }}</strong>
+                </div>
+
+                <div class="status-item">
+                    <span class="label">USB-Speed</span>
+                    <strong>{{ system_status.usb_speed }}</strong>
+                </div>
+
+                <div class="status-item">
+                    <span class="label">Stromversorgung</span>
+                    <strong>{{ system_status.power_status }}</strong>
+                </div>
+
+                <div class="status-item">
+                    <span class="label">Speicher frei</span>
+                    <strong>{{ system_status.disk_free_gb }} GB</strong>
+                </div>
+            </div>
+        </section>
+
+        <section class="box">
+            <h2>Verfügbare Seiten</h2>
+
+            {% if pages %}
+                <div class="page-list">
+                    {% for page in pages %}
+                        <div class="page-row {% if page.path == active_page %}active{% endif %}">
+                            <div>
+                                <strong>{{ page.path }}</strong><br>
+                                <span class="muted">Kategorie: {{ page.category }}</span>
+                            </div>
+
+                            <div class="actions">
+                                <a class="button secondary" href="/pages/{{ page.path }}" target="_blank">Vorschau</a>
+
+                                {% if page.path == active_page %}
+                                    <span class="muted">aktiv</span>
+                                {% else %}
+                                    <a class="button" href="/admin/set/{{ page.path }}">aktivieren</a>
+                                {% endif %}
+
+                                {% if page.path.startswith("upload/") %}
+                                    <form action="/admin/delete/{{ page.path }}" method="post" class="inline-form">
+                                        <button class="button danger" type="submit" onclick="return confirm('Diese Seite wirklich löschen?')">
+                                            löschen
+                                        </button>
+                                    </form>
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p class="muted">Keine HTML-Seiten gefunden.</p>
+            {% endif %}
+        </section>
+    </main>
+</body>
+</html>

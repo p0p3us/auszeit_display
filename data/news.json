@@ -1,0 +1,131 @@
+{
+  "updated": "09.08.2026 16:01",
+  "items_per_source": 2,
+  "source_counts": {
+    "Sport": 2,
+    "Niederösterreich": 2,
+    "Science": 2,
+    "Help": 2
+  },
+  "sources": [
+    {
+      "key": "sport",
+      "name": "Sport",
+      "url": "https://rss.orf.at/sport.xml"
+    },
+    {
+      "key": "niederoesterreich",
+      "name": "Niederösterreich",
+      "url": "https://rss.orf.at/noe.xml"
+    },
+    {
+      "key": "science",
+      "name": "Science",
+      "url": "https://rss.orf.at/science.xml"
+    },
+    {
+      "key": "help",
+      "name": "Help",
+      "url": "https://rss.orf.at/help.xml"
+    }
+  ],
+  "items": [
+    {
+      "source_key": "sport",
+      "source": "Sport",
+      "index": 1,
+      "page": "sport-1.html",
+      "title": "Fernandez mit Blitzstart zu Silverstone-Sieg",
+      "description": "Raul Fernandez hat am Sonntag in der Motorrad-WM seinen zweiten Grand-Prix-Sieg in der MotoGP-Klasse gefeiert. Der Spanier überholte mit seiner Aprilia am Start von Platz zwei aus Pole-Mann Jorge Martin und gab die Führung nicht mehr her. Fernandez von Trackhouse Racing meldete sich damit nach einem Sturz im Sprintrennen eindrucksvoll zurück.",
+      "link": "https://sport.orf.at/stories/3161109/",
+      "published": "09.08.2026 15:20",
+      "image_url": "https://assets.orf.at/mims/2026/33/58/crops/w=800,h=450,q=70/3142868_master_1218358_motorrad_motogp_silverstone_fernandez_ap.jpg?s=f9e5b7ab8d1442f15574c30fb290a1f4a08f4ae2",
+      "image_path": "/auszeit-display/resources/news/sport-1.jpg"
+    },
+    {
+      "source_key": "sport",
+      "source": "Sport",
+      "index": 2,
+      "page": "sport-2.html",
+      "title": "Schwärzler fixiert dritten Challenger-Titel",
+      "description": "Joel Schwärzler hat beim ATP-75-Challenger in Grodzisk (Polen) seinen zweiten Titel der laufenden Saison gefeiert. Der Vorarlberger setzte sich am Sonntag im Finale gegen den Italiener Andrea Guerrieri mit 7:6 (7/4) 6:1 durch und holte seinen insgesamt dritten Challenger-Titel nach Skopje 2024 und Kigali im März 2026.",
+      "link": "https://sport.orf.at/stories/3161107/",
+      "published": "09.08.2026 15:09",
+      "image_url": "https://assets.orf.at/mims/2026/33/44/crops/w=800,h=450,q=70/3142839_master_1218344_tennis_atp_challenger_grodzisk_mazowiecki_schwaerzler_sieg_a.jpg?s=bed884113dec60d6b2a46bc6aa06f88204d60dd0",
+      "image_path": "/auszeit-display/resources/news/sport-2.jpg"
+    },
+    {
+      "source_key": "niederoesterreich",
+      "source": "Niederösterreich",
+      "index": 1,
+      "page": "niederoesterreich-1.html",
+      "title": "Frau erschossen: Fahndung nach zweitem Verdächtigen",
+      "description": "Im Fall der Tötung einer 28-jährigen Frau in Kottingbrunn (Bezirk Baden) im Mai soll es einen zweiten Tatverdächtigen geben. Laut einem Bericht der „Kronen Zeitung“ wird nach einem 32-jährigen Deutschen wegen des Verdachts der Beihilfe zum Mord international gefahndet.",
+      "link": "https://noe.orf.at/stories/3366236/",
+      "published": "09.08.2026 10:23",
+      "image_url": "",
+      "image_path": "/auszeit-display/resources/images/news.png"
+    },
+    {
+      "source_key": "niederoesterreich",
+      "source": "Niederösterreich",
+      "index": 2,
+      "page": "niederoesterreich-2.html",
+      "title": "In der Zirkusmanege neue Freunde finden",
+      "description": "Der Schlosspark Tribuswinkel (Bezirk Baden) hat sich diese Woche in eine Zirkusmanege verwandelt. 30 Kinder aus der Erstaufnahmestelle Traiskirchen konnten dabei Zirkusluft schnuppern. Im Feriencamp konnten sie aber auch neue Freundschaften knüpfen.",
+      "link": "https://noe.orf.at/stories/3365922/",
+      "published": "09.08.2026 08:55",
+      "image_url": "https://oekastatic.orf.at/mims/2026/32/48/crops/w=1280/3140126_opener_1217248_rote_nasen_5.jpg?s=de88d1446c1d99368f0fca61eb66b12cfbba1ced",
+      "image_path": "/auszeit-display/resources/news/niederoesterreich-2.jpg"
+    },
+    {
+      "source_key": "science",
+      "source": "Science",
+      "index": 1,
+      "page": "science-1.html",
+      "title": "KI entwirft funktionsfähige Viren",
+      "description": "Mit Hilfe von künstlicher Intelligenz (KI) hat ein Forschungsteam der US-Universität Stanford das vollständige und funktionsfähige Erbgut von Bakteriophagen entworfen: Viren, die Bakterien infizieren. Damit könnten Krankheitserreger bekämpft werden – die Entdeckung wirft aber auch gravierende Sicherheitsfragen auf.",
+      "link": "https://science.orf.at/stories/3236829/",
+      "published": "07.08.2026 14:45",
+      "image_url": "https://tubestatic.orf.at/mims/2026/32/73/crops/w=1280/3140683_opener_1217473_adobestock_455162740.jpeg?s=f689fda4a5b8eca8af667e2418fb34a7fc6fee7f",
+      "image_path": "/auszeit-display/resources/news/science-1.jpg"
+    },
+    {
+      "source_key": "science",
+      "source": "Science",
+      "index": 2,
+      "page": "science-2.html",
+      "title": "Feinstaub kann Krankheitsschübe auslösen",
+      "description": "Rheumatoide Arthritis ist eine chronische Autoimmunerkrankung, die in Schüben verläuft. Eine aktuelle Studie zeigt, dass Feinstaubbelastung das Risiko für Krankheitsschübe erhöht und das Entzündungsgeschehen trotz Behandlung weiter antreibt.",
+      "link": "https://science.orf.at/stories/3236799/",
+      "published": "07.08.2026 11:09",
+      "image_url": "https://tubestatic.orf.at/mims/2026/32/66/crops/w=1280/3138817_opener_1216766_ard_lee_seoul_pollution_kakao_image.jpg?s=00bed25365d22e583744736f69b7a6d7a2796718",
+      "image_path": "/auszeit-display/resources/news/science-2.jpg"
+    },
+    {
+      "source_key": "help",
+      "source": "Help",
+      "index": 1,
+      "page": "help-1.html",
+      "title": "D: Ersatzgerät bei Gewährleistung muss neu sein",
+      "description": "Wer ein neues Smartphone oder Tablet kauft und kurz darauf einen Mangel feststellt, darf bei einer Neulieferung ein fabrikneues Gerät erwarten. Das entschied das Landgericht München I in einem Verfahren der Verbraucherzentrale Bayern gegen den US-Technologiekonzern Apple. Das Urteil ist nicht rechtskräftig.",
+      "link": "https://help.orf.at/stories/3236788/",
+      "published": "04.08.2026 10:45",
+      "image_url": "",
+      "image_path": "/auszeit-display/resources/images/news.png"
+    },
+    {
+      "source_key": "help",
+      "source": "Help",
+      "index": 2,
+      "page": "help-2.html",
+      "title": "EU wirft Temu Behinderung von Ermittlungen vor",
+      "description": "Der chinesische Onlinehändler Temu soll eine unangekündigte Kontrolle der EU-Kommission behindert haben. Verlangte Geschäftsbücher und Unterlagen seien nicht vollständig vorgelegt worden. Temu weist die Vorwürfe zurück.",
+      "link": "https://help.orf.at/stories/3236761/",
+      "published": "31.07.2026 14:15",
+      "image_url": "https://tubestatic.orf.at/mims/2026/13/50/crops/w=1280/3133806_opener_1151850_belgium_-_eu_-_consumer_-_online_media_-_china_-_law_2.jpg?s=8d7b5e20e0db51f832342d1e7d427c2a8db7bed5",
+      "image_path": "/auszeit-display/resources/news/help-2.jpg"
+    }
+  ],
+  "errors": []
+}

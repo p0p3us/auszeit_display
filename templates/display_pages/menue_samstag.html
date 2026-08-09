@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>{{ page_title }}</title>
+
+    <link
+        rel="stylesheet"
+        href="/auszeit-display/static/css/display_pages/base_display.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="/auszeit-display/static/css/display_pages/menue.css"
+    >
+</head>
+
+<body class="display-page menu-page menu-saturday-page">
+
+    <div class="display-background"></div>
+
+    <img
+        class="display-logo"
+        src="/auszeit-display/resources/images/logo.png"
+        alt="Café Auszeit"
+    >
+
+    <img
+        class="menu-side-image menu-saturday-image"
+        src="/auszeit-display/resources/images/menue_samstag.png"
+        alt=""
+    >
+
+    <div class="menu-text-shade"></div>
+
+    <main class="menu-stage menu-feature-stage">
+
+        {% if is_fallback %}
+
+            <section class="menu-feature-content menu-feature-fallback">
+
+                <div class="menu-feature-kicker">
+                    Samstag-Schmankerl
+                </div>
+
+                <h1 class="menu-feature-title menu-feature-title-fallback">
+                    {{ fallback.headline }}
+                </h1>
+
+                <p class="menu-feature-description menu-feature-description-fallback">
+                    {{ fallback.text }}
+                </p>
+
+                <p class="menu-feature-footer">
+                    {{ fallback.footer }}
+                </p>
+
+            </section>
+
+        {% else %}
+
+            <section class="menu-feature-content">
+
+                <header class="menu-feature-header">
+
+                    <div class="menu-feature-date">
+                        {{ special.date_text }}
+                    </div>
+
+                    <h1 class="menu-feature-title menu-feature-title-saturday">
+                        Samstag-Schmankerl
+                    </h1>
+
+                </header>
+
+                <div class="menu-feature-dish-block">
+
+                    <div class="menu-feature-kicker">
+                        Nur am Samstag
+                    </div>
+
+                    <h2 class="menu-feature-dish menu-feature-dish-saturday">
+                        {{ special.title }}
+                    </h2>
+
+                    {% if special.description %}
+                        <p class="menu-feature-description">
+                            {{ special.description }}
+                        </p>
+                    {% endif %}
+
+                    {% if special.price %}
+                        <div class="menu-feature-price">
+                            € {{ special.price }}
+                        </div>
+                    {% endif %}
+
+                </div>
+
+                <footer class="menu-feature-footer">
+                    Samstag darf man sich schließlich etwas gönnen.
+                </footer>
+
+            </section>
+
+        {% endif %}
+
+    </main>
+
+</body>
+</html>

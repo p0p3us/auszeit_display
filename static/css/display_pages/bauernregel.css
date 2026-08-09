@@ -1,0 +1,97 @@
+.bauernregel-card {
+  width: 78vw;
+  max-width: 1450px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+
+  padding-top: 0;
+  position: relative;
+}
+
+.bauernregel-kicker {
+  font-size: 46px;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 12px;
+  text-transform: none;
+}
+
+.bauernregel-card h1 {
+  font-size: 168px;
+
+  line-height: 1.08;
+  padding-bottom: 10px;
+
+  margin: 0 0 16px 0;
+
+  font-weight: 800;
+  letter-spacing: -0.05em;
+
+  background: linear-gradient(
+    180deg,
+    #fff1ad 0%,
+    #d7b25a 18%,
+    #8a6120 42%,
+    #c99a3a 58%,
+    #f0d178 74%,
+    #7a4d18 100%
+  );
+
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  text-shadow:
+    0 2px 2px rgba(255, 235, 160, 0.18),
+    0 0 12px rgba(212, 165, 64, 0.22),
+    0 0 26px rgba(160, 95, 24, 0.16),
+    0 8px 18px rgba(0, 0, 0, 0.72);
+}
+
+.bauernregel-date {
+  font-size: 44px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 74px;
+}
+
+.bauernregel-text {
+  margin: 0;
+  max-width: 1280px;
+
+  font-size: 76px;
+  line-height: 1.08;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+
+  color: #ffffff;
+
+  text-shadow:
+    0 6px 16px rgba(0, 0, 0, 0.76),
+    0 0 22px rgba(246, 211, 107, 0.12);
+}
+
+.bauernregel-zusatz {
+  margin-top: 42px;
+  max-width: 1120px;
+
+  font-size: 36px;
+  line-height: 1.28;
+  font-weight: 400;
+
+  color: rgba(255, 255, 255, 0.86);
+
+  text-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.65);
+}
+
+.bauernregel-image {
+  width: 72vw;
+  max-width: 1400px;
+
+  filter:
+    drop-shadow(-48px -28px 58px rgba(0, 0, 0, 0.50))
+    drop-shadow(0 0 44px rgba(246, 211, 107, 0.13));
+}

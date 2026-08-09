@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="de">
+<head>
+    <meta charset="utf-8">
+    <title>Auszeit Display</title>
+    <meta http-equiv="refresh" content="60">
+    <style>
+        html,
+        body {
+            margin: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            overflow: hidden;
+        }
+
+        iframe {
+            width: 100vw;
+            height: 100vh;
+            border: none;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <iframe src="{{ url_for('serve_page', filename=active_page) }}?v={{ cache_buster }}"></iframe>
+</body>
+</html>

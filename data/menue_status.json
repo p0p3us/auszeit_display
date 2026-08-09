@@ -1,0 +1,32 @@
+{
+  "status": "ok",
+  "generated_at": "2026-08-09T16:01:20.203017+02:00",
+  "slides": {
+    "overview": {
+      "available": true,
+      "fallback": false,
+      "output": "pages/menue/uebersicht.html"
+    },
+    "saturday": {
+      "available": false,
+      "fallback": true,
+      "output": "pages/menue/samstag.html"
+    },
+    "today": {
+      "available": false,
+      "fallback": true,
+      "date": "2026-08-09",
+      "valid_from": "00:00",
+      "valid_until": "13:00",
+      "output": "pages/menue/heute.html"
+    },
+    "tomorrow": {
+      "available": false,
+      "fallback": true,
+      "date": "2026-08-10",
+      "valid_from": "13:00",
+      "valid_until": "23:59",
+      "output": "pages/menue/morgen.html"
+    }
+  }
+}

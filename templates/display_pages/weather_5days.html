@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <title>5-Tage-Wetter</title>
+
+  <link rel="stylesheet" href="/auszeit-display/static/css/display_pages/base_display.css">
+  <link rel="stylesheet" href="/auszeit-display/static/css/display_pages/weather.css">
+</head>
+
+<body>
+  <main class="display-page weather-page weather-forecast-page">
+    <img class="display-logo" src="/auszeit-display/resources/images/logo.png" alt="Auszeit">
+
+    <section class="display-content">
+      <article class="weather-forecast-card">
+        <div class="weather-kicker">{{ location }}</div>
+        <h1>5-Tage-Wetter</h1>
+
+        <div class="weather-date">
+          Vorschau ab morgen
+        </div>
+
+        <div class="weather-forecast-grid">
+          {% for day in days %}
+          <article class="weather-day-card">
+            <header class="weather-day-header">
+              <strong>{{ day.weekday_short }}</strong>
+              <span>{{ day.date_display }}</span>
+            </header>
+
+            <div class="weather-day-icon">
+              <img src="{{ day.icon_path }}" alt="">
+            </div>
+
+            <div class="weather-day-description">
+              {{ day.description }}
+            </div>
+
+            <div class="weather-day-temp">
+              {{ day.temp_max }}° <span>/ {{ day.temp_min }}°</span>
+            </div>
+
+            <div class="weather-day-values">
+              <div>
+                <span>Regen</span>
+                <strong>{{ day.rain_probability }}%</strong>
+              </div>
+              <div>
+                <span>Wind</span>
+                <strong>{{ day.wind_kmh }} km/h</strong>
+              </div>
+              <div>
+                <span>Feuchte</span>
+                <strong>{{ day.humidity }}%</strong>
+              </div>
+            </div>
+          </article>
+          {% endfor %}
+        </div>
+
+        <div class="weather-updated">
+          Aktualisiert: {{ updated }}
+        </div>
+      </article>
+    </section>
+  </main>
+</body>
+</html>

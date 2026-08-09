@@ -1,0 +1,8 @@
+{
+  "system": "auszeit_display",
+  "hostname": "auszeit",
+  "boot": "ssd",
+  "ssd_port": "usb2",
+  "status": "base_structure_created",
+  "next_step": "install_python_packages_and_create_flask_base"
+}

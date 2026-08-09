@@ -1,0 +1,792 @@
+/* =========================================================
+   Auszeit Wetter-Folien
+   ========================================================= */
+
+.weather-page {
+  color: #ffffff;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(25, 0, 5, 0.18) 0%,
+      rgba(25, 0, 5, 0.04) 45%,
+      rgba(25, 0, 5, 0.16) 100%
+    ),
+    url("/auszeit-display/resources/images/hintergrund.png");
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/*
+  Wetterfolien sitzen bewusst höher als Namenstag/Bauernregel/News.
+  Hier brauchen wir mehr Nutzfläche für Wetterwerte und Tabelle.
+*/
+.weather-page .display-content {
+  --display-content-top: 135px;
+}
+
+.weather-forecast-page .display-content {
+  --display-content-top: 105px;
+}
+
+.weather-page::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+
+  background:
+    radial-gradient(
+      ellipse at 32% 58%,
+      rgba(0, 0, 0, 0.30) 0%,
+      rgba(0, 0, 0, 0.22) 34%,
+      transparent 68%
+    );
+}
+
+/* =========================================================
+   Gemeinsame Wetter-Typografie
+   ========================================================= */
+
+.weather-kicker {
+  font-size: 46px;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  color: rgba(255, 255, 255, 0.92);
+  margin-bottom: 12px;
+}
+
+.weather-page h1 {
+  font-size: 142px;
+  line-height: 1.06;
+  padding-bottom: 10px;
+  margin: 0 0 18px 0;
+
+  font-weight: 800;
+  letter-spacing: -0.055em;
+
+  background: linear-gradient(
+    180deg,
+    #fff1ad 0%,
+    #d7b25a 18%,
+    #8a6120 42%,
+    #c99a3a 58%,
+    #f0d178 74%,
+    #7a4d18 100%
+  );
+
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  text-shadow:
+    0 2px 2px rgba(255, 235, 160, 0.18),
+    0 0 12px rgba(212, 165, 64, 0.22),
+    0 0 26px rgba(160, 95, 24, 0.16),
+    0 8px 18px rgba(0, 0, 0, 0.72);
+}
+
+.weather-date {
+  font-size: 44px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.90);
+}
+
+/* =========================================================
+   Folie 1: Wetter morgen
+   ========================================================= */
+
+.weather-tomorrow-card {
+  position: relative;
+  z-index: 6;
+
+  width: 82vw;
+  max-width: 1580px;
+}
+
+.weather-tomorrow-main {
+  display: flex;
+  align-items: center;
+  gap: 90px;
+
+  margin-top: 36px;
+  margin-bottom: 24px;
+}
+
+.weather-temperature {
+  font-size: 190px;
+  line-height: 0.9;
+  font-weight: 850;
+  letter-spacing: -0.065em;
+
+  color: #ffffff;
+
+  text-shadow:
+    0 8px 22px rgba(0, 0, 0, 0.72),
+    0 0 28px rgba(246, 211, 107, 0.16);
+}
+
+.weather-icon-wrap {
+  width: 260px;
+  height: 260px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  filter:
+    drop-shadow(0 18px 34px rgba(0, 0, 0, 0.45))
+    drop-shadow(0 0 28px rgba(246, 211, 107, 0.12));
+}
+
+.weather-main-icon {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.weather-description {
+  font-size: 68px;
+  line-height: 1.08;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+
+  margin-top: 10px;
+  margin-bottom: 54px;
+
+  color: #ffffff;
+
+  text-transform: none;
+
+  text-shadow:
+    0 6px 16px rgba(0, 0, 0, 0.76),
+    0 0 22px rgba(246, 211, 107, 0.12);
+}
+
+.weather-details {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(150px, 1fr));
+  gap: 22px;
+
+  width: 76vw;
+  max-width: 1320px;
+}
+
+.weather-details div {
+  padding: 22px 28px 24px 28px;
+
+  border-top: 1px solid rgba(246, 211, 107, 0.34);
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.055) 0%,
+      rgba(0, 0, 0, 0.10) 100%
+    );
+
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.weather-details span {
+  display: block;
+
+  font-size: 28px;
+  line-height: 1.1;
+  font-weight: 400;
+
+  color: rgba(255, 255, 255, 0.72);
+
+  margin-bottom: 10px;
+}
+
+.weather-details strong {
+  display: block;
+
+  font-size: 42px;
+  line-height: 1.05;
+  font-weight: 800;
+
+  color: #ffffff;
+
+  text-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.55);
+}
+
+.weather-updated {
+  margin-top: 34px;
+
+  font-size: 25px;
+  font-weight: 400;
+
+  color: rgba(255, 255, 255, 0.56);
+}
+
+
+/* =========================================================
+   Folie 2: 5-Tage-Vorschau als elegante Glas-Karten
+   ========================================================= */
+
+.weather-forecast-card {
+  position: relative;
+  z-index: 6;
+
+  width: 92vw;
+  max-width: 1680px;
+
+  margin: 0 auto;
+}
+
+.weather-forecast-card h1 {
+  font-size: 106px;
+  margin-bottom: 6px;
+}
+
+.weather-forecast-card .weather-date {
+  font-size: 34px;
+  margin-bottom: 36px;
+}
+
+.weather-forecast-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 24px;
+
+  width: 100%;
+  max-width: 1540px;
+
+  margin: 0 auto;
+}
+
+.weather-day-card {
+  position: relative;
+
+  min-height: 470px;
+
+  padding: 28px 24px 24px 24px;
+
+  border-radius: 30px;
+
+  overflow: hidden;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.085) 0%,
+      rgba(255, 255, 255, 0.035) 36%,
+      rgba(0, 0, 0, 0.16) 100%
+    );
+
+  border: 1px solid rgba(246, 211, 107, 0.22);
+
+  box-shadow:
+    inset 0 1px 0 rgba(255, 241, 173, 0.18),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.20),
+    0 18px 42px rgba(0, 0, 0, 0.24);
+}
+
+.weather-day-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  pointer-events: none;
+
+  background:
+    radial-gradient(
+      ellipse at 50% 0%,
+      rgba(246, 211, 107, 0.16) 0%,
+      rgba(246, 211, 107, 0.055) 38%,
+      transparent 74%
+    );
+}
+
+.weather-day-card::after {
+  content: "";
+  position: absolute;
+
+  left: 18%;
+  right: 18%;
+  top: 0;
+
+  height: 1px;
+
+  pointer-events: none;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(255, 241, 173, 0.55) 50%,
+      transparent 100%
+    );
+}
+
+.weather-day-header {
+  position: relative;
+  z-index: 2;
+
+  text-align: center;
+
+  margin-bottom: 22px;
+}
+
+.weather-day-header strong {
+  display: block;
+
+  font-size: 54px;
+  line-height: 0.95;
+  font-weight: 850;
+
+  color: #ffffff;
+
+  text-shadow:
+    0 5px 14px rgba(0, 0, 0, 0.58);
+}
+
+.weather-day-header span {
+  display: block;
+
+  margin-top: 10px;
+
+  font-size: 25px;
+  line-height: 1;
+  font-weight: 400;
+
+  color: rgba(255, 255, 255, 0.68);
+}
+
+.weather-day-icon {
+  position: relative;
+  z-index: 2;
+
+  width: 96px;
+  height: 96px;
+
+  margin: 0 auto 18px auto;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  filter:
+    drop-shadow(0 12px 20px rgba(0, 0, 0, 0.42))
+    drop-shadow(0 0 16px rgba(246, 211, 107, 0.16));
+}
+
+.weather-day-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.weather-day-description {
+  position: relative;
+  z-index: 2;
+
+  min-height: 56px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+
+  font-size: 25px;
+  line-height: 1.16;
+  font-weight: 500;
+
+  color: rgba(255, 255, 255, 0.86);
+
+  margin-bottom: 24px;
+}
+
+.weather-day-temp {
+  position: relative;
+  z-index: 2;
+
+  text-align: center;
+
+  font-size: 44px;
+  line-height: 1;
+  font-weight: 850;
+
+  color: #ffffff;
+
+  margin-bottom: 26px;
+
+  text-shadow:
+    0 5px 14px rgba(0, 0, 0, 0.60);
+}
+
+.weather-day-temp span {
+  font-size: 30px;
+  font-weight: 650;
+
+  color: rgba(255, 255, 255, 0.76);
+}
+
+.weather-day-values {
+  position: relative;
+  z-index: 2;
+
+  display: grid;
+  gap: 12px;
+}
+
+.weather-day-values div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 10px 0;
+
+  border-top: 1px solid rgba(255, 255, 255, 0.075);
+}
+
+.weather-day-values span {
+  font-size: 22px;
+  font-weight: 400;
+
+  color: rgba(255, 255, 255, 0.58);
+}
+
+.weather-day-values strong {
+  font-size: 24px;
+  font-weight: 760;
+
+  color: rgba(255, 255, 255, 0.92);
+
+  text-shadow:
+    0 4px 10px rgba(0, 0, 0, 0.45);
+}
+
+.weather-forecast-card .weather-updated {
+  max-width: 1540px;
+
+  margin: 24px auto 0 auto;
+
+  font-size: 23px;
+  color: rgba(255, 255, 255, 0.46);
+}
+
+/* =========================================================
+   Folie 3: Wetter morgen für Angeber
+   ========================================================= */
+
+.weather-deluxe-page .display-content {
+  --display-content-top: 92px;
+}
+
+.weather-deluxe-card {
+  position: relative;
+  z-index: 6;
+
+  width: 92vw;
+  max-width: 1680px;
+  margin: 0 auto;
+}
+
+.weather-deluxe-card h1 {
+  font-size: 102px;
+  line-height: 1.02;
+  margin-bottom: 30px;
+}
+
+.weather-deluxe-layout {
+  display: grid;
+  grid-template-columns: 1.2fr 0.85fr 1fr;
+  gap: 24px;
+
+  align-items: stretch;
+}
+
+.weather-deluxe-main,
+.weather-index-card,
+.weather-pro-card,
+.weather-snark-row > div,
+.weather-deluxe-comment {
+  position: relative;
+
+  overflow: hidden;
+
+  border-radius: 30px;
+  border: 1px solid rgba(246, 211, 107, 0.22);
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.085) 0%,
+      rgba(255, 255, 255, 0.035) 42%,
+      rgba(0, 0, 0, 0.16) 100%
+    );
+
+  box-shadow:
+    inset 0 1px 0 rgba(255, 241, 173, 0.18),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.22),
+    0 18px 42px rgba(0, 0, 0, 0.24);
+}
+
+.weather-deluxe-main::before,
+.weather-index-card::before,
+.weather-pro-card::before,
+.weather-snark-row > div::before,
+.weather-deluxe-comment::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  pointer-events: none;
+
+  background:
+    radial-gradient(
+      ellipse at 50% 0%,
+      rgba(246, 211, 107, 0.16) 0%,
+      rgba(246, 211, 107, 0.055) 38%,
+      transparent 74%
+    );
+}
+
+.weather-deluxe-main {
+  padding: 30px 34px 32px 34px;
+}
+
+.weather-deluxe-temp-row {
+  position: relative;
+  z-index: 2;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.weather-deluxe-temp {
+  font-size: 158px;
+  line-height: 0.88;
+  font-weight: 880;
+  letter-spacing: -0.075em;
+
+  color: #ffffff;
+
+  text-shadow:
+    0 9px 24px rgba(0, 0, 0, 0.72),
+    0 0 30px rgba(246, 211, 107, 0.16);
+}
+
+.weather-deluxe-icon {
+  width: 148px;
+  height: 148px;
+  object-fit: contain;
+
+  filter:
+    drop-shadow(0 14px 24px rgba(0, 0, 0, 0.45))
+    drop-shadow(0 0 18px rgba(246, 211, 107, 0.14));
+}
+
+.weather-deluxe-description {
+  position: relative;
+  z-index: 2;
+
+  margin-top: 22px;
+
+  font-size: 48px;
+  line-height: 1.08;
+  font-weight: 820;
+  letter-spacing: -0.03em;
+
+  color: #ffffff;
+
+  text-shadow:
+    0 6px 16px rgba(0, 0, 0, 0.70);
+}
+
+.weather-deluxe-minmax {
+  position: relative;
+  z-index: 2;
+
+  margin-top: 22px;
+
+  font-size: 30px;
+  color: rgba(255, 255, 255, 0.74);
+}
+
+.weather-index-card,
+.weather-pro-card {
+  padding: 28px 28px 30px 28px;
+}
+
+.weather-panel-label {
+  position: relative;
+  z-index: 2;
+
+  font-size: 25px;
+  line-height: 1.1;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+
+  color: rgba(255, 241, 173, 0.78);
+
+  margin-bottom: 18px;
+}
+
+.weather-index-value {
+  position: relative;
+  z-index: 2;
+
+  font-size: 104px;
+  line-height: 0.92;
+  font-weight: 880;
+  letter-spacing: -0.06em;
+
+  color: #ffffff;
+
+  text-shadow:
+    0 8px 22px rgba(0, 0, 0, 0.68),
+    0 0 24px rgba(246, 211, 107, 0.14);
+}
+
+.weather-index-scale {
+  position: relative;
+  z-index: 2;
+
+  margin-top: 8px;
+  margin-bottom: 26px;
+
+  font-size: 28px;
+  color: rgba(255, 255, 255, 0.62);
+}
+
+.weather-index-lines {
+  position: relative;
+  z-index: 2;
+
+  display: grid;
+  gap: 13px;
+}
+
+.weather-index-lines div {
+  border-top: 1px solid rgba(255, 255, 255, 0.075);
+  padding-top: 11px;
+}
+
+.weather-index-lines span,
+.weather-pro-grid span,
+.weather-snark-row span {
+  display: block;
+
+  font-size: 21px;
+  font-weight: 400;
+
+  color: rgba(255, 255, 255, 0.55);
+
+  margin-bottom: 5px;
+}
+
+.weather-index-lines strong {
+  display: block;
+
+  font-size: 24px;
+  line-height: 1.14;
+  font-weight: 760;
+
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.weather-pro-grid {
+  position: relative;
+  z-index: 2;
+
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px 18px;
+}
+
+.weather-pro-grid div {
+  padding-top: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.075);
+}
+
+.weather-pro-grid strong {
+  display: block;
+
+  font-size: 32px;
+  line-height: 1.05;
+  font-weight: 820;
+
+  color: #ffffff;
+
+  text-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.52);
+}
+
+.weather-snark-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+
+  margin-top: 24px;
+}
+
+.weather-snark-row > div {
+  padding: 22px 26px 24px 26px;
+}
+
+.weather-snark-row strong {
+  position: relative;
+  z-index: 2;
+
+  display: block;
+
+  font-size: 25px;
+  line-height: 1.18;
+  font-weight: 720;
+
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.weather-deluxe-comment {
+  margin-top: 24px;
+
+  padding: 22px 30px 24px 30px;
+
+  border-color: rgba(246, 211, 107, 0.30);
+}
+
+.weather-deluxe-comment span {
+  position: relative;
+  z-index: 2;
+
+  display: inline-block;
+
+  margin-right: 14px;
+
+  font-size: 27px;
+  font-weight: 500;
+
+  color: rgba(255, 241, 173, 0.72);
+}
+
+.weather-deluxe-comment strong {
+  position: relative;
+  z-index: 2;
+
+  font-size: 32px;
+  line-height: 1.18;
+  font-weight: 820;
+
+  color: #ffffff;
+
+  text-shadow:
+    0 5px 14px rgba(0, 0, 0, 0.56);
+}
+
+.weather-deluxe-card .weather-updated {
+  margin-top: 18px;
+
+  font-size: 21px;
+  color: rgba(255, 255, 255, 0.44);
+}

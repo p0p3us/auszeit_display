@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="de">
+<head>
+    <meta charset="utf-8">
+    <title>HTML-Seite hochladen</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+</head>
+<body>
+    <main class="container">
+        <section class="box">
+            <h1>HTML-Seite hochladen</h1>
+
+            <p class="muted">
+                Erlaubt sind nur Dateien mit der Endung <strong>.html</strong>.
+                Die Datei wird unter <strong>pages/upload/</strong> gespeichert.
+            </p>
+
+            <p class="warning">
+                Wichtig: Die hochgeladene Datei sollte ein vollständiges HTML-Dokument sein
+                und eigene Angaben für Hintergrundfarbe und Textfarbe enthalten.
+                Reiner Text kann im Display unsichtbar wirken.
+            </p>
+
+            <form action="/admin/upload" method="post" enctype="multipart/form-data">
+                <div class="form-row">
+                    <input type="file" name="file" accept=".html" required>
+                </div>
+
+                <div class="form-row">
+                    <button class="button" type="submit">Hochladen</button>
+                    <a href="/admin" class="back-link">Zurück zur Admin-Seite</a>
+                </div>
+            </form>
+        </section>
+    </main>
+</body>
+</html>

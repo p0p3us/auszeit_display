@@ -1,0 +1,28 @@
+# Python virtual environment
+venv/
+.venv/
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Logs
+logs/
+*.log
+
+# Generated export
+public_export/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+#Sicherungen
+*.bak
+
+#publish.env mit API und FTP Zugansdaten
+config/*.env

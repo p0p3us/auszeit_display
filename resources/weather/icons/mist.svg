@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256">
+
+<defs>
+  <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
+    <feDropShadow dx="0" dy="5" stdDeviation="5" flood-color="#000000" flood-opacity="0.22"/>
+  </filter>
+  <linearGradient id="sunGrad" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0%" stop-color="#FFF4A8"/>
+    <stop offset="52%" stop-color="#F6C64A"/>
+    <stop offset="100%" stop-color="#D99A18"/>
+  </linearGradient>
+  <linearGradient id="cloudGrad" x1="0" y1="0" x2="0.9" y2="1">
+    <stop offset="0%" stop-color="#FFFFFF"/>
+    <stop offset="70%" stop-color="#E8EEF4"/>
+    <stop offset="100%" stop-color="#C8D3DE"/>
+  </linearGradient>
+  <linearGradient id="cloudDarkGrad" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0%" stop-color="#E4EAF0"/>
+    <stop offset="100%" stop-color="#8795A6"/>
+  </linearGradient>
+  <linearGradient id="moonGrad" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0%" stop-color="#FFF8D6"/>
+    <stop offset="60%" stop-color="#EFD783"/>
+    <stop offset="100%" stop-color="#BFA451"/>
+  </linearGradient>
+  <linearGradient id="rainGrad" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0%" stop-color="#65D8FF"/>
+    <stop offset="100%" stop-color="#1D77D3"/>
+  </linearGradient>
+  <linearGradient id="mistGrad" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.25"/>
+    <stop offset="50%" stop-color="#F7FBFF" stop-opacity="0.95"/>
+    <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0.25"/>
+  </linearGradient>
+</defs>
+
+
+<g filter="url(#shadow)">
+  <path d="M63 117h124c21 0 38-14 38-32 0-16-14-30-33-32-7-22-29-38-55-38-29 0-53 18-58 43-19 1-35 14-35 30 0 16 16 29 39 29z"
+        fill="url(#cloudGrad)" stroke="#FFFFFF" stroke-width="5"/>
+</g>
+<g fill="none" stroke="url(#mistGrad)" stroke-width="11" stroke-linecap="round">
+  <path d="M34 139 C64 126, 92 152, 124 139 S188 126, 222 139"/>
+  <path d="M48 168 C76 155, 102 181, 132 168 S184 155, 208 168"/>
+  <path d="M30 198 C60 185, 92 211, 126 198 S190 185, 226 198"/>
+  <path d="M62 224 C86 214, 108 234, 136 224 S180 214, 198 224"/>
+</g>
+
+</svg>

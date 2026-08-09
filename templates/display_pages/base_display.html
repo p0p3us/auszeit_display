@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Auszeit Display{% endblock %}</title>
+
+  <link rel="stylesheet" href="/auszeit-display/static/css/display_pages/base_display.css">
+  {% block styles %}{% endblock %}
+</head>
+<body>
+  <div class="display-background"></div>
+
+  <img class="display-logo" src="/auszeit-display/resources/images/logo.png" alt="Café Auszeit">
+
+  {% block topic_image %}{% endblock %}
+
+  <main class="display-content">
+    {% block content %}{% endblock %}
+  </main>
+
+  <!--<footer class="display-footer">
+    <div>{% block footer_left %}{% endblock %}</div>
+    <div>{% block footer_right %}{% endblock %}</div>
+  </footer>-->
+</body>
+</html>

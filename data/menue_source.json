@@ -1,0 +1,82 @@
+{
+  "status": "ok",
+  "fetched_at": "2026-08-09T16:01:19.849623+02:00",
+  "index_url": "https://populorum.eu/menu_admin/data/menus/index.json",
+  "index_generated_at": "2026-08-05T20:28:28+00:00",
+  "selected": {
+    "file": "KW34.json",
+    "url": "https://populorum.eu/menu_admin/data/menus/KW34.json",
+    "index_valid_from": "2026-08-18",
+    "index_valid_until": "2026-08-21"
+  },
+  "source_data": {
+    "updated_at": "2026-08-05T16:34:55+00:00",
+    "valid_from": "2026-08-18",
+    "valid_to": "2026-08-21",
+    "service_time": "11:00 - 14:00",
+    "weekdays": {
+      "dienstag": {
+        "soup": "Tagessuppe",
+        "title": "Leberkäse gebacken",
+        "side": "mit Petersilienerdäpfel",
+        "price": "€ 9,90"
+      },
+      "mittwoch": {
+        "soup": "Tagessuppe",
+        "title": "Puten-Rahm-Gulasch",
+        "side": "mit Hörnchen",
+        "price": "€ 9,90"
+      },
+      "donnerstag": {
+        "soup": "Tagessuppe",
+        "title": "Faschierter Braten",
+        "side": "mit Erdäpfelpürree und Röstzwiebel",
+        "price": "€ 9,90"
+      },
+      "freitag": {
+        "menu_1": {
+          "soup": "Tagessuppe",
+          "title": "Fischfilet gebacken",
+          "side": "mit Erdäpfelsalat",
+          "price": "€ 10,90"
+        },
+        "menu_2": {
+          "enabled": false,
+          "soup": "",
+          "title": "",
+          "side": "",
+          "price": ""
+        }
+      }
+    },
+    "saturday_special": {
+      "enabled": false,
+      "date": "",
+      "soup": "",
+      "title": "",
+      "side_1": "",
+      "side_2": "",
+      "price": ""
+    },
+    "info_blocks": [
+      {
+        "enabled": true,
+        "heading": "",
+        "text": "<p class=\"ql-align-center\"><strong class=\"ql-size-large\" style=\"color:rgb(0, 55, 0)\"><u>Frühstücksbuffet am Samstag, dem 22.08.2026</u></strong></p><p class=\"ql-align-center\">All you can eat Buffet mit Lachs, Eierspeise, Grillgemüse und vielem mehr. </p><p class=\"ql-align-center\">inklusive Säfte und einem Kaffee, Tee oder heißer Schokolade </p><p class=\"ql-align-right\"><strong class=\"ql-size-large\">€ 16,90</strong></p>",
+        "vertical_align": "center"
+      },
+      {
+        "enabled": true,
+        "heading": "",
+        "text": "<p class=\"ql-align-center\"><strong class=\"ql-size-large\"><u>Wochenschmankerl - Feinschmeckersalat</u></strong></p><p class=\"ql-align-center\">bunter Blattsalat mit Schafskäse</p><p class=\"ql-align-center\">gebratenen Speckstreifen und Oliven </p><p class=\"ql-align-right\"><strong class=\"ql-size-large\">€ 11,50</strong></p>",
+        "vertical_align": "center"
+      },
+      {
+        "enabled": true,
+        "heading": "",
+        "text": "<p class=\"ql-align-center\"><strong class=\"ql-size-large\"><u>Eiszeit</u></strong></p><p class=\"ql-align-center\">z.B.: Aperol mit Orangeneis</p>",
+        "vertical_align": "center"
+      }
+    ]
+  }
+}

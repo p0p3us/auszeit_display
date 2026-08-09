@@ -1,0 +1,166 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #171717;
+    color: #f5f5f5;
+    margin: 0;
+}
+
+.container {
+    margin: 40px;
+    max-width: 960px;
+}
+
+.box {
+    background: #242424;
+    padding: 24px;
+    border-radius: 12px;
+    margin-bottom: 24px;
+}
+
+h1,
+h2 {
+    color: #ffffff;
+    margin-top: 0;
+}
+
+a {
+    color: #8fd3ff;
+    text-decoration: none;
+}
+
+.toplinks a {
+    display: inline-block;
+    margin-right: 18px;
+}
+
+.page-list {
+    margin-top: 12px;
+}
+
+.page-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+    padding: 14px;
+    border-bottom: 1px solid #444;
+}
+
+.page-row:last-child {
+    border-bottom: none;
+}
+
+.page-row.active {
+    background: #1f3a24;
+    border-radius: 8px;
+}
+
+.button {
+    background: #8fd3ff;
+    color: #111;
+    padding: 8px 14px;
+    border-radius: 6px;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.button:hover {
+    background: #b7e5ff;
+}
+
+.muted {
+    color: #aaa;
+}
+
+.form-row {
+    margin-top: 18px;
+}
+
+input[type="file"] {
+    display: block;
+    background: #111;
+    color: #f5f5f5;
+    border: 1px solid #555;
+    padding: 12px;
+    border-radius: 6px;
+    width: 100%;
+    max-width: 520px;
+}
+
+button.button {
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.back-link {
+    margin-left: 18px;
+}
+
+.actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.inline-form {
+    display: inline;
+    margin: 0;
+}
+
+.button.secondary {
+    background: #555;
+    color: #f5f5f5;
+}
+
+.button.secondary:hover {
+    background: #666;
+}
+
+.button.danger {
+    background: #a33;
+    color: #fff;
+}
+
+.button.danger:hover {
+    background: #c44;
+}
+
+.warning {
+    background: #3a2f1f;
+    color: #ffd28a;
+    border: 1px solid #6b5127;
+    padding: 14px;
+    border-radius: 8px;
+    margin-top: 18px;
+}
+
+.status-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+    margin-top: 16px;
+}
+
+.status-item {
+    background: #181818;
+    border: 1px solid #444;
+    border-radius: 8px;
+    padding: 14px;
+}
+
+.status-item .label {
+    display: block;
+    color: #aaa;
+    font-size: 14px;
+    margin-bottom: 6px;
+}
+
+.status-item strong {
+    color: #fff;
+    font-size: 17px;
+}

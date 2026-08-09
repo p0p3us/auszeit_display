@@ -1,0 +1,52 @@
+{% extends "base_display.html" %}
+
+{% block title %}News{% endblock %}
+
+{% block styles %}
+  <link rel="stylesheet" href="/auszeit-display/static/css/display_pages/news.css">
+{% endblock %}
+
+{% block topic_image %}
+  <img class="display-topic-image news-image" src="/auszeit-display/resources/images/news.png" alt="">
+{% endblock %}
+
+{% block content %}
+  <section class="news-card">
+    <div class="news-kicker">Aktuelle Meldungen</div>
+
+    <h1>{{ headline }}</h1>
+
+    <div class="news-date">{{ date_text }}</div>
+
+    <section class="news-grid">
+      {% for item in items %}
+        <article class="news-item">
+          <div class="news-source">{{ item.source }}</div>
+          <h2>{{ item.title }}</h2>
+
+          {% if item.description %}
+            <p>{{ item.description }}</p>
+          {% endif %}
+
+          {% if item.published %}
+            <div class="news-published">{{ item.published }}</div>
+          {% endif %}
+        </article>
+      {% endfor %}
+    </section>
+
+    {% if errors %}
+      <div class="news-errors">
+        Einige Quellen konnten nicht geladen werden.
+      </div>
+    {% endif %}
+  </section>
+{% endblock %}
+
+{% block footer_left %}
+  Aktualisiert: {{ updated_text }}
+{% endblock %}
+
+{% block footer_right %}
+  {{ hostname }}
+{% endblock %}

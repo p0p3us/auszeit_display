@@ -1,0 +1,22 @@
+[
+  {
+    "key": "sport",
+    "name": "Sport",
+    "url": "https://rss.orf.at/sport.xml"
+  },
+  {
+    "key": "niederoesterreich",
+    "name": "Niederösterreich",
+    "url": "https://rss.orf.at/noe.xml"
+  },
+  {
+    "key": "science",
+    "name": "Science",
+    "url": "https://rss.orf.at/science.xml"
+  },
+  {
+    "key": "help",
+    "name": "Help",
+    "url": "https://rss.orf.at/help.xml"
+  }
+]

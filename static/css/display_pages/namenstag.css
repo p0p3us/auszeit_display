@@ -1,0 +1,125 @@
+.namenstag-card {
+  width: 78vw;
+  max-width: 1450px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+
+  padding-top: 0;
+  position: relative;
+}
+
+.namenstag-kicker {
+  font-size: 46px;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 12px;
+}
+
+.namenstag-card h1 {
+  font-size: 168px;
+
+  line-height: 1.08;
+  padding-bottom: 10px;
+
+  margin: 0 0 16px 0;
+
+  font-weight: 800;
+  letter-spacing: -0.05em;
+
+  background: linear-gradient(
+    180deg,
+    #fff1ad 0%,
+    #d7b25a 18%,
+    #8a6120 42%,
+    #c99a3a 58%,
+    #f0d178 74%,
+    #7a4d18 100%
+  );
+
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  text-shadow:
+    0 2px 2px rgba(255, 235, 160, 0.18),
+    0 0 12px rgba(212, 165, 64, 0.22),
+    0 0 26px rgba(160, 95, 24, 0.16),
+    0 8px 18px rgba(0, 0, 0, 0.72);
+}
+
+.namenstag-date {
+  font-size: 44px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 74px;
+}
+
+.namenstag-subtitle {
+  display: none;
+}
+
+.namenstag-names {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0;
+
+  max-width: 1880px;
+}
+
+.namenstag-name {
+  position: relative;
+
+  font-size: 86px;
+  line-height: 1.05;
+  font-weight: 800;
+
+  padding: 0 56px;
+
+  color: #ffffff;
+  background: none;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+
+  text-shadow:
+    0 6px 16px rgba(0, 0, 0, 0.76),
+    0 0 22px rgba(246, 211, 107, 0.12);
+}
+
+.namenstag-name:first-child {
+  padding-left: 0;
+}
+
+.namenstag-name:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 8%;
+  width: 2px;
+  height: 86%;
+
+  background: linear-gradient(
+    180deg,
+    transparent,
+    rgba(246, 211, 107, 0.85),
+    transparent
+  );
+}
+
+.namenstag-name.muted {
+  opacity: 0.76;
+  font-size: 48px;
+  padding-left: 0;
+}
+
+.namenstag-image {
+  width: 72vw;
+  max-width: 1400px;
+
+  filter:
+    drop-shadow(-48px -28px 58px rgba(0, 0, 0, 0.50))
+    drop-shadow(0 0 44px rgba(246, 211, 107, 0.13));
+}

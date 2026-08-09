@@ -1,0 +1,260 @@
+.news-card {
+  position: relative;
+  z-index: 6;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+
+  padding-top: 0;
+}
+
+/* =========================================================
+   Variante A:
+   Kein RSS-Bild vorhanden → klassisches Auszeit-News-Layout
+   mit Nachrichtensprecher rechts unten
+   ========================================================= */
+
+.news-card-default {
+  /*
+    Breite des Nachrichtenblocks OHNE RSS-Bild.
+    66.666vw = ca. 2/3 der gesamten Bildschirmbreite.
+    Diesen Wert kannst du später selbst anpassen, z. B. 62vw, 70vw, 74vw.
+  */
+  width: 66.666vw;
+  max-width: 1280px;
+}
+
+.news-card-default .news-single {
+  /*
+    Textinhalt soll die volle Breite des Nachrichtenblocks nutzen dürfen.
+  */
+  max-width: 100%;
+}
+
+.news-card-default .news-single h2,
+.news-card-default .news-single p {
+  /*
+    Überschrift und Beschreibung bei Default-News nicht künstlich enger machen.
+  */
+  max-width: 100%;
+}
+
+.news-default-image {
+  /*
+    Bild rechts unten bleibt groß, aber nicht mehr 100vw breit.
+    Sonst verdrängt es optisch den Textbereich.
+  */
+  width: 72vw;
+  max-width: 1380px;
+
+  opacity: 0.86;
+
+  filter:
+    drop-shadow(-48px -28px 58px rgba(0, 0, 0, 0.50))
+    drop-shadow(0 0 44px rgba(246, 211, 107, 0.10));
+}
+
+/* =========================================================
+   Variante B:
+   RSS-Bild vorhanden → Bild prominent oben mittig,
+   Text darunter, kein Nachrichtensprecher
+   ========================================================= */
+
+.news-card-photo {
+  width: 78vw;
+  max-width: 1450px;
+
+  /*
+    Text beginnt unter dem Bild.
+    Der Wert ist bewusst fix, damit alle RSS-Bildseiten gleich wirken.
+  */
+  padding-top: 155px;
+}
+
+.news-card-photo::before {
+  content: "";
+  position: fixed;
+
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  height: 56vh;
+
+  z-index: -1;
+  pointer-events: none;
+
+  /*
+    Weicher dunkler Lesbarkeitsverlauf hinter dem Text,
+    ohne sichtbare Box.
+  */
+  background:
+    radial-gradient(
+      ellipse at 35% 70%,
+      rgba(0, 0, 0, 0.58) 0%,
+      rgba(0, 0, 0, 0.42) 32%,
+      rgba(0, 0, 0, 0.18) 58%,
+      transparent 78%
+    );
+}
+
+.news-photo-stage {
+  position: fixed;
+
+  top: 120px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  width: 62vw;
+  height: 41vh;
+
+  z-index: 3;
+  pointer-events: none;
+
+  overflow: hidden;
+
+  border: 2px solid rgba(246, 211, 107, 0.42);
+  border-radius: 18px;
+
+  box-shadow:
+    0 0 0 1px rgba(255, 241, 173, 0.10),
+    0 18px 48px rgba(0, 0, 0, 0.50),
+    0 0 34px rgba(246, 211, 107, 0.10);
+
+  /*
+    Fade nach unten.
+    Links/rechts bleibt der Bildrand sichtbar, aber weich genug.
+  */
+  -webkit-mask-image:
+    linear-gradient(to bottom, black 0%, black 70%, transparent 100%);
+  mask-image:
+    linear-gradient(to bottom, black 0%, black 70%, transparent 100%);
+}
+
+.news-feed-image {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+  object-position: center;
+
+  opacity: 0.90;
+
+  filter:
+    saturate(0.96)
+    contrast(1.08)
+    brightness(0.90);
+}
+
+.news-card-photo .news-single {
+  max-width: 1320px;
+}
+
+/* =========================================================
+   Gemeinsame Typografie
+   ========================================================= */
+
+.news-kicker {
+  font-size: 46px;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 12px;
+}
+
+.news-card h1 {
+  font-size: 168px;
+  line-height: 1.08;
+  padding-bottom: 10px;
+  margin: 0 0 16px 0;
+
+  font-weight: 800;
+  letter-spacing: -0.05em;
+
+  background: linear-gradient(
+    180deg,
+    #fff1ad 0%,
+    #d7b25a 18%,
+    #8a6120 42%,
+    #c99a3a 58%,
+    #f0d178 74%,
+    #7a4d18 100%
+  );
+
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  text-shadow:
+    0 2px 2px rgba(255, 235, 160, 0.18),
+    0 0 12px rgba(212, 165, 64, 0.22),
+    0 0 26px rgba(160, 95, 24, 0.16),
+    0 8px 18px rgba(0, 0, 0, 0.72);
+}
+
+.news-date {
+  font-size: 44px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 58px;
+}
+
+.news-single h2 {
+  margin: 0;
+
+  font-size: 72px;
+  line-height: 1.08;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+
+  color: #ffffff;
+
+  text-shadow:
+    0 6px 16px rgba(0, 0, 0, 0.76),
+    0 0 22px rgba(246, 211, 107, 0.12);
+}
+
+.news-single p {
+  margin: 34px 0 0 0;
+
+  max-width: 1080px;
+
+  font-size: 36px;
+  line-height: 1.28;
+  font-weight: 400;
+
+  color: rgba(255, 255, 255, 0.86);
+
+  text-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.65);
+}
+
+/* =========================================================
+   Feinschliff für RSS-Bildseiten
+   ========================================================= */
+
+.news-card-photo .news-kicker {
+  font-size: 38px;
+  margin-bottom: 8px;
+}
+
+.news-card-photo h1 {
+  font-size: 118px;
+  margin-bottom: 6px;
+}
+
+.news-card-photo .news-date {
+  font-size: 34px;
+  margin-bottom: 34px;
+}
+
+.news-card-photo .news-single h2 {
+  font-size: 58px;
+  max-width: 1320px;
+}
+
+.news-card-photo .news-single p {
+  font-size: 31px;
+  line-height: 1.28;
+  max-width: 1220px;
+}
