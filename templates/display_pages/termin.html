@@ -14,7 +14,10 @@
   </div>
   <div class="event-copy">
     {% if event.description %}<div class="event-description">{{ event.description }}</div>{% endif %}
-    <div class="event-meta">{% if event.price %}<div>{{ event.price }}</div>{% endif %}{% if event.reservation %}<div>{{ event.reservation }}</div>{% endif %}</div>
+    <div class="event-meta">
+      {% if event.price %}<div class="event-meta-row"><span class="event-meta-label">Preis / Eintritt</span><span>{{ event.price }}</span></div>{% endif %}
+      {% if event.reservation %}<div class="event-meta-row"><span class="event-meta-label">Reservierung</span><span>{{ event.reservation }}</span></div>{% endif %}
+    </div>
   </div>
 </main>
 <script>
@@ -37,7 +40,7 @@
   function fitEvent() {
     const title = document.querySelector('.event-title');
     fitText(title, 42, 112, title.parentElement);
-    fitText(document.querySelector('.event-copy'), 24, 64);
+    fitText(document.querySelector('.event-copy'), 26, 68);
   }
 
   window.addEventListener('load', fitEvent);

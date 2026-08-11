@@ -12,6 +12,20 @@ PROJECT_DIR = Path(__file__).resolve().parents[1]
 
 
 class GeneratorTests(unittest.TestCase):
+    def test_event_template_uses_vertical_meta_rows_and_text_fitting(self):
+        template = (PROJECT_DIR / "templates" / "display_pages" / "termin.html").read_text(
+            encoding="utf-8"
+        )
+        stylesheet = (
+            PROJECT_DIR / "static" / "css" / "display_pages" / "termine.css"
+        ).read_text(encoding="utf-8")
+
+        self.assertNotIn("event-image-fade", template)
+        self.assertNotIn("event-image-fade", stylesheet)
+        self.assertLess(template.index("Preis / Eintritt"), template.index("Reservierung"))
+        self.assertIn("flex-direction: column", stylesheet)
+        self.assertIn("fitText(document.querySelector('.event-copy'), 26, 68)", template)
+
     def test_generators_create_nonempty_html_pages(self):
         scripts = (
             "generate_namenstag.py",
