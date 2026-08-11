@@ -5,8 +5,43 @@
 <link rel="stylesheet" href="/auszeit-display/static/css/display_pages/termine.css"></head>
 <body class="display-page event-page"><div class="display-background"></div>
 <img class="display-logo" src="/auszeit-display/resources/images/logo.png" alt="Café Auszeit">
-{% if event.image_path %}<img class="event-image" src="{{ event.image_path }}" alt=""><div class="event-image-fade"></div>{% endif %}
-<main class="event-stage"><div class="event-kicker">Veranstaltung im Auszeit</div><h1 class="event-title">{{ event.title }}</h1>
-<div class="event-date">{{ event.date_text }}{% if event.time %} · {{ event.time }} Uhr{% endif %}</div>
-{% if event.description %}<div class="event-description">{{ event.description }}</div>{% endif %}
-<div class="event-meta">{% if event.price %}<div>{{ event.price }}</div>{% endif %}{% if event.reservation %}<div>{{ event.reservation }}</div>{% endif %}</div></main></body></html>
+{% if event.image_path %}<img class="event-image" src="{{ event.image_path }}" alt="">{% endif %}
+<main class="event-stage">
+  <div class="event-header">
+    <div class="event-kicker">Veranstaltung im Auszeit</div>
+    <div class="event-title-box"><h1 class="event-title">{{ event.title }}</h1></div>
+    <div class="event-date">{{ event.date_text }}{% if event.time %} · {{ event.time }} Uhr{% endif %}</div>
+  </div>
+  <div class="event-copy">
+    {% if event.description %}<div class="event-description">{{ event.description }}</div>{% endif %}
+    <div class="event-meta">{% if event.price %}<div>{{ event.price }}</div>{% endif %}{% if event.reservation %}<div>{{ event.reservation }}</div>{% endif %}</div>
+  </div>
+</main>
+<script>
+(() => {
+  function fitText(element, minimum, maximum, bounds = element) {
+    if (!element) return;
+    let low = minimum;
+    let high = maximum;
+    for (let step = 0; step < 12; step += 1) {
+      const size = (low + high) / 2;
+      element.style.fontSize = `${size}px`;
+      const fits = element.scrollWidth <= bounds.clientWidth + 1 &&
+        element.scrollHeight <= bounds.clientHeight + 1;
+      if (fits) low = size;
+      else high = size;
+    }
+    element.style.fontSize = `${Math.floor(low)}px`;
+  }
+
+  function fitEvent() {
+    const title = document.querySelector('.event-title');
+    fitText(title, 42, 112, title.parentElement);
+    fitText(document.querySelector('.event-copy'), 24, 64);
+  }
+
+  window.addEventListener('load', fitEvent);
+  window.addEventListener('resize', fitEvent);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitEvent);
+})();
+</script></body></html>

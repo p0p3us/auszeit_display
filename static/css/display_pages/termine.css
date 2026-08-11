@@ -1,10 +1,13 @@
 .event-page { color: #fff7e6; overflow: hidden; }
-.event-stage { position: relative; z-index: 5; width: 67%; height: 100vh; padding: 150px 0 70px 110px; box-sizing: border-box; }
+.event-stage { position: relative; z-index: 5; display: grid; grid-template-rows: auto minmax(0, 1fr); width: 67%; height: 100vh; padding: 116px 0 64px 84px; box-sizing: border-box; }
+.event-header { min-height: 0; }
 .event-kicker { color: #efd77f; font: 700 28px/1.2 Arial, sans-serif; letter-spacing: .1em; text-transform: uppercase; }
-.event-title { margin: 24px 0 18px; color: #fff7e6; font-size: clamp(58px, 6vw, 112px); line-height: .98; text-shadow: 0 4px 16px rgba(0,0,0,.42); }
+.event-title-box { display: flex; align-items: center; width: 100%; height: 142px; margin: 18px 0 8px; overflow: hidden; }
+.event-title { width: 100%; margin: 0; color: #fff7e6; font: 700 112px/.98 Arial, sans-serif; text-shadow: 0 4px 16px rgba(0,0,0,.42); }
 .event-date { color: #efd77f; font: 700 40px/1.25 Arial, sans-serif; }
-.event-description { max-width: 1030px; margin-top: 44px; font-size: 35px; line-height: 1.3; white-space: pre-line; }
-.event-meta { display: flex; gap: 42px; margin-top: 42px; font: 700 28px/1.25 Arial, sans-serif; }
+.event-copy { width: 100%; min-height: 0; padding: 34px 0 0; box-sizing: border-box; display: flex; flex-direction: column; justify-content: center; gap: .85em; overflow: hidden; font: 400 64px/1.25 Arial, sans-serif; }
+.event-description { white-space: pre-line; }
+.event-meta { display: flex; flex-wrap: wrap; gap: .75em 1.5em; font-size: .72em; font-weight: 700; line-height: 1.25; }
+.event-meta:empty { display: none; }
 .event-meta > div { border-left: 5px solid #d4b05c; padding-left: 18px; }
 .event-image { position: absolute; z-index: 2; right: 0; bottom: 0; width: 42%; height: 61%; object-fit: contain; object-position: right bottom; }
-.event-image-fade { position: absolute; z-index: 3; right: 0; bottom: 0; width: 53%; height: 70%; background: linear-gradient(90deg, rgba(65,9,22,1) 0%, rgba(65,9,22,.76) 18%, rgba(65,9,22,0) 58%); pointer-events: none; }
