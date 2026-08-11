@@ -59,6 +59,76 @@ class ShellScriptTests(unittest.TestCase):
         self.assertIn('"$EXPORT_DIR/namenstag/"', rsync_script)
         self.assertIn('"$RSYNC_REMOTE_USER@$RSYNC_REMOTE_HOST:$NAMENSTAG_REMOTE_PATH/"', rsync_script)
 
+    def test_webinterface_publisher_uses_positive_file_list_without_delete(self):
+        script = (SCRIPTS_DIR / "publish_webinterface_ftp.sh").read_text()
+
+        self.assertNotIn("mirror ", script)
+        self.assertNotIn("--delete", script)
+        self.assertIn('put "$WEB_DIR/menu_admin.php"', script)
+        self.assertIn('put "$WEB_DIR/termine-admin.php"', script)
+        self.assertIn('put "$WEB_DIR/includes/bootstrap.php"', script)
+        self.assertIn('put "$WEB_DIR/includes/storage.php"', script)
+        self.assertNotIn("data/menus", script)
+        self.assertNotIn("data/termine", script)
+        self.assertNotIn("uploads/events", script)
+        self.assertNotIn("config/local.php\" -o", script)
+
+    def test_webinterface_publisher_accepts_only_expected_remote_directory(self):
+        script = (SCRIPTS_DIR / "publish_webinterface_ftp.sh").read_text()
+
+        self.assertIn('/menu_admin|/menu_admin/', script)
+        self.assertIn("Erlaubt ist ausschließlich /menu_admin.", script)
+
+    def test_webinterface_uses_csrf_and_atomic_json_writes(self):
+        auth = (PROJECT_DIR / "webinterface/includes/auth.php").read_text()
+        storage = (PROJECT_DIR / "webinterface/includes/storage.php").read_text()
+        menu_admin = (PROJECT_DIR / "webinterface/menu_admin.php").read_text()
+        termine_admin = (PROJECT_DIR / "webinterface/termine-admin.php").read_text()
+
+        self.assertIn("hash_equals", auth)
+        self.assertIn("random_bytes(32)", auth)
+        for page in (menu_admin, termine_admin):
+            self.assertIn("auszeit_verify_csrf();", page)
+            self.assertIn("auszeit_csrf_input()", page)
+            self.assertNotIn("?logout=1", page)
+
+        self.assertIn("tempnam($directory", storage)
+        self.assertIn("rename($temporaryFile, $file)", storage)
+        self.assertEqual(menu_admin.count("file_put_contents("), 0)
+        self.assertEqual(termine_admin.count("file_put_contents("), 0)
+
+    def test_webinterface_limits_failed_logins(self):
+        auth = (PROJECT_DIR / "webinterface/includes/auth.php").read_text()
+        menu = (PROJECT_DIR / "webinterface/menu_admin.php").read_text()
+        events = (PROJECT_DIR / "webinterface/termine-admin.php").read_text()
+        ignore = (PROJECT_DIR / ".gitignore").read_text()
+
+        self.assertIn("AUSZEIT_DEFAULT_MAX_LOGIN_ATTEMPTS = 10", auth)
+        self.assertIn("AUSZEIT_DEFAULT_LOGIN_LOCK_SECONDS = 900", auth)
+        self.assertIn("REMOTE_ADDR", auth)
+        self.assertIn("flock($handle, LOCK_EX)", auth)
+        self.assertIn("auszeit_record_failed_login", auth)
+        self.assertIn("auszeit_clear_failed_logins", auth)
+        self.assertIn("loginStatus['locked']", menu)
+        self.assertIn("loginStatus['locked']", events)
+        self.assertIn("webinterface/data/auth/*", ignore)
+
+    def test_webinterface_hardens_sessions_before_start(self):
+        bootstrap = (PROJECT_DIR / "webinterface/includes/bootstrap.php").read_text()
+        menu = (PROJECT_DIR / "webinterface/menu_admin.php").read_text()
+        events = (PROJECT_DIR / "webinterface/termine-admin.php").read_text()
+
+        self.assertIn("date_default_timezone_set('Europe/Vienna')", bootstrap)
+        self.assertIn("session.use_strict_mode', '1'", bootstrap)
+        self.assertIn("session.cookie_httponly', '1'", bootstrap)
+        self.assertIn("session.cookie_samesite', 'Strict'", bootstrap)
+        self.assertIn("session.cookie_secure', '1'", bootstrap)
+        self.assertLess(bootstrap.index("session.use_strict_mode"), bootstrap.index("session_start()"))
+        self.assertLess(bootstrap.index("session.cookie_secure"), bootstrap.index("session_start()"))
+        for page in (menu, events):
+            self.assertIn("includes/bootstrap.php", page)
+            self.assertNotIn("session_start();", page)
+
 
 if __name__ == "__main__":
     unittest.main()

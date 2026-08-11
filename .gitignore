@@ -27,3 +27,19 @@ Thumbs.db
 
 #publish.env mit API und FTP Zugansdaten
 config/*.env
+
+# Webinterface runtime data (created and maintained on the webspace)
+webinterface/config/local.php
+webinterface/data/menus/*
+!webinterface/data/menus/.gitkeep
+webinterface/data/termine/*
+!webinterface/data/termine/.gitkeep
+webinterface/data/auth/*
+!webinterface/data/auth/.gitkeep
+webinterface/uploads/events/*
+!webinterface/uploads/events/single/
+!webinterface/uploads/events/templates/
+webinterface/uploads/events/single/*
+!webinterface/uploads/events/single/.gitkeep
+webinterface/uploads/events/templates/*
+!webinterface/uploads/events/templates/.gitkeep

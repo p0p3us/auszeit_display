@@ -27,6 +27,7 @@ Digital-Signage-System für das Café Restaurant Auszeit auf einem Raspberry Pi 
 | `data/` | Zustands- und Eingangsdaten im JSON-Format |
 | `tests/` | Automatisierte Tests |
 | `config/` | Lokale Konfiguration; Zugangsdaten werden nicht versioniert |
+| `webinterface/` | PHP-Verwaltung für Menüs und Termine auf dem Webspace |
 
 ## Erstinstallation auf dem Raspberry Pi
 
@@ -154,6 +155,7 @@ pages/system/default.html
 ## Wichtige Betriebsregeln
 
 - `config/publish.env` niemals in Git aufnehmen.
+- Laufzeitdaten des Webinterfaces unter `webinterface/data/menus`, `webinterface/data/termine` und `webinterface/uploads/events` niemals aus Git auf den Webspace spiegeln oder löschen.
 - `venv/`, Logs, Python-Caches und Exportordner nicht versionieren.
 - Generierte Dateien unter `pages/` und betriebsrelevante JSON-Dateien nicht pauschal löschen.
 - Updates mit `git pull --ff-only` durchführen; dadurch werden unerwartete Historienkonflikte nicht automatisch überschrieben.
