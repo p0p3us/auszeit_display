@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="de"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ event.title }}</title>
+<link rel="stylesheet" href="/auszeit-display/static/css/display_pages/base_display.css">
+<link rel="stylesheet" href="/auszeit-display/static/css/display_pages/termine.css"></head>
+<body class="display-page event-page"><div class="display-background"></div>
+<img class="display-logo" src="/auszeit-display/resources/images/logo.png" alt="Café Auszeit">
+{% if event.image_path %}<img class="event-image" src="{{ event.image_path }}" alt=""><div class="event-image-fade"></div>{% endif %}
+<main class="event-stage"><div class="event-kicker">Veranstaltung im Auszeit</div><h1 class="event-title">{{ event.title }}</h1>
+<div class="event-date">{{ event.date_text }}{% if event.time %} · {{ event.time }} Uhr{% endif %}</div>
+{% if event.description %}<div class="event-description">{{ event.description }}</div>{% endif %}
+<div class="event-meta">{% if event.price %}<div>{{ event.price }}</div>{% endif %}{% if event.reservation %}<div>{{ event.reservation }}</div>{% endif %}</div></main></body></html>

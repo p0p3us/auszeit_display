@@ -129,6 +129,14 @@ class ShellScriptTests(unittest.TestCase):
             self.assertIn("includes/bootstrap.php", page)
             self.assertNotIn("session_start();", page)
 
+    def test_public_export_includes_event_pipeline(self):
+        script = (SCRIPTS_DIR / "export_public.sh").read_text()
+        self.assertIn("scripts/fetch_termine.py", script)
+        self.assertIn("scripts/generate_termine.py", script)
+        self.assertIn("pages/termine/", script)
+        self.assertIn("resources/termine/", script)
+        self.assertIn("display_pages/termine.css", script)
+
 
 if __name__ == "__main__":
     unittest.main()

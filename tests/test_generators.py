@@ -1,3 +1,4 @@
+import json
 import os
 from pathlib import Path
 import shutil
@@ -18,6 +19,7 @@ class GeneratorTests(unittest.TestCase):
             "generate_news.py",
             "generate_weather.py",
             "export_menue.py",
+            "generate_termine.py",
         )
         expected_pages = (
             "pages/namenstag/anzeige.html",
@@ -30,6 +32,7 @@ class GeneratorTests(unittest.TestCase):
             "pages/menue/samstag.html",
             "pages/menue/heute.html",
             "pages/menue/morgen.html",
+            "pages/termine/termin-1.html",
         )
 
         with tempfile.TemporaryDirectory() as temporary_dir:
@@ -42,6 +45,22 @@ class GeneratorTests(unittest.TestCase):
 
             environment = os.environ.copy()
             environment["AUSZEIT_DISPLAY_BASE_DIR"] = str(test_project)
+
+            (test_project / "data" / "termine.json").write_text(
+                json.dumps({
+                    "status": "ok",
+                    "events": [{
+                        "date": "2099-08-20",
+                        "time": "19:30",
+                        "title": "Testabend",
+                        "description": "Ein Testtermin",
+                        "price": "Freier Eintritt",
+                        "reservation": "Reservierung erbeten",
+                        "image_path": "",
+                    }],
+                }),
+                encoding="utf-8",
+            )
 
             for script in scripts:
                 with self.subTest(script=script):

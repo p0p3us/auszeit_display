@@ -26,6 +26,8 @@ echo "===== Öffentliche Folien generieren ====="
 "$PYTHON_BIN" "$BASE_DIR/scripts/generate_weather.py"
 "$PYTHON_BIN" "$BASE_DIR/scripts/fetch_menue.py"
 "$PYTHON_BIN" "$BASE_DIR/scripts/export_menue.py"
+"$PYTHON_BIN" "$BASE_DIR/scripts/fetch_termine.py"
+"$PYTHON_BIN" "$BASE_DIR/scripts/generate_termine.py"
 
 echo "===== Export-Ordner vorbereiten ====="
 rm -rf "$EXPORT_DIR"
@@ -39,6 +41,8 @@ mkdir -p "$EXPORT_DIR/weather"
 mkdir -p "$EXPORT_DIR/resources/weather/icons"
 mkdir -p "$EXPORT_DIR/menue"
 mkdir -p "$EXPORT_DIR/resources/menue"
+mkdir -p "$EXPORT_DIR/termine"
+mkdir -p "$EXPORT_DIR/resources/termine"
 
 echo "===== HTML exportieren ====="
 cp "$BASE_DIR/pages/namenstag/anzeige.html" "$EXPORT_DIR/namenstag/index.html"
@@ -46,6 +50,7 @@ cp "$BASE_DIR/pages/bauernregel/anzeige.html" "$EXPORT_DIR/bauernregel/index.htm
 cp "$BASE_DIR/pages/news/"*.html "$EXPORT_DIR/news/"
 cp "$BASE_DIR/pages/weather/"*.html "$EXPORT_DIR/weather/"
 cp "$BASE_DIR/pages/menue/"*.html "$EXPORT_DIR/menue/"
+cp "$BASE_DIR/pages/termine/"*.html "$EXPORT_DIR/termine/" 2>/dev/null || true
 
 echo "===== CSS exportieren ====="
 cp "$BASE_DIR/static/css/display_pages/base_display.css" "$EXPORT_DIR/static/css/display_pages/base_display.css"
@@ -54,6 +59,7 @@ cp "$BASE_DIR/static/css/display_pages/bauernregel.css" "$EXPORT_DIR/static/css/
 cp "$BASE_DIR/static/css/display_pages/news.css" "$EXPORT_DIR/static/css/display_pages/news.css"
 cp "$BASE_DIR/static/css/display_pages/weather.css" "$EXPORT_DIR/static/css/display_pages/weather.css"
 cp "$BASE_DIR/static/css/display_pages/menue.css" "$EXPORT_DIR/static/css/display_pages/menue.css"
+cp "$BASE_DIR/static/css/display_pages/termine.css" "$EXPORT_DIR/static/css/display_pages/termine.css"
 
 echo "===== Bilder exportieren ====="
 cp "$BASE_DIR/resources/images/hintergrund.png" "$EXPORT_DIR/resources/images/hintergrund.png"
@@ -72,6 +78,10 @@ fi
 
 if [ -d "$BASE_DIR/resources/menue" ]; then
   cp "$BASE_DIR/resources/menue/"* "$EXPORT_DIR/resources/menue/" 2>/dev/null || true
+fi
+
+if [ -d "$BASE_DIR/resources/termine" ]; then
+  cp "$BASE_DIR/resources/termine/"* "$EXPORT_DIR/resources/termine/" 2>/dev/null || true
 fi
 
 for image in \

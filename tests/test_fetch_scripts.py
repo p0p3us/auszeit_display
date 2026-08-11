@@ -22,6 +22,36 @@ def load_script(name: str):
 
 
 class FetchScriptTests(unittest.TestCase):
+    def test_event_fetch_normalizes_and_filters_source_data(self):
+        module = load_script("fetch_termine")
+        payload = {
+            "next_events": [
+                {
+                    "source": "single",
+                    "id": "one",
+                    "date": "2099-08-20",
+                    "time": "19:30",
+                    "title": "Testabend",
+                    "description": "<p>Erste <strong>Zeile</strong></p><p>Zweite&nbsp;Zeile</p>",
+                    "image": "../../uploads/events/single/bad.png",
+                },
+                {"date": "not-a-date", "title": "Ungültig"},
+            ]
+        }
+        events = module.normalize_events(payload)
+        self.assertEqual(len(events), 1)
+        self.assertEqual(events[0]["title"], "Testabend")
+        self.assertEqual(events[0]["description"], "Erste Zeile\nZweite Zeile")
+        self.assertEqual(events[0]["image_url"], "")
+
+    def test_event_fetch_accepts_webinterface_event_images(self):
+        module = load_script("fetch_termine")
+        self.assertEqual(
+            module.safe_image_url("uploads/events/templates/bingo.webp"),
+            "https://populorum.eu/menu_admin/uploads/events/templates/bingo.webp",
+        )
+        self.assertEqual(module.safe_image_url("https://example.test/bild.png"), "")
+
     def test_weather_fetch_writes_five_valid_days(self):
         module = load_script("fetch_weather")
         now = datetime.now(timezone.utc)

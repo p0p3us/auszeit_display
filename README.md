@@ -1,6 +1,6 @@
 # Auszeit Digital Signage
 
-Digital-Signage-System für das Café Restaurant Auszeit auf einem Raspberry Pi 4. Eine Flask-Anwendung verwaltet die Folien, zeigt die aktive Seite im Browser an und stellt eine Administrationsoberfläche bereit. Generatoren erzeugen unter anderem Wetter-, Nachrichten-, Menü-, Namenstags- und Bauernregel-Folien.
+Digital-Signage-System für das Café Restaurant Auszeit auf einem Raspberry Pi 4. Eine Flask-Anwendung verwaltet die Folien, zeigt die aktive Seite im Browser an und stellt eine Administrationsoberfläche bereit. Generatoren erzeugen unter anderem Wetter-, Nachrichten-, Menü-, Termin-, Namenstags- und Bauernregel-Folien.
 
 ## Systemüberblick
 
@@ -160,6 +160,15 @@ pages/system/default.html
 - Generierte Dateien unter `pages/` und betriebsrelevante JSON-Dateien nicht pauschal löschen.
 - Updates mit `git pull --ff-only` durchführen; dadurch werden unerwartete Historienkonflikte nicht automatisch überschrieben.
 - Nach Änderungen zuerst Tests ausführen, dann den Dienst neu starten und `/status` prüfen.
+
+## Termine
+
+`scripts/fetch_termine.py` liest die vom Webinterface erzeugte Datei
+`https://populorum.eu/menu_admin/data/termine/aktuell.json`, validiert die
+Einträge und lädt zulässige Veranstaltungsbilder. `scripts/generate_termine.py`
+erzeugt daraus chronologisch sortierte Einzelfolien unter `pages/termine/`.
+Der gemeinsame Public-Export veröffentlicht die Folien und Bilder unter
+`/auszeit-display/termine/` beziehungsweise `/auszeit-display/resources/termine/`.
 
 ## Aktueller Hardwarehinweis
 
