@@ -15,7 +15,11 @@
     <div class="weisheit-kicker">Täglich frisch eingeschenkt</div>
     <h1>Auszeit-Weisheit</h1>
 
-    <blockquote class="weisheit-text">„{{ weisheit }}“</blockquote>
+    <blockquote class="weisheit-text" aria-label="„{{ weisheit }}“">
+      {%- for line in weisheit_lines %}
+      <span class="weisheit-line">{% if loop.first %}„{% endif %}{{ line }}{% if loop.last %}“{% endif %}</span>
+      {%- endfor %}
+    </blockquote>
   </section>
 
   <script>
@@ -24,13 +28,37 @@
       const card = document.querySelector('.weisheit-card');
       if (!text || !card) return;
 
+      const lines = [...text.querySelectorAll('.weisheit-line')];
+      const canvas = document.createElement('canvas');
+      const context = canvas.getContext('2d');
       let size = 88;
       const minimum = 48;
-      text.style.fontSize = `${size}px`;
 
+      const layoutLines = () => {
+        text.style.fontSize = `${size}px`;
+        const style = getComputedStyle(text);
+        context.font = `${style.fontWeight} ${size}px ${style.fontFamily}`;
+
+        lines.forEach((line) => {
+          line.classList.remove('weisheit-line-wrap');
+          line.style.width = '';
+        });
+
+        const widths = lines.map((line) => context.measureText(line.textContent).width);
+        const wrapAll = widths.some((width) => width > text.clientWidth);
+
+        if (wrapAll) {
+          lines.forEach((line, index) => {
+            line.classList.add('weisheit-line-wrap');
+            line.style.width = `${Math.ceil(widths[index] * 0.58)}px`;
+          });
+        }
+      };
+
+      layoutLines();
       while (size > minimum && card.scrollHeight > card.clientHeight) {
         size -= 2;
-        text.style.fontSize = `${size}px`;
+        layoutLines();
       }
     })();
   </script>

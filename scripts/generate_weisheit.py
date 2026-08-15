@@ -56,6 +56,7 @@ def render_page(now: datetime | None = None) -> str:
         updated_text=now.strftime("%d.%m.%Y %H:%M"),
         hostname=socket.gethostname(),
         weisheit=weisheit,
+        weisheit_lines=weisheit.splitlines(),
     )
 
 

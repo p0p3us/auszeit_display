@@ -35,6 +35,13 @@ class WeisheitTests(unittest.TestCase):
             MODULE.pick_weisheit(weisheiten, day + timedelta(days=1)),
         )
 
+    def test_render_keeps_source_lines_as_separate_blocks(self):
+        html = MODULE.render_page()
+        current = MODULE.pick_weisheit(MODULE.load_weisheiten(), date.today())
+        self.assertEqual(html.count('class="weisheit-line"'), len(current.splitlines()))
+        self.assertIn("widths.some((width) => width > text.clientWidth)", html)
+        self.assertIn("widths[index] * 0.58", html)
+
 
 if __name__ == "__main__":
     unittest.main()

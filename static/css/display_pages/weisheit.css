@@ -41,18 +41,29 @@
 }
 
 .weisheit-text {
-  max-width: 1200px;
+  width: calc(70vw - var(--display-content-left));
+  max-width: none;
   margin: 0;
   color: #fff;
   font-size: 88px;
-  line-height: 1.08;
-  font-weight: 800;
-  letter-spacing: -0.025em;
-  white-space: pre-line;
-  text-wrap: balance;
+  line-height: 1.18;
+  font-weight: 700;
+  letter-spacing: -0.01em;
   text-shadow:
     0 6px 16px rgba(0, 0, 0, 0.76),
     0 0 22px rgba(246, 211, 107, 0.12);
+}
+
+.weisheit-line {
+  display: block;
+  width: max-content;
+  max-width: 100%;
+  white-space: nowrap;
+}
+
+.weisheit-line-wrap {
+  white-space: normal;
+  text-wrap: balance;
 }
 
 .weisheit-image {

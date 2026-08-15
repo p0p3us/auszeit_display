@@ -25,8 +25,11 @@
     <div class="weisheit-kicker">Täglich frisch eingeschenkt</div>
     <h1>Auszeit-Weisheit</h1>
 
-    <blockquote class="weisheit-text">„Verliert der Bauer seine Hose,
-war bestimmt der Gummi lose.“</blockquote>
+    <blockquote class="weisheit-text" aria-label="„Verliert der Bauer seine Hose,
+war bestimmt der Gummi lose.“">
+      <span class="weisheit-line">„Verliert der Bauer seine Hose,</span>
+      <span class="weisheit-line">war bestimmt der Gummi lose.“</span>
+    </blockquote>
   </section>
 
   <script>
@@ -35,13 +38,37 @@ war bestimmt der Gummi lose.“</blockquote>
       const card = document.querySelector('.weisheit-card');
       if (!text || !card) return;
 
+      const lines = [...text.querySelectorAll('.weisheit-line')];
+      const canvas = document.createElement('canvas');
+      const context = canvas.getContext('2d');
       let size = 88;
       const minimum = 48;
-      text.style.fontSize = `${size}px`;
 
+      const layoutLines = () => {
+        text.style.fontSize = `${size}px`;
+        const style = getComputedStyle(text);
+        context.font = `${style.fontWeight} ${size}px ${style.fontFamily}`;
+
+        lines.forEach((line) => {
+          line.classList.remove('weisheit-line-wrap');
+          line.style.width = '';
+        });
+
+        const widths = lines.map((line) => context.measureText(line.textContent).width);
+        const wrapAll = widths.some((width) => width > text.clientWidth);
+
+        if (wrapAll) {
+          lines.forEach((line, index) => {
+            line.classList.add('weisheit-line-wrap');
+            line.style.width = `${Math.ceil(widths[index] * 0.58)}px`;
+          });
+        }
+      };
+
+      layoutLines();
       while (size > minimum && card.scrollHeight > card.clientHeight) {
         size -= 2;
-        text.style.fontSize = `${size}px`;
+        layoutLines();
       }
     })();
   </script>
@@ -49,7 +76,7 @@ war bestimmt der Gummi lose.“</blockquote>
   </main>
 
   <!--<footer class="display-footer">
-    <div>Aktualisiert: 15.08.2026 11:59</div>
+    <div>Aktualisiert: 15.08.2026 12:44</div>
     <div>fd119f829dbb</div>
   </footer>-->
 </body>
