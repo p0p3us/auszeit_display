@@ -1,0 +1,92 @@
+.zitat-card {
+  width: 67vw;
+  max-width: 1280px;
+  height: 680px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.zitat-kicker {
+  margin-bottom: 10px;
+  color: rgba(255, 255, 255, 0.88);
+  font-size: 36px;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+}
+
+.zitat-card h1 {
+  margin: 0 0 58px 0;
+  padding-bottom: 10px;
+  font-size: 132px;
+  line-height: 1.04;
+  font-weight: 800;
+  letter-spacing: -0.045em;
+  background: linear-gradient(
+    180deg,
+    #fff1ad 0%,
+    #d7b25a 18%,
+    #8a6120 42%,
+    #c99a3a 58%,
+    #f0d178 74%,
+    #7a4d18 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow:
+    0 2px 2px rgba(255, 235, 160, 0.18),
+    0 0 12px rgba(212, 165, 64, 0.22),
+    0 0 26px rgba(160, 95, 24, 0.16),
+    0 8px 18px rgba(0, 0, 0, 0.72);
+}
+
+.zitat-text {
+  width: 57vw;
+  max-width: 1090px;
+  margin: 0;
+  color: #fff;
+  font-size: 78px;
+  line-height: 1.16;
+  font-weight: 650;
+  letter-spacing: -0.015em;
+  white-space: pre-line;
+  text-wrap: balance;
+  text-shadow:
+    0 6px 16px rgba(0, 0, 0, 0.76),
+    0 0 22px rgba(246, 211, 107, 0.12);
+}
+
+.zitat-author {
+  margin-top: auto;
+  padding-top: 30px;
+  color: rgba(255, 255, 255, 0.96);
+  text-shadow: 0 4px 12px rgba(0, 0, 0, 0.78);
+}
+
+.zitat-author-name {
+  font-size: 38px;
+  font-weight: 750;
+}
+
+.zitat-author-name span {
+  font-weight: 450;
+}
+
+.zitat-author-description {
+  margin-top: 6px;
+  font-size: 29px;
+  font-weight: 400;
+}
+
+.zitat-image {
+  right: 3.5vw;
+  bottom: 0;
+  width: auto;
+  height: 74vh;
+  max-width: 35vw;
+  object-fit: contain;
+  object-position: right bottom;
+  filter:
+    drop-shadow(-30px -18px 44px rgba(0, 0, 0, 0.52))
+    drop-shadow(0 0 34px rgba(246, 211, 107, 0.1));
+}

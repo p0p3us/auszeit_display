@@ -147,6 +147,14 @@ class ShellScriptTests(unittest.TestCase):
         self.assertIn("resources/images/weisheit.png", script)
         self.assertIn("$EXPORT_DIR/weisheit/index.html", publisher)
 
+    def test_public_export_includes_zitat_pipeline(self):
+        script = (SCRIPTS_DIR / "export_public.sh").read_text()
+
+        self.assertIn("scripts/generate_zitat.py", script)
+        self.assertIn("pages/zitat/anzeige.html", script)
+        self.assertIn("display_pages/zitat.css", script)
+        self.assertIn("resources/zitate/", script)
+
     def test_public_export_preserves_unchanged_files(self):
         script = (SCRIPTS_DIR / "export_public.sh").read_text()
 

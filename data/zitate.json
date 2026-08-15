@@ -1,0 +1,420 @@
+{
+  "zitate": [
+    {
+      "text": "Eigentlich bin ich ganz anders. Ich komme nur viel zu selten dazu.",
+      "autor": "Ödön von Horváth",
+      "geburtsjahr": 1901,
+      "sterbejahr": 1938,
+      "beschreibung": "österreichisch-ungarischer Schriftsteller",
+      "bild": "odon-von-horvath-52a12c09.png"
+    },
+    {
+      "text": "Der Unterschied zwischen Genialität und Dummheit ist, dass Genialität ihre Grenzen hat.",
+      "autor": "Albert Einstein",
+      "geburtsjahr": 1879,
+      "sterbejahr": 1955,
+      "beschreibung": "deutsch-amerikanischer Physiker",
+      "bild": "albert-einstein-5528b6c2.png"
+    },
+    {
+      "text": "Ich habe in meinen beiden früheren Ehen Pech gehabt. Die erste Frau verließ mich, die zweite tat es nicht.",
+      "autor": "Woody Allen",
+      "geburtsjahr": 1935,
+      "sterbejahr": null,
+      "beschreibung": "US-amerikanischer Regisseur, Autor, Schauspieler und Komiker",
+      "bild": "heywood-woody-allen-ad6c1c42.png"
+    },
+    {
+      "text": "Bedenke immer: Sechs Bier sind eine Mahlzeit. Und dann hat man noch nichts getrunken.",
+      "autor": "Joachim Panten",
+      "geburtsjahr": 1947,
+      "sterbejahr": 2007,
+      "beschreibung": "deutscher Aphoristiker und Publizist",
+      "bild": "joachim-panten-bc65be7d.png"
+    },
+    {
+      "text": "Wissen ist zu wissen, dass eine Tomate eine Frucht ist. Weisheit ist, sie nicht in einen Obstsalat zu tun.",
+      "autor": "Miles Kington",
+      "geburtsjahr": 1941,
+      "sterbejahr": 2008,
+      "beschreibung": "britischer Journalist, Musiker und Humorist",
+      "bild": "miles-kington-cf758a1c.png"
+    },
+    {
+      "text": "Denk daran, heute ist das Morgen, an dem Du Dir über gestern Sorgen gemacht hast.",
+      "autor": "Dale Carnegie",
+      "geburtsjahr": 1888,
+      "sterbejahr": 1955,
+      "beschreibung": "US-amerikanischer Autor und Kommunikationstrainer",
+      "bild": "dale-carnegie-588fcd35.png"
+    },
+    {
+      "text": "Werden Schneemänner eigentlich geboren?\nJa! Sie haben doch sicher auch schon von „Schneewehen“ gehört.",
+      "autor": "Heinz Erhardt",
+      "geburtsjahr": 1909,
+      "sterbejahr": 1979,
+      "beschreibung": "deutscher Komiker, Musiker, Schauspieler und Dichter",
+      "bild": "heinz-erhardt-1c3716c2.png"
+    },
+    {
+      "text": "Zur Unterhaltung einer Party trägt niemand so viel bei, wie diejenigen, die gar nicht da sind.",
+      "autor": "Audrey Hepburn",
+      "geburtsjahr": 1929,
+      "sterbejahr": 1993,
+      "beschreibung": "britisch-niederländische Schauspielerin",
+      "bild": "audrey-hepburn-99ea6c9a.png"
+    },
+    {
+      "text": "Es gibt ebenso wenig hundert-prozentige Wahrheit wie hundertprozentigen Alkohol.",
+      "autor": "Sigmund Freud",
+      "geburtsjahr": 1856,
+      "sterbejahr": 1939,
+      "beschreibung": "österreichischer Arzt und Begründer der Psychoanalyse",
+      "bild": "sigmund-freud-8cac7809.png"
+    },
+    {
+      "text": "Ich vergesse nie ein Gesicht – aber in deinem Fall mache ich gerne eine Ausnahme.",
+      "autor": "Groucho Marx",
+      "geburtsjahr": 1890,
+      "sterbejahr": 1977,
+      "beschreibung": "US-amerikanischer Komiker, Schauspieler und Entertainer",
+      "bild": "groucho-marx-9248f30d.png"
+    },
+    {
+      "text": "Ich trenne auch im Auto Müll: Flaschen werfe ich links, Dosen rechts aus dem Fenster!",
+      "autor": "Harald Schmidt",
+      "geburtsjahr": 1957,
+      "sterbejahr": null,
+      "beschreibung": "deutscher Kabarettist, Schauspieler, Kolumnist und Moderator",
+      "bild": "harald-schmidt-1957-40ecdd6c.png"
+    },
+    {
+      "text": "Bei der Behörde ist es genau wie beim Theater: Ein paar arbeiten, und die anderen schauen zu.",
+      "autor": "Heinz Erhardt",
+      "geburtsjahr": 1909,
+      "sterbejahr": 1979,
+      "beschreibung": "deutscher Komiker, Musiker, Schauspieler und Dichter",
+      "bild": "heinz-erhardt-1c3716c2.png"
+    },
+    {
+      "text": "Wer anderen zuhört, ist mitverantwortlich, wenn sie immer weiterreden!",
+      "autor": "Lisa Fitz",
+      "geburtsjahr": 1951,
+      "sterbejahr": null,
+      "beschreibung": "deutsche Kabarettistin, Schauspielerin und Sängerin",
+      "bild": "lisa-fitz-1951-188f5373.png"
+    },
+    {
+      "text": "Ist Dir mal aufgefallen, dass jeder, der langsamer fährt als Du, ein Idiot ist – und jeder, der schneller fährt, ein Verrückter?",
+      "autor": "George Carlin",
+      "geburtsjahr": 1937,
+      "sterbejahr": 2008,
+      "beschreibung": "US-amerikanischer Komiker, Schauspieler und Autor",
+      "bild": "george-carlin-2bb14f20.png"
+    },
+    {
+      "text": "Taktgefühl ist die Fähigkeit, andere so zu sehen, wie sie sich selbst sehen.",
+      "autor": "Abraham Lincoln",
+      "geburtsjahr": 1809,
+      "sterbejahr": 1865,
+      "beschreibung": "16. Präsident der Vereinigten Staaten",
+      "bild": "abraham-lincoln-6e5e5105.png"
+    },
+    {
+      "text": "Vergib deinen Feinden immer – nichts ärgert sie so sehr.",
+      "autor": "Oscar Wilde",
+      "geburtsjahr": 1854,
+      "sterbejahr": 1900,
+      "beschreibung": "irischer Schriftsteller",
+      "bild": "oscar-wilde-08ea0a4e.png"
+    },
+    {
+      "text": "Ich hab’ ein Lebensmotto:\nI wünsch ma, wos i kriag.",
+      "autor": "Willi Resetarits",
+      "geburtsjahr": 1948,
+      "sterbejahr": 2022,
+      "beschreibung": "österreichischer Musiker, Sänger und Menschenrechtsaktivist",
+      "bild": "willi-resetarits-25460ea7.png"
+    },
+    {
+      "text": "Auch die besessensten Vegetarier beißen nicht gern ins Gras.",
+      "autor": "Joachim Ringelnatz",
+      "geburtsjahr": 1883,
+      "sterbejahr": 1934,
+      "beschreibung": "deutscher Schriftsteller, Kabarettist und Maler",
+      "bild": "joachim-ringelnatz-05fcd5ca.png"
+    },
+    {
+      "text": "Ein Blitzableiter auf einem Kirchturm ist das denkbar stärkste Misstrauensvotum gegen den lieben Gott.",
+      "autor": "Karl Kraus",
+      "geburtsjahr": 1874,
+      "sterbejahr": 1936,
+      "beschreibung": "österreichischer Schriftsteller, Satiriker und Aphoristiker",
+      "bild": "karl-kraus-17706a09.png"
+    },
+    {
+      "text": "Der wahre Charakter eines Menschen zeigt sich, wenn im Supermarkt eine zweite Kasse aufmacht.",
+      "autor": "Autor unbekannt",
+      "geburtsjahr": null,
+      "sterbejahr": null,
+      "beschreibung": "",
+      "bild": "unbekannt-05725342.png"
+    },
+    {
+      "text": "Ich habe eine Diät gemacht und fettem Essen und Alkohol abgeschworen. In zwei Wochen verlor ich 14 Tage.",
+      "autor": "Joe E. Lewis",
+      "geburtsjahr": 1902,
+      "sterbejahr": 1971,
+      "beschreibung": "US-amerikanischer Komiker, Schauspieler und Sänger",
+      "bild": "joe-e-lewis-4b4a8826.png"
+    },
+    {
+      "text": "Da kann einer sagen, was er will, das beste Essen ist immer noch das Trinken.",
+      "autor": "Heinz Erhardt",
+      "geburtsjahr": 1909,
+      "sterbejahr": 1979,
+      "beschreibung": "deutscher Komiker, Musiker, Schauspieler und Dichter",
+      "bild": "heinz-erhardt-1c3716c2.png"
+    },
+    {
+      "text": "Wenn Du denkst, Du seist zu klein, um etwas zu bewirken, versuch mal, mit einer Mücke im Raum zu schlafen.",
+      "autor": "Dalai Lama",
+      "geburtsjahr": 1935,
+      "sterbejahr": null,
+      "beschreibung": "Tendzin Gyatsho, 14. Dalai Lama und buddhistischer Mönch",
+      "bild": "dalai-lama-701f8e55.png"
+    },
+    {
+      "text": "Mailand oder Madrid – Hauptsache Italien.",
+      "autor": "Andreas Möller",
+      "geburtsjahr": 1967,
+      "sterbejahr": null,
+      "beschreibung": "ehemaliger deutscher Fußballspieler",
+      "bild": "andreas-moller-1967-18a69512.png"
+    },
+    {
+      "text": "Auch Wasser wird zum edlen Tropfen,\nmischt man es mit Malz und Hopfen.",
+      "autor": "Autor unbekannt",
+      "geburtsjahr": null,
+      "sterbejahr": null,
+      "beschreibung": "",
+      "bild": "unbekannt-05725342.png"
+    },
+    {
+      "text": "Heute muss einer im Showbusiness\nschon von Schwein reden, wenn er\nnicht zur Sau gemacht wird.",
+      "autor": "Harald Juhnke",
+      "geburtsjahr": 1929,
+      "sterbejahr": 2005,
+      "beschreibung": "deutscher Schauspieler, Entertainer und Sänger",
+      "bild": "harald-juhnke-85801452.png"
+    },
+    {
+      "text": "Tu deinem Leib etwas Gutes, damit deine Seele Lust hat, darin zu wohnen.",
+      "autor": "Teresa von Ávila",
+      "geburtsjahr": 1515,
+      "sterbejahr": 1582,
+      "beschreibung": "spanische Karmelitin, Mystikerin und Kirchenlehrerin",
+      "bild": "teresa-von-avila.png"
+    },
+    {
+      "text": "Richtig verheiratet ist ein Mann erst dann, wenn er jedes Wort versteht, das seine Frau nicht gesagt hat.",
+      "autor": "Alfred Hitchcock",
+      "geburtsjahr": 1899,
+      "sterbejahr": 1980,
+      "beschreibung": "britischer Filmregisseur und Produzent",
+      "bild": "sir-alfred-hitchcock-a5902f43.png"
+    },
+    {
+      "text": "Da kam das Elfmeterschießen. Wir hatten alle die Hosen voll, aber bei mir lief's ganz flüssig.",
+      "autor": "Paul Breitner",
+      "geburtsjahr": 1951,
+      "sterbejahr": null,
+      "beschreibung": "ehemaliger deutscher Fußballspieler",
+      "bild": "paul-breitner-05-09-1971-76b1443f.png"
+    },
+    {
+      "text": "Frauen sind die Juwelen der Schöpfung. Man muss sie mit Fassung tragen.",
+      "autor": "Heinz Erhardt",
+      "geburtsjahr": 1909,
+      "sterbejahr": 1979,
+      "beschreibung": "deutscher Komiker, Musiker, Schauspieler und Dichter",
+      "bild": "heinz-erhardt-1c3716c2.png"
+    },
+    {
+      "text": "Bei uns hat de facto bereits jede Partei zwei Flügel. Politiker sind also die reinsten Engel.",
+      "autor": "Karl Farkas",
+      "geburtsjahr": 1893,
+      "sterbejahr": 1971,
+      "beschreibung": "österreichischer Kabarettist und Schauspieler",
+      "bild": "karl-farkas-670ebe0f.png"
+    },
+    {
+      "text": "Wissen ist wie Unterwäsche. Sie zu besitzen, ist nützlich, aber es ist unnötig, mit ihr anzugeben.",
+      "autor": "Bill Murray",
+      "geburtsjahr": 1950,
+      "sterbejahr": null,
+      "beschreibung": "US-amerikanischer Schauspieler, Komiker und Produzent",
+      "bild": "bill-murray-1950-bd01b2b6.png"
+    },
+    {
+      "text": "Curling – die perfekte Frauensportart: überwiegend gebückt und permanent mit Schrubber und Wasserkessel.",
+      "autor": "Harald Schmidt",
+      "geburtsjahr": 1957,
+      "sterbejahr": null,
+      "beschreibung": "deutscher Kabarettist, Schauspieler, Kolumnist und Moderator",
+      "bild": "harald-schmidt-1957-40ecdd6c.png"
+    },
+    {
+      "text": "Wenn ich übers Wasser laufe, dann sagen meine Kritiker, nicht mal schwimmen kann er.",
+      "autor": "Berti Vogts",
+      "geburtsjahr": 1946,
+      "sterbejahr": null,
+      "beschreibung": "ehemaliger deutscher Fußballspieler und -trainer",
+      "bild": "hans-hubert-berti-vogts-1946-5f74ff87.png"
+    },
+    {
+      "text": "Diebe verlangen Geld oder Leben, Frauen beides.",
+      "autor": "Samuel Butler",
+      "geburtsjahr": 1835,
+      "sterbejahr": 1902,
+      "beschreibung": "britischer Schriftsteller, Komponist und Maler",
+      "bild": "samuel-butler-87f0c6e8.png"
+    },
+    {
+      "text": "Das erste, was man bei einer Abmagerungskur verliert, ist die gute Laune.",
+      "autor": "Heinz Erhardt",
+      "geburtsjahr": 1909,
+      "sterbejahr": 1979,
+      "beschreibung": "deutscher Komiker, Musiker, Schauspieler und Dichter",
+      "bild": "heinz-erhardt-1c3716c2.png"
+    },
+    {
+      "text": "Eine glückliche Ehe ist eine, in der sie ein bisschen blind und er ein bisschen taub ist.",
+      "autor": "Loriot",
+      "geburtsjahr": 1923,
+      "sterbejahr": 2011,
+      "beschreibung": "deutscher Humorist, Zeichner, Regisseur und Schauspieler",
+      "bild": "bernhard-viktor-christoph-carl-von-bulow-loriot-bef20f92.png"
+    },
+    {
+      "text": "Der größte Schauspieler der Welt ist mein Hund. Wenn er Hunger hat, tut er so, als ob er mich liebt.",
+      "autor": "Marlon Brando",
+      "geburtsjahr": 1924,
+      "sterbejahr": 2004,
+      "beschreibung": "US-amerikanischer Schauspieler",
+      "bild": "marlon-brando-ec82f939.png"
+    },
+    {
+      "text": "Ich weiß nicht immer, wovon ich rede, aber ich weiß, dass ich recht habe.",
+      "autor": "Muhammad Ali",
+      "geburtsjahr": 1942,
+      "sterbejahr": 2016,
+      "beschreibung": "US-amerikanischer Boxer",
+      "bild": "cassius-marcellus-clay-jr-alias-muhammad-ali-85e02b62.png"
+    },
+    {
+      "text": "Über eigene Fehler zu lachen, kann das Leben verlängern. Über die Fehler anderer zu lachen, kann es verkürzen.",
+      "autor": "Cullen Hightower",
+      "geburtsjahr": 1923,
+      "sterbejahr": 2008,
+      "beschreibung": "US-amerikanischer Aphoristiker und Autor",
+      "bild": "cullen-hightower-843f80fe.png"
+    },
+    {
+      "text": "Wenn du schon nicht gewinnen kannst, musst du wenigstens sehen, dass du nicht verlierst.",
+      "autor": "Toni Polster",
+      "geburtsjahr": 1964,
+      "sterbejahr": null,
+      "beschreibung": "ehemaliger österreichischer Fußballspieler und -trainer",
+      "bild": "anton-toni-polster-1964-b0659395.png"
+    },
+    {
+      "text": "Mit Gesetzen ist es wie mit Würstchen. Es ist besser, wenn man nicht sieht, wie sie gemacht werden.",
+      "autor": "Otto von Bismarck",
+      "geburtsjahr": 1815,
+      "sterbejahr": 1898,
+      "beschreibung": "erster Reichskanzler des Deutschen Reiches",
+      "bild": "otto-von-bismarck-0d4e317c.png"
+    },
+    {
+      "text": "Es gibt drei Arten von Lügen: die echte, die Statistik und die Wahrheit.",
+      "autor": "Hugo Wiener",
+      "geburtsjahr": 1904,
+      "sterbejahr": 1993,
+      "beschreibung": "österreichischer Komponist, Librettist und Kabarettautor",
+      "bild": "hugo-wiener-9eff1195.png"
+    },
+    {
+      "text": "Bankraub ist eine Unternehmung von Dilettanten. Wahre Profis gründen eine Bank.",
+      "autor": "Bertolt Brecht",
+      "geburtsjahr": 1898,
+      "sterbejahr": 1956,
+      "beschreibung": "deutscher Dramatiker und Lyriker",
+      "bild": "bertold-brecht-2c2fe774.png"
+    },
+    {
+      "text": "Manche Menschen wollen immer nur glänzen, obwohl sie keinen Schimmer haben.",
+      "autor": "Heinz Erhardt",
+      "geburtsjahr": 1909,
+      "sterbejahr": 1979,
+      "beschreibung": "deutscher Komiker, Musiker, Schauspieler und Dichter",
+      "bild": "heinz-erhardt-1c3716c2.png"
+    },
+    {
+      "text": "Demokratie ist, wenn das Volk mitreden kann und die Regierung trotzdem macht, was sie will.",
+      "autor": "Karl Farkas",
+      "geburtsjahr": 1893,
+      "sterbejahr": 1971,
+      "beschreibung": "österreichischer Kabarettist und Schauspieler",
+      "bild": "karl-farkas-670ebe0f.png"
+    },
+    {
+      "text": "Ich habe viel von meinem Geld für Alkohol, Weiber und schnelle Autos ausgegeben … Den Rest habe ich einfach verprasst.",
+      "autor": "George Best",
+      "geburtsjahr": 1946,
+      "sterbejahr": 2005,
+      "beschreibung": "nordirischer Fußballspieler",
+      "bild": "george-best.png"
+    },
+    {
+      "text": "Einige erzeugen Freude, wohin immer sie gehen; andere, wann immer sie gehen.",
+      "autor": "Oscar Wilde",
+      "geburtsjahr": 1854,
+      "sterbejahr": 1900,
+      "beschreibung": "irischer Schriftsteller",
+      "bild": "oscar-wilde-08ea0a4e.png"
+    },
+    {
+      "text": "Bernhardiner ist das letzte, was ich sein möchte. Dauernd die Flasche am Hals, und niemals trinken dürfen!",
+      "autor": "Joachim Ringelnatz",
+      "geburtsjahr": 1883,
+      "sterbejahr": 1934,
+      "beschreibung": "deutscher Schriftsteller, Kabarettist und Maler",
+      "bild": "joachim-ringelnatz-05fcd5ca.png"
+    },
+    {
+      "text": "Was finden die Leute bloß an Facebook? Früher war es eine Strafe, die Urlaubsfotos anderer Leute anschauen zu müssen.",
+      "autor": "Betty White",
+      "geburtsjahr": 1922,
+      "sterbejahr": 2021,
+      "beschreibung": "US-amerikanische Schauspielerin, Komikerin und Moderatorin",
+      "bild": "unbekannt-2b1d465d.png"
+    },
+    {
+      "text": "Meine Definition von Glück? Keine Termine und leicht einen sitzen haben!",
+      "autor": "Harald Juhnke",
+      "geburtsjahr": 1929,
+      "sterbejahr": 2005,
+      "beschreibung": "deutscher Schauspieler, Entertainer und Sänger",
+      "bild": "harald-juhnke-85801452.png"
+    },
+    {
+      "text": "Ich kann freilich nicht sagen, ob es besser wird, wenn es anders wird; aber so viel kann ich sagen: Es muss anders werden, wenn es gut werden soll.",
+      "autor": "Georg Christoph Lichtenberg",
+      "geburtsjahr": 1742,
+      "sterbejahr": 1799,
+      "beschreibung": "deutscher Physiker, Naturforscher und Schriftsteller",
+      "bild": "georg-christoph-lichtenberg.png"
+    }
+  ]
+}

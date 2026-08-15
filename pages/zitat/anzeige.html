@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Zitat des Tages</title>
+
+  <link rel="stylesheet" href="/auszeit-display/static/css/display_pages/base_display.css">
+  
+  <link rel="stylesheet" href="/auszeit-display/static/css/display_pages/zitat.css">
+
+</head>
+<body>
+  <div class="display-background"></div>
+
+  <img class="display-logo" src="/auszeit-display/resources/images/logo.png" alt="Café Auszeit">
+
+  
+  <img class="display-topic-image zitat-image"
+       src="/auszeit-display/resources/zitate/cullen-hightower-843f80fe.png"
+       alt="Porträt von Cullen Hightower">
+
+
+  <main class="display-content">
+    
+  <section class="zitat-card">
+    <div class="zitat-kicker">Täglich ein guter Gedanke</div>
+    <h1>Zitat des Tages</h1>
+
+    <blockquote class="zitat-text">„Über eigene Fehler zu lachen, kann das Leben verlängern. Über die Fehler anderer zu lachen, kann es verkürzen.“</blockquote>
+
+    <div class="zitat-author">
+      <div class="zitat-author-name">Cullen Hightower <span>(1923–2008)</span></div>
+      <div class="zitat-author-description">US-amerikanischer Aphoristiker und Autor</div>
+    </div>
+  </section>
+
+  <script>
+    (() => {
+      const card = document.querySelector('.zitat-card');
+      const quote = document.querySelector('.zitat-text');
+      if (!card || !quote) return;
+
+      let size = 78;
+      const minimum = 42;
+      quote.style.fontSize = `${size}px`;
+
+      while (size > minimum && card.scrollHeight > card.clientHeight) {
+        size -= 2;
+        quote.style.fontSize = `${size}px`;
+      }
+    })();
+  </script>
+
+  </main>
+
+</body>
+</html>
