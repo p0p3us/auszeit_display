@@ -147,6 +147,14 @@ class ShellScriptTests(unittest.TestCase):
         self.assertIn("resources/images/weisheit.png", script)
         self.assertIn("$EXPORT_DIR/weisheit/index.html", publisher)
 
+    def test_public_export_preserves_unchanged_files(self):
+        script = (SCRIPTS_DIR / "export_public.sh").read_text()
+
+        self.assertIn('STAGING_DIR="$(mktemp -d', script)
+        self.assertIn("trap cleanup EXIT", script)
+        self.assertIn("rsync -r --delete --checksum --itemize-changes", script)
+        self.assertNotIn('rm -rf "$EXPORT_DIR"', script)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -12,6 +12,15 @@ PROJECT_DIR = Path(__file__).resolve().parents[1]
 
 
 class GeneratorTests(unittest.TestCase):
+    def test_base_template_does_not_render_hidden_timestamp_footer(self):
+        template = (
+            PROJECT_DIR / "templates" / "display_pages" / "base_display.html"
+        ).read_text(encoding="utf-8")
+
+        self.assertNotIn("display-footer", template)
+        self.assertNotIn("footer_left", template)
+        self.assertNotIn("footer_right", template)
+
     def test_event_template_uses_vertical_meta_rows_and_text_fitting(self):
         template = (PROJECT_DIR / "templates" / "display_pages" / "termin.html").read_text(
             encoding="utf-8"
