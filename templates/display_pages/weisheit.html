@@ -1,0 +1,40 @@
+{% extends "base_display.html" %}
+
+{% block title %}Auszeit-Weisheit{% endblock %}
+
+{% block styles %}
+  <link rel="stylesheet" href="/auszeit-display/static/css/display_pages/weisheit.css">
+{% endblock %}
+
+{% block topic_image %}
+  <img class="display-topic-image weisheit-image" src="/auszeit-display/resources/images/weisheit.png" alt="">
+{% endblock %}
+
+{% block content %}
+  <section class="weisheit-card">
+    <div class="weisheit-kicker">Täglich frisch eingeschenkt</div>
+    <h1>Auszeit-Weisheit</h1>
+
+    <blockquote class="weisheit-text">„{{ weisheit }}“</blockquote>
+  </section>
+
+  <script>
+    (() => {
+      const text = document.querySelector('.weisheit-text');
+      const card = document.querySelector('.weisheit-card');
+      if (!text || !card) return;
+
+      let size = 88;
+      const minimum = 48;
+      text.style.fontSize = `${size}px`;
+
+      while (size > minimum && card.scrollHeight > card.clientHeight) {
+        size -= 2;
+        text.style.fontSize = `${size}px`;
+      }
+    })();
+  </script>
+{% endblock %}
+
+{% block footer_left %}Aktualisiert: {{ updated_text }}{% endblock %}
+{% block footer_right %}{{ hostname }}{% endblock %}

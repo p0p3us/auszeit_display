@@ -29,6 +29,7 @@ echo "===== Gemeinsamen Public-Export erstellen ====="
 
 if [ ! -f "$EXPORT_DIR/namenstag/index.html" ] \
   || [ ! -f "$EXPORT_DIR/bauernregel/index.html" ] \
+  || [ ! -f "$EXPORT_DIR/weisheit/index.html" ] \
   || [ ! -d "$EXPORT_DIR/news" ] \
   || [ ! -d "$EXPORT_DIR/weather" ] \
   || [ ! -d "$EXPORT_DIR/menue" ]; then
@@ -47,3 +48,4 @@ EOF
 echo "===== Veröffentlichung fertig ====="
 echo "Namenstag:    https://populorum.eu/auszeit-display/namenstag/"
 echo "Bauernregel:  https://populorum.eu/auszeit-display/bauernregel/"
+echo "Weisheit:     https://populorum.eu/auszeit-display/weisheit/"

@@ -30,6 +30,7 @@ class GeneratorTests(unittest.TestCase):
         scripts = (
             "generate_namenstag.py",
             "generate_bauernregel.py",
+            "generate_weisheit.py",
             "generate_news.py",
             "generate_weather.py",
             "export_menue.py",
@@ -38,6 +39,7 @@ class GeneratorTests(unittest.TestCase):
         expected_pages = (
             "pages/namenstag/anzeige.html",
             "pages/bauernregel/anzeige.html",
+            "pages/weisheit/anzeige.html",
             "pages/news/index.html",
             "pages/weather/index.html",
             "pages/weather/morgen.html",

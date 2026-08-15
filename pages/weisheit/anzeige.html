@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Auszeit-Weisheit</title>
+
+  <link rel="stylesheet" href="/auszeit-display/static/css/display_pages/base_display.css">
+  
+  <link rel="stylesheet" href="/auszeit-display/static/css/display_pages/weisheit.css">
+
+</head>
+<body>
+  <div class="display-background"></div>
+
+  <img class="display-logo" src="/auszeit-display/resources/images/logo.png" alt="Café Auszeit">
+
+  
+  <img class="display-topic-image weisheit-image" src="/auszeit-display/resources/images/weisheit.png" alt="">
+
+
+  <main class="display-content">
+    
+  <section class="weisheit-card">
+    <div class="weisheit-kicker">Täglich frisch eingeschenkt</div>
+    <h1>Auszeit-Weisheit</h1>
+
+    <blockquote class="weisheit-text">„Verliert der Bauer seine Hose,
+war bestimmt der Gummi lose.“</blockquote>
+  </section>
+
+  <script>
+    (() => {
+      const text = document.querySelector('.weisheit-text');
+      const card = document.querySelector('.weisheit-card');
+      if (!text || !card) return;
+
+      let size = 88;
+      const minimum = 48;
+      text.style.fontSize = `${size}px`;
+
+      while (size > minimum && card.scrollHeight > card.clientHeight) {
+        size -= 2;
+        text.style.fontSize = `${size}px`;
+      }
+    })();
+  </script>
+
+  </main>
+
+  <!--<footer class="display-footer">
+    <div>Aktualisiert: 15.08.2026 11:59</div>
+    <div>fd119f829dbb</div>
+  </footer>-->
+</body>
+</html>

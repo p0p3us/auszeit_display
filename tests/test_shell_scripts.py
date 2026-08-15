@@ -137,6 +137,16 @@ class ShellScriptTests(unittest.TestCase):
         self.assertIn("resources/termine/", script)
         self.assertIn("display_pages/termine.css", script)
 
+    def test_public_export_includes_weisheit_pipeline(self):
+        script = (SCRIPTS_DIR / "export_public.sh").read_text()
+        publisher = (SCRIPTS_DIR / "publish_public_ftp.sh").read_text()
+
+        self.assertIn("scripts/generate_weisheit.py", script)
+        self.assertIn("pages/weisheit/anzeige.html", script)
+        self.assertIn("display_pages/weisheit.css", script)
+        self.assertIn("resources/images/weisheit.png", script)
+        self.assertIn("$EXPORT_DIR/weisheit/index.html", publisher)
+
 
 if __name__ == "__main__":
     unittest.main()

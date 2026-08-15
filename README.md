@@ -170,6 +170,14 @@ erzeugt daraus chronologisch sortierte Einzelfolien unter `pages/termine/`.
 Der gemeinsame Public-Export veröffentlicht die Folien und Bilder unter
 `/auszeit-display/termine/` beziehungsweise `/auszeit-display/resources/termine/`.
 
+## Auszeit-Weisheit
+
+`scripts/generate_weisheit.py` wählt aus `data/weisheiten.json` für jedes
+Kalenderdatum reproduzierbar eine Weisheit und erzeugt
+`pages/weisheit/anzeige.html`. Vorhandene Zeilenumbrüche bleiben erhalten. Der
+stündliche Public-Export veröffentlicht die Folie zusätzlich unter
+`/auszeit-display/weisheit/`; innerhalb eines Tages bleibt der Text unverändert.
+
 ## Aktueller Hardwarehinweis
 
 Der Raspberry Pi 4 bootet von SSD. Die SSD läuft im derzeitigen Aufbau stabil am USB-2-Port. Der Hostname lautet `auszeit`.
