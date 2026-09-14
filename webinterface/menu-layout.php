@@ -199,6 +199,34 @@ function menu_build_rows(array $data): array
     return $rows;
 }
 
+/**
+ * Wählt je Menüzeile die größtmögliche gut lesbare Schriftstufe.
+ * Die Einteilung funktioniert auch in der Dompdf-Ausgabe, in der JavaScript
+ * zum nachträglichen Einpassen nicht verfügbar ist.
+ */
+function menu_text_length(string $value): int
+{
+    $value = trim(preg_replace('/\s+/u', ' ', $value) ?? $value);
+    return function_exists('mb_strlen') ? mb_strlen($value, 'UTF-8') : strlen($value);
+}
+
+function menu_row_typography(array $row): string
+{
+    $titleLength = menu_text_length((string)($row['title'] ?? ''));
+    $sideLength = menu_text_length((string)($row['side'] ?? ''));
+    $soupLength = menu_text_length((string)($row['soup'] ?? ''));
+    $longest = max($titleLength, $sideLength, $soupLength);
+    $load = $titleLength + ($sideLength * 0.55) + ($soupLength * 0.35);
+
+    if ($titleLength >= 42 || $longest >= 50 || $load >= 72) {
+        return 'long';
+    }
+    if ($titleLength >= 27 || $sideLength >= 32 || $load >= 48) {
+        return 'medium';
+    }
+    return 'short';
+}
+
 function render_menu_document(array $data, bool $fullDocument = true, bool $pdfMode = false): string
 {
     $rows = menu_build_rows($data);
@@ -355,19 +383,24 @@ html, body { margin: 0; padding: 0; background: #363636; }
 }
 .menu-row-table { width: 100%; height: 100%; border-collapse: collapse; table-layout: fixed; }
 .day-cell {
-    width: 31mm;
-    padding-right: 4mm;
+    width: 28mm;
+    padding-right: 3mm;
     border-right: 0.25mm solid rgba(111,65,8,.65);
-    font-size: 13.2pt;
+    font-size: 15.2pt;
     font-style: italic;
     font-weight: 700;
-    vertical-align: top;
+    line-height: 1.05;
+    vertical-align: middle;
 }
-.dish-cell { padding-left: 4.5mm; vertical-align: middle; }
-.price-cell { width: 26mm; text-align: right; vertical-align: top; font-size: 16pt; font-weight: 700; white-space: nowrap; }
-.soup { font-size: 11.8pt; font-style: italic; font-weight: 700; line-height: 1.0; }
-.dish-title { font-size: 17pt; font-style: italic; font-weight: 700; line-height: 1.05; margin: .7mm 0; }
-.side { font-size: 11.7pt; font-style: italic; line-height: 1.12; }
+.dish-cell { padding-left: 4mm; vertical-align: middle; }
+.price-cell { width: 24mm; text-align: right; vertical-align: middle; font-size: 18.5pt; font-weight: 700; white-space: nowrap; }
+.soup { font-size: 14pt; font-style: italic; font-weight: 700; line-height: 1.05; }
+.dish-title { font-size: 23pt; font-style: normal; font-weight: 700; line-height: 1.04; margin: .8mm 0; overflow-wrap: anywhere; }
+.side { font-size: 14pt; font-style: normal; line-height: 1.1; }
+.menu-copy-short .dish-title { font-size: 27pt; }
+.menu-copy-medium .dish-title { font-size: 23pt; }
+.menu-copy-long .dish-title { font-size: 19.5pt; }
+.menu-copy-long .soup, .menu-copy-long .side { font-size: 12.5pt; }
 .row-date { font-size: 9pt; font-style: normal; }
 .info-card { text-align: left; padding-left: 7mm; padding-right: 7mm; display:flex; flex-direction:column; }
 .info-card.vertical-top { justify-content:flex-start; }
@@ -393,8 +426,17 @@ html, body { margin: 0; padding: 0; background: #363636; }
 .content-area.density-9 .info-text { font-size: 9.9pt; }
 .content-area.density-8 .info-heading { font-size: 12.5pt; margin-bottom: .7mm; }
 .content-area.density-9 .info-heading { font-size: 11.7pt; margin-bottom: .5mm; }
+.content-area.density-7 .menu-copy-short .dish-title { font-size: 24pt; }
+.content-area.density-7 .menu-copy-medium .dish-title { font-size: 21pt; }
+.content-area.density-7 .menu-copy-long .dish-title { font-size: 18pt; }
 .content-area.density-8 .price-cell { font-size: 14.6pt; }
 .content-area.density-9 .price-cell { font-size: 13.6pt; }
+.content-area.density-8 .menu-copy-short .dish-title { font-size: 20pt; }
+.content-area.density-8 .menu-copy-medium .dish-title { font-size: 18pt; }
+.content-area.density-8 .menu-copy-long .dish-title { font-size: 16.5pt; }
+.content-area.density-9 .menu-copy-short .dish-title { font-size: 18.5pt; }
+.content-area.density-9 .menu-copy-medium .dish-title { font-size: 17pt; }
+.content-area.density-9 .menu-copy-long .dish-title { font-size: 15.5pt; }
 .footer-band {
     position: absolute;
     left: 0;
@@ -438,7 +480,7 @@ html, body { margin: 0; padding: 0; background: #363636; }
       <?php foreach ($rows as $rowIndex => $row):
         $cardTop = $contentPaddingTop + ($rowIndex * ($rowHeight + $rowGap));
       ?>
-        <div class="menu-card <?= $row['type'] === 'info' ? 'info-card vertical-' . menu_vertical_align($row['vertical_align'] ?? 'center') : '' ?>" style="top:<?= number_format($cardTop, 2, '.', '') ?>mm">
+        <div class="menu-card <?= $row['type'] === 'info' ? 'info-card vertical-' . menu_vertical_align($row['vertical_align'] ?? 'center') : '' ?><?= $row['type'] === 'menu' ? ' menu-copy-' . menu_row_typography($row) : '' ?>" style="top:<?= number_format($cardTop, 2, '.', '') ?>mm">
           <?php if ($row['type'] === 'menu'): ?>
             <table class="menu-row-table"><tr>
               <td class="day-cell"><?= !empty($row['label_html']) ? $row['label'] : menu_h((string)$row['label']) ?></td>
@@ -518,10 +560,11 @@ html,body{margin:0;padding:0;background:#d8d8d8}
 .flyer-brand{color:#7a1020;text-align:center;font-weight:700;line-height:.9;font-size:16pt;letter-spacing:.7pt}.flyer-brand small{display:block;margin-top:2mm;font:700 4.5pt Arial,sans-serif;letter-spacing:.35pt;color:#8b6c2d}
 .flyer-title{text-align:center}.flyer-title h1{margin:0 0 1.3mm;color:#7a1020;font-size:17pt;line-height:1.02}.flyer-meta{font:700 8.4pt Arial,sans-serif;color:#4d0b13;letter-spacing:.45pt}
 .flyer-rows{display:grid;gap:0;flex:1;min-height:0}
-.flyer-row{position:relative;min-height:0;height:100%;padding:2.1mm 1.4mm 2mm 3.2mm;border-bottom:.28mm solid #d8d3ca;display:grid;grid-template-columns:24mm 1fr 18mm;gap:2.6mm;align-items:start;background:#fff}
+.flyer-row{position:relative;min-height:0;height:100%;padding:2.1mm 1.4mm 2mm 3.2mm;border-bottom:.28mm solid #d8d3ca;display:grid;grid-template-columns:22mm 1fr 17mm;gap:2.2mm;align-items:center;background:#fff}
 .flyer-row.menu-row:before,.flyer-row.info-row:before{content:"";position:absolute;left:0;top:2.1mm;bottom:2.1mm;width:1.2mm;background:#7a1020}
-.flyer-day{color:#7a1020;font-size:10.4pt;font-weight:700;font-style:italic;line-height:1.05}.flyer-date{font-size:7.3pt;font-style:normal}
-.flyer-dish{min-width:0}.flyer-soup{font-size:7.8pt;font-style:italic;color:#5e5148;line-height:1}.flyer-dish-title{font-size:11.7pt;font-weight:700;font-style:italic;color:#1d1d1d;line-height:1.03;margin:.45mm 0}.flyer-side{font-size:8.2pt;font-style:italic;line-height:1.08;color:#342e2b}.flyer-price{text-align:right;color:#4d0b13;font-size:10.8pt;font-weight:700;white-space:nowrap}
+.flyer-day{color:#7a1020;font-size:11pt;font-weight:700;font-style:italic;line-height:1.05}.flyer-date{font-size:7.3pt;font-style:normal}
+.flyer-dish{min-width:0}.flyer-soup{font-size:9.2pt;font-style:italic;color:#5e5148;line-height:1.02}.flyer-dish-title{font-size:14pt;font-weight:700;font-style:normal;color:#1d1d1d;line-height:1.03;margin:.45mm 0;overflow-wrap:anywhere}.flyer-side{font-size:9.4pt;font-style:normal;line-height:1.08;color:#342e2b}.flyer-price{text-align:right;color:#4d0b13;font-size:12pt;font-weight:700;white-space:nowrap}
+.flyer-copy-short .flyer-dish-title{font-size:16pt}.flyer-copy-medium .flyer-dish-title{font-size:14pt}.flyer-copy-long .flyer-dish-title{font-size:12.2pt}.flyer-copy-long .flyer-soup,.flyer-copy-long .flyer-side{font-size:8.4pt}
 .flyer-row.info-row{display:flex;min-height:0;height:100%;padding-left:4.8mm;border:.25mm solid #d8d3ca;border-left:0;margin-top:0;background:#fbf8f0;flex-direction:column;overflow:hidden;align-items:stretch}
 .flyer-row.info-row.vertical-top{justify-content:flex-start}.flyer-row.info-row.vertical-center{justify-content:center}.flyer-row.info-row.vertical-bottom{justify-content:flex-end}
 .flyer-info-heading{width:100%;color:#7a1020;font-size:10.3pt;font-weight:700;font-style:italic;margin-bottom:.7mm}.flyer-info-text{width:100%;font-size:8.4pt;line-height:1.12;color:#25211f;overflow:hidden}.flyer-info-text p,.flyer-info-text div{width:100%;margin:0 0 .45mm}.flyer-info-text p:last-child,.flyer-info-text div:last-child{margin-bottom:0}.ql-align-center{text-align:center}.ql-align-right{text-align:right}.ql-align-justify{text-align:justify}.ql-size-small{font-size:.8em}.ql-size-large{font-size:1.25em}
@@ -542,7 +585,7 @@ html,body{margin:0;padding:0;background:#d8d8d8}
   <div class="flyer-rows" style="grid-template-rows:repeat(<?= $count ?>,minmax(0,1fr))">
   <?php foreach ($rows as $row): ?>
     <?php if ($row['type'] === 'menu'): ?>
-    <div class="flyer-row menu-row">
+    <div class="flyer-row menu-row flyer-copy-<?= menu_row_typography($row) ?>">
       <div class="flyer-day"><?= !empty($row['label_html']) ? $row['label'] : menu_h((string)$row['label']) ?></div>
       <div class="flyer-dish"><?php if (trim((string)$row['soup']) !== ''): ?><div class="flyer-soup"><?= menu_h((string)$row['soup']) ?></div><?php endif; ?><div class="flyer-dish-title"><?= menu_h((string)$row['title']) ?></div><?php if (trim((string)$row['side']) !== ''): ?><div class="flyer-side"><?= menu_h((string)$row['side']) ?></div><?php endif; ?></div>
       <div class="flyer-price"><?= menu_h((string)$row['price']) ?></div>
@@ -618,9 +661,10 @@ function render_menu_pdf_document(array $data): string
 .pdf-row{height:<?=number_format($rowH,2,'.','')?>mm;background:rgba(255,248,220,.18);border:.42mm solid #a87718;outline:.25mm solid rgba(255,247,204,.8)}
 .pdf-row>td{padding:1.2mm 3mm;overflow:hidden;vertical-align:middle;border-top:.35mm solid #a87718;border-bottom:.35mm solid #a87718}
 .pdf-row>td:first-child{border-left:.35mm solid #a87718}.pdf-row>td:last-child{border-right:.35mm solid #a87718}
-.pdf-day{width:31mm;padding-right:3mm!important;border-right:.25mm solid rgba(111,65,8,.65)!important;font-size:<?=number_format(13.2*$fontScale,1,'.','')?>pt;font-style:italic;font-weight:bold;vertical-align:top!important}
-.pdf-dish{padding-left:4mm!important}.pdf-price{width:25mm;text-align:right;vertical-align:top!important;font-size:<?=number_format(16*$fontScale,1,'.','')?>pt;font-weight:bold;white-space:nowrap}
-.pdf-soup{font-size:<?=number_format(11.8*$fontScale,1,'.','')?>pt;font-style:italic;font-weight:bold;line-height:1}.pdf-dish-title{font-size:<?=number_format(17*$fontScale,1,'.','')?>pt;font-style:italic;font-weight:bold;line-height:1.03;margin:.5mm 0}.pdf-side{font-size:<?=number_format(11.7*$fontScale,1,'.','')?>pt;font-style:italic;line-height:1.08}.pdf-date{font-size:8.5pt;font-style:normal}
+.pdf-day{width:28mm;padding-right:2.5mm!important;border-right:.25mm solid rgba(111,65,8,.65)!important;font-size:<?=number_format(15.2*$fontScale,1,'.','')?>pt;font-style:italic;font-weight:bold;line-height:1.05;vertical-align:middle!important}
+.pdf-dish{padding-left:3.5mm!important;vertical-align:middle!important}.pdf-price{width:23mm;text-align:right;vertical-align:middle!important;font-size:<?=number_format(18.5*$fontScale,1,'.','')?>pt;font-weight:bold;white-space:nowrap}
+.pdf-soup{font-size:<?=number_format(14*$fontScale,1,'.','')?>pt;font-style:italic;font-weight:bold;line-height:1.04}.pdf-dish-title{font-size:<?=number_format(23*$fontScale,1,'.','')?>pt;font-style:normal;font-weight:bold;line-height:1.03;margin:.65mm 0;word-wrap:break-word}.pdf-side{font-size:<?=number_format(14*$fontScale,1,'.','')?>pt;font-style:normal;line-height:1.08}.pdf-date{font-size:8.5pt;font-style:normal}
+.pdf-copy-short .pdf-dish-title{font-size:<?=number_format(27*$fontScale,1,'.','')?>pt}.pdf-copy-medium .pdf-dish-title{font-size:<?=number_format(23*$fontScale,1,'.','')?>pt}.pdf-copy-long .pdf-dish-title{font-size:<?=number_format(19.5*$fontScale,1,'.','')?>pt}.pdf-copy-long .pdf-soup,.pdf-copy-long .pdf-side{font-size:<?=number_format(12.5*$fontScale,1,'.','')?>pt}
 .pdf-info{padding-left:7mm!important;padding-right:7mm!important;vertical-align:middle!important}.pdf-info-heading{font-size:<?=number_format(13.7*$fontScale,1,'.','')?>pt;font-weight:bold;font-style:italic;margin-bottom:.8mm}.rich-text p,.rich-text div{margin:0 0 .55mm}.rich-text p:last-child,.rich-text div:last-child{margin-bottom:0}.ql-align-center{text-align:center}.ql-align-right{text-align:right}.ql-align-justify{text-align:justify}
 .pdf-info-text{font-size:<?=number_format(11.5*$fontScale,1,'.','')?>pt;font-style:italic;line-height:1.12}
 .pdf-footer{height:<?=number_format($footerH,2,'.','')?>mm;background-image:linear-gradient(rgba(82,4,10,.18),rgba(25,0,3,.3)),url('<?=menu_h($leather)?>');background-size:cover;color:#f0cf69;border-top:.65mm double #d6a940}
@@ -630,7 +674,7 @@ function render_menu_pdf_document(array $data): string
 <tr><td class="pdf-header"><table class="pdf-header-table"><tr><td class="pdf-logo"><div class="pdf-brand">CAFE<br>AUSZEIT</div><div class="pdf-brand-sub">CAFE · EVENTBAR · RESTAURANT</div></td><td class="pdf-title"><h1>Mittagsmenü mit Tagessuppe</h1><div class="pdf-meta"><?=menu_h($range)?><?=$range!==''&&$time!==''?' | ':''?><?=menu_h($time)?></div></td></tr></table></td></tr>
 <tr><td class="pdf-content"><table class="pdf-rows">
 <?php foreach($rows as $row): ?>
-<tr class="pdf-row">
+<tr class="pdf-row<?=$row['type']==='menu'?' pdf-copy-'.menu_row_typography($row):''?>">
 <?php if($row['type']==='menu'): ?>
 <td class="pdf-day"><?=!empty($row['label_html'])?$row['label']:menu_h((string)$row['label'])?></td>
 <td class="pdf-dish"><?php if(trim((string)$row['soup'])!==''):?><div class="pdf-soup"><?=menu_h((string)$row['soup'])?></div><?php endif;?><div class="pdf-dish-title"><?=menu_h((string)$row['title'])?></div><?php if(trim((string)$row['side'])!==''):?><div class="pdf-side"><?=menu_h((string)$row['side'])?></div><?php endif;?></td>
