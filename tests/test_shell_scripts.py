@@ -129,6 +129,16 @@ class ShellScriptTests(unittest.TestCase):
             self.assertIn("includes/bootstrap.php", page)
             self.assertNotIn("session_start();", page)
 
+    def test_menu_print_uses_content_aware_readable_typography(self):
+        layout = (PROJECT_DIR / "webinterface/menu-layout.php").read_text()
+
+        self.assertIn("function menu_row_typography", layout)
+        self.assertIn("menu-copy-short", layout)
+        self.assertIn("flyer-copy-short", layout)
+        self.assertIn("pdf-copy-short", layout)
+        self.assertIn("font-style:normal", layout)
+        self.assertIn("vertical-align:middle", layout)
+
     def test_public_export_includes_event_pipeline(self):
         script = (SCRIPTS_DIR / "export_public.sh").read_text()
         self.assertIn("scripts/fetch_termine.py", script)
