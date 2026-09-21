@@ -184,20 +184,6 @@ function menu_build_rows(array $data): array
         ];
     }
 
-    $sat = $data['saturday_special'] ?? [];
-    if (menu_optional_enabled($sat, ['date', 'soup', 'title', 'side_1', 'side_2', 'price'])) {
-        $date = menu_format_date((string)($sat['date'] ?? ''));
-        $rows[] = [
-            'type' => 'menu',
-            'label' => 'Samstag-Schmankerl' . ($date !== '' ? '<br><span class="row-date">' . menu_h($date) . '</span>' : ''),
-            'soup' => (string)($sat['soup'] ?? ''),
-            'title' => (string)($sat['title'] ?? ''),
-            'side' => trim((string)($sat['side_1'] ?? '') . ((string)($sat['side_2'] ?? '') !== '' ? ' · ' . (string)$sat['side_2'] : '')),
-            'price' => (string)($sat['price'] ?? ''),
-            'label_html' => true,
-        ];
-    }
-
     foreach (($data['info_blocks'] ?? []) as $block) {
         if (!menu_optional_enabled((array)$block, ['text'])) {
             continue;

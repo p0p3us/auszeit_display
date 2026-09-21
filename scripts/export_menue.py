@@ -24,7 +24,7 @@ OUTPUT_DIR = PROJECT_DIR / "pages" / "menue"
 
 OVERVIEW_TEMPLATE = "menue_uebersicht.html"
 DAY_TEMPLATE = "menue_tag.html"
-SATURDAY_TEMPLATE = "menue_samstag.html"
+WEEKLY_TEMPLATE = "menue_wochenschmankerl.html"
 
 
 FALLBACKS = {
@@ -36,12 +36,12 @@ FALLBACKS = {
         ),
         "footer": "Bis dahin: Kaffee geht bekanntlich immer.",
     },
-    "saturday": {
-        "headline": "Diesen Samstag bleibt das Schmankerl geheim.",
+    "weekly": {
+        "headline": "Das Wochenschmankerl folgt.",
         "text": (
-            "Aber keine Sorge – verhungern lassen wir hier niemanden."
+            "Sobald die Küche das besondere Gericht festgelegt hat, steht es hier."
         ),
-        "footer": "Einfach vorbeikommen und überraschen lassen.",
+        "footer": "Die aktuellen Mittagsmenüs sind bereits auf unseren anderen Folien zu sehen.",
     },
     "today": {
         "headline": "Heute kein Mittagsmenü?",
@@ -226,29 +226,26 @@ def find_menu_for_date(
     return None
 
 
-def get_saturday_special(
+def get_weekly_special(
     data: dict[str, Any] | None,
 ) -> dict[str, Any] | None:
     if not data:
         return None
 
-    if data.get("has_saturday_special") is not True:
+    if data.get("has_weekly_special") is not True:
         return None
 
-    raw_special = data.get("saturday_special")
+    raw_special = data.get("weekly_special")
 
     if not isinstance(raw_special, dict):
         return None
 
-    special_date = parse_iso_date(raw_special.get("date"))
     title = clean_text(raw_special.get("title"))
 
-    if special_date is None or not title:
+    if not title:
         return None
 
     return {
-        "date": special_date,
-        "date_text": format_date(special_date),
         "title": title,
         "description": clean_text(raw_special.get("description")),
         "price": clean_text(raw_special.get("price")),
@@ -326,7 +323,7 @@ def main() -> int:
 
     data = load_menu_data()
     days = get_valid_days(data)
-    saturday_special = get_saturday_special(data)
+    weekly_special = get_weekly_special(data)
 
     environment = create_environment()
 
@@ -377,42 +374,45 @@ def main() -> int:
         }
 
     # ---------------------------------------------------------
-    # 2. Samstag-Schmankerl
+    # 2. Wochenschmankerl
     # ---------------------------------------------------------
 
-    if saturday_special:
+    if weekly_special:
         render_template(
             environment,
-            SATURDAY_TEMPLATE,
-            "samstag.html",
+            WEEKLY_TEMPLATE,
+            "wochenschmankerl.html",
             {
-                "page_title": "Samstag-Schmankerl",
+                "page_title": "Wochenschmankerl",
                 "is_fallback": False,
-                "special": saturday_special,
+                "period_text": format_period(
+                    parse_iso_date(data.get("period", {}).get("start_date")),
+                    parse_iso_date(data.get("period", {}).get("end_date")),
+                ),
+                "special": weekly_special,
             },
         )
 
-        status["saturday"] = {
+        status["weekly"] = {
             "available": True,
             "fallback": False,
-            "date": saturday_special["date"].isoformat(),
-            "output": "pages/menue/samstag.html",
+            "output": "pages/menue/wochenschmankerl.html",
         }
     else:
         render_template(
             environment,
-            SATURDAY_TEMPLATE,
-            "samstag.html",
+            WEEKLY_TEMPLATE,
+            "wochenschmankerl.html",
             build_fallback_context(
-                "saturday",
-                "Samstag-Schmankerl",
+                "weekly",
+                "Wochenschmankerl",
             ),
         )
 
-        status["saturday"] = {
+        status["weekly"] = {
             "available": False,
             "fallback": True,
-            "output": "pages/menue/samstag.html",
+            "output": "pages/menue/wochenschmankerl.html",
         }
 
     # ---------------------------------------------------------

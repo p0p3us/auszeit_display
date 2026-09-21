@@ -449,11 +449,8 @@ def build_days(
     return days
 
 
-def normalize_saturday_special(
-    menu_data: dict[str, Any],
-    valid_to: date,
-) -> dict[str, Any] | None:
-    raw_special = menu_data.get("saturday_special")
+def normalize_weekly_special(menu_data: dict[str, Any]) -> dict[str, Any] | None:
+    raw_special = menu_data.get("weekly_special")
 
     if not isinstance(raw_special, dict):
         return None
@@ -465,53 +462,16 @@ def normalize_saturday_special(
 
     if not title:
         log(
-            "Samstag-Schmankerl ist aktiviert, "
+            "Wochenschmankerl ist aktiviert, "
             "enthält aber keinen Titel."
         )
         return None
 
-    raw_date = clean_text(raw_special.get("date"))
-
-    if raw_date:
-        try:
-            special_date = date.fromisoformat(raw_date)
-        except ValueError:
-            log(
-                "Ungültiges Datum beim Samstag-Schmankerl: "
-                f"{raw_date}. Verwende den nächsten Samstag."
-            )
-            special_date = find_next_saturday(valid_to)
-    else:
-        special_date = find_next_saturday(valid_to)
-
-    side_parts = [
-        clean_text(raw_special.get("side_1")),
-        clean_text(raw_special.get("side_2")),
-    ]
-
-    description = " ".join(
-        part
-        for part in side_parts
-        if part
-    )
-
     return {
-        "date": special_date.isoformat(),
-        "soup": clean_text(raw_special.get("soup")),
         "title": title,
-        "description": description,
+        "description": clean_text(raw_special.get("side")),
         "price": clean_price(raw_special.get("price")),
     }
-
-
-def find_next_saturday(reference_date: date) -> date:
-    days_until_saturday = (
-        5 - reference_date.weekday()
-    ) % 7
-
-    return reference_date + timedelta(
-        days=days_until_saturday
-    )
 
 
 def validate_menu_period(
@@ -598,8 +558,8 @@ def write_unavailable(
         },
         "service_time": "",
         "days": [],
-        "has_saturday_special": False,
-        "saturday_special": None,
+        "has_weekly_special": False,
+        "weekly_special": None,
     }
 
     write_json_atomic(
@@ -704,10 +664,7 @@ def main() -> int:
             valid_to,
         )
 
-        saturday_special = normalize_saturday_special(
-            menu_data,
-            valid_to,
-        )
+        weekly_special = normalize_weekly_special(menu_data)
 
         payload = {
             "status": "ok",
@@ -731,10 +688,10 @@ def main() -> int:
                 menu_data.get("service_time")
             ),
             "days": days,
-            "has_saturday_special": (
-                saturday_special is not None
+            "has_weekly_special": (
+                weekly_special is not None
             ),
-            "saturday_special": saturday_special,
+            "weekly_special": weekly_special,
 
             # Die Infoblöcke werden noch nicht auf den vier
             # Menüfolien angezeigt, bleiben aber verfügbar.
@@ -795,13 +752,13 @@ def main() -> int:
         f"{len(days)} reguläre Menütag(e) gespeichert."
     )
 
-    if saturday_special:
+    if weekly_special:
         log(
-            "Samstag-Schmankerl vorhanden: "
-            f"{saturday_special['title']}"
+            "Wochenschmankerl vorhanden: "
+            f"{weekly_special['title']}"
         )
     else:
-        log("Kein Samstag-Schmankerl aktiviert.")
+        log("Kein Wochenschmankerl aktiviert.")
 
     log(f"Menüdaten gespeichert: {OUTPUT_FILE}")
     log(f"Quelldaten gespeichert: {SOURCE_FILE}")

@@ -114,7 +114,7 @@ fi
 
 for image in \
   menue_tag.png \
-  menue_samstag.png \
+  menue_wochenschmankerl.png \
   menue_fallback.png
 do
   if [ -f "$BASE_DIR/resources/images/$image" ]; then

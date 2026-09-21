@@ -21,7 +21,7 @@
     >
 </head>
 
-<body class="display-page menu-page menu-saturday-page">
+<body class="display-page menu-page menu-weekly-page">
 
     <div class="display-background"></div>
 
@@ -32,8 +32,8 @@
     >
 
     <img
-        class="menu-side-image menu-saturday-image"
-        src="/auszeit-display/resources/images/menue_samstag.png"
+        class="menu-side-image menu-weekly-image"
+        src="/auszeit-display/resources/images/menue_wochenschmankerl.png"
         alt=""
     >
 
@@ -46,7 +46,7 @@
             <section class="menu-feature-content menu-feature-fallback">
 
                 <div class="menu-feature-kicker">
-                    Samstag-Schmankerl
+                    Wochenschmankerl
                 </div>
 
                 <h1 class="menu-feature-title menu-feature-title-fallback">
@@ -69,12 +69,12 @@
 
                 <header class="menu-feature-header">
 
-                    <div class="menu-feature-date">
-                        {{ special.date_text }}
-                    </div>
+                    {% if period_text %}
+                        <div class="menu-feature-date">{{ period_text }}</div>
+                    {% endif %}
 
-                    <h1 class="menu-feature-title menu-feature-title-saturday">
-                        Samstag-Schmankerl
+                    <h1 class="menu-feature-title menu-feature-title-weekly">
+                        Wochenschmankerl
                     </h1>
 
                 </header>
@@ -82,10 +82,10 @@
                 <div class="menu-feature-dish-block">
 
                     <div class="menu-feature-kicker">
-                        Nur am Samstag
+                        Diese Woche im Auszeit
                     </div>
 
-                    <h2 class="menu-feature-dish menu-feature-dish-saturday">
+                    <h2 class="menu-feature-dish menu-feature-dish-weekly">
                         {{ special.title }}
                     </h2>
 
@@ -104,7 +104,7 @@
                 </div>
 
                 <footer class="menu-feature-footer">
-                    Samstag darf man sich schließlich etwas gönnen.
+                    Zusätzlich zu unseren Mittagsmenüs.
                 </footer>
 
             </section>
