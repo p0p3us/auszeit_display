@@ -170,6 +170,20 @@ function menu_build_rows(array $data): array
         ];
     }
 
+    $weekly = $data['weekly_special'] ?? [];
+    if (menu_optional_enabled($weekly, ['title', 'side', 'price'])) {
+        $rows[] = [
+            'type' => 'menu',
+            'label' => 'Wochen-<br>schmankerl',
+            'label_html' => true,
+            'weekly_special' => true,
+            'soup' => '',
+            'title' => (string)($weekly['title'] ?? ''),
+            'side' => (string)($weekly['side'] ?? ''),
+            'price' => (string)($weekly['price'] ?? ''),
+        ];
+    }
+
     $sat = $data['saturday_special'] ?? [];
     if (menu_optional_enabled($sat, ['date', 'soup', 'title', 'side_1', 'side_2', 'price'])) {
         $date = menu_format_date((string)($sat['date'] ?? ''));
@@ -229,6 +243,9 @@ function menu_row_typography(array $row): string
 
 function menu_day_class(string $label): string
 {
+    if (str_contains($label, 'Wochen-')) {
+        return ' day-weekly';
+    }
     return trim(strip_tags($label)) === 'Donnerstag' ? ' day-thursday' : '';
 }
 
@@ -398,6 +415,7 @@ html, body { margin: 0; padding: 0; background: #363636; }
     vertical-align: middle;
 }
 .day-cell.day-thursday { font-size: 14pt; white-space: nowrap; }
+.day-cell.day-weekly { font-size: 12.5pt; line-height: 1.14; }
 .dish-cell { padding-left: 4mm; vertical-align: middle; }
 .price-cell { width: 24mm; text-align: right; vertical-align: middle; font-size: 18.5pt; font-weight: 700; white-space: nowrap; }
 .soup { font-size: 14pt; font-style: italic; font-weight: 700; line-height: 1.05; }
@@ -568,7 +586,7 @@ html,body{margin:0;padding:0;background:#d8d8d8}
 .flyer-rows{display:grid;gap:0;flex:1;min-height:0}
 .flyer-row{position:relative;min-height:0;height:100%;padding:2.1mm 1.4mm 2mm 3.2mm;border-bottom:.28mm solid #d8d3ca;display:grid;grid-template-columns:24mm 1fr 17mm;gap:2.2mm;align-items:center;background:#fff}
 .flyer-row.menu-row:before,.flyer-row.info-row:before{content:"";position:absolute;left:0;top:2.1mm;bottom:2.1mm;width:1.2mm;background:#7a1020}
-.flyer-day{color:#7a1020;font-size:11pt;font-weight:700;font-style:italic;line-height:1.05}.flyer-day.day-thursday{font-size:9.6pt;white-space:nowrap}.flyer-date{font-size:7.3pt;font-style:normal}
+.flyer-day{color:#7a1020;font-size:11pt;font-weight:700;font-style:italic;line-height:1.05}.flyer-day.day-thursday{font-size:9.6pt;white-space:nowrap}.flyer-day.day-weekly{font-size:9pt;line-height:1.1}.flyer-date{font-size:7.3pt;font-style:normal}
 .flyer-dish{min-width:0}.flyer-soup{font-size:9.2pt;font-style:italic;color:#5e5148;line-height:1.02}.flyer-dish-title{font-size:14pt;font-weight:700;font-style:normal;color:#1d1d1d;line-height:1.03;margin:.45mm 0;overflow-wrap:anywhere}.flyer-side{font-size:9.4pt;font-style:normal;line-height:1.08;color:#342e2b}.flyer-price{text-align:right;color:#4d0b13;font-size:12pt;font-weight:700;white-space:nowrap}
 .flyer-copy-short .flyer-dish-title{font-size:16pt}.flyer-copy-medium .flyer-dish-title{font-size:14pt}.flyer-copy-long .flyer-dish-title{font-size:12.2pt}.flyer-copy-long .flyer-soup,.flyer-copy-long .flyer-side{font-size:8.4pt}
 .flyer-row.info-row{display:flex;min-height:0;height:100%;padding-left:4.8mm;border:.25mm solid #d8d3ca;border-left:0;margin-top:0;background:#fbf8f0;flex-direction:column;overflow:hidden;align-items:stretch}
@@ -667,7 +685,7 @@ function render_menu_pdf_document(array $data): string
 .pdf-row{height:<?=number_format($rowH,2,'.','')?>mm;background:rgba(255,248,220,.18);border:.42mm solid #a87718;outline:.25mm solid rgba(255,247,204,.8)}
 .pdf-row>td{padding:1.2mm 3mm;overflow:hidden;vertical-align:middle;border-top:.35mm solid #a87718;border-bottom:.35mm solid #a87718}
 .pdf-row>td:first-child{border-left:.35mm solid #a87718}.pdf-row>td:last-child{border-right:.35mm solid #a87718}
-.pdf-day{width:31mm;padding-right:2.5mm!important;border-right:.25mm solid rgba(111,65,8,.65)!important;font-size:<?=number_format(15.2*$fontScale,1,'.','')?>pt;font-style:italic;font-weight:bold;line-height:1.05;vertical-align:middle!important}.pdf-day.day-thursday{font-size:<?=number_format(14*$fontScale,1,'.','')?>pt;white-space:nowrap}
+.pdf-day{width:31mm;padding-right:2.5mm!important;border-right:.25mm solid rgba(111,65,8,.65)!important;font-size:<?=number_format(15.2*$fontScale,1,'.','')?>pt;font-style:italic;font-weight:bold;line-height:1.05;vertical-align:middle!important}.pdf-day.day-thursday{font-size:<?=number_format(14*$fontScale,1,'.','')?>pt;white-space:nowrap}.pdf-day.day-weekly{font-size:<?=number_format(12.5*$fontScale,1,'.','')?>pt;line-height:1.14}
 .pdf-dish{padding-left:3.5mm!important;vertical-align:middle!important}.pdf-price{width:23mm;text-align:right;vertical-align:middle!important;font-size:<?=number_format(18.5*$fontScale,1,'.','')?>pt;font-weight:bold;white-space:nowrap}
 .pdf-soup{font-size:<?=number_format(14*$fontScale,1,'.','')?>pt;font-style:italic;font-weight:bold;line-height:1.04}.pdf-dish-title{font-size:<?=number_format(23*$fontScale,1,'.','')?>pt;font-style:normal;font-weight:bold;line-height:1.03;margin:.65mm 0;word-wrap:break-word}.pdf-side{font-size:<?=number_format(14*$fontScale,1,'.','')?>pt;font-style:normal;line-height:1.08}.pdf-date{font-size:8.5pt;font-style:normal}
 .pdf-copy-short .pdf-dish-title{font-size:<?=number_format(27*$fontScale,1,'.','')?>pt}.pdf-copy-medium .pdf-dish-title{font-size:<?=number_format(23*$fontScale,1,'.','')?>pt}.pdf-copy-long .pdf-dish-title{font-size:<?=number_format(19.5*$fontScale,1,'.','')?>pt}.pdf-copy-long .pdf-soup,.pdf-copy-long .pdf-side{font-size:<?=number_format(12.5*$fontScale,1,'.','')?>pt}
