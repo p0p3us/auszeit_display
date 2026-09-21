@@ -461,6 +461,8 @@ html, body { margin: 0; padding: 0; background: #363636; }
 .content-area.density-9 .menu-copy-short .dish-title { font-size: 18.5pt; }
 .content-area.density-9 .menu-copy-medium .dish-title { font-size: 17pt; }
 .content-area.density-9 .menu-copy-long .dish-title { font-size: 15.5pt; }
+.content-area.density-8 .day-cell.day-weekly,
+.content-area.density-9 .day-cell.day-weekly { font-size: 10.8pt; }
 .footer-band {
     position: absolute;
     left: 0;
@@ -594,7 +596,7 @@ html,body{margin:0;padding:0;background:#d8d8d8}
 .flyer-info-heading{width:100%;color:#7a1020;font-size:10.3pt;font-weight:700;font-style:italic;margin-bottom:.7mm}.flyer-info-text{width:100%;font-size:8.4pt;line-height:1.12;color:#25211f;overflow:hidden}.flyer-info-text p,.flyer-info-text div{width:100%;margin:0 0 .45mm}.flyer-info-text p:last-child,.flyer-info-text div:last-child{margin-bottom:0}.ql-align-center{text-align:center}.ql-align-right{text-align:right}.ql-align-justify{text-align:justify}.ql-size-small{font-size:.8em}.ql-size-large{font-size:1.25em}
 .flyer-footer{position:static;margin-top:2.2mm;border-top:.42mm solid #b38a32;padding-top:2.2mm;display:grid;grid-template-columns:1.1fr .9fr;gap:3mm;font:700 6.6pt Arial,sans-serif;color:#5c151d;line-height:1.35}.flyer-footer .right{text-align:right}.flyer-footer strong{font-size:7.5pt}
 .flyer-density-7 .flyer-row{min-height:0;height:100%;padding-top:1.7mm;padding-bottom:1.6mm}.flyer-density-7 .flyer-dish-title{font-size:10.9pt}.flyer-density-7 .flyer-side,.flyer-density-7 .flyer-info-text{font-size:7.8pt}
-.flyer-density-8 .flyer-row,.flyer-density-9 .flyer-row{min-height:0;height:100%;padding-top:1.35mm;padding-bottom:1.25mm}.flyer-density-8 .flyer-dish-title{font-size:10.2pt}.flyer-density-9 .flyer-dish-title{font-size:9.6pt}.flyer-density-8 .flyer-day,.flyer-density-9 .flyer-day{font-size:9.3pt}.flyer-density-8 .flyer-side,.flyer-density-8 .flyer-info-text{font-size:7.3pt}.flyer-density-9 .flyer-side,.flyer-density-9 .flyer-info-text{font-size:6.9pt}.flyer-density-8 .flyer-row.info-row,.flyer-density-9 .flyer-row.info-row{min-height:0;height:100%;margin-top:0}.flyer-density-8 .flyer-info-heading,.flyer-density-9 .flyer-info-heading{font-size:9.2pt;margin-bottom:.3mm}
+.flyer-density-8 .flyer-row,.flyer-density-9 .flyer-row{min-height:0;height:100%;padding-top:1.35mm;padding-bottom:1.25mm}.flyer-density-8 .flyer-dish-title{font-size:10.2pt}.flyer-density-9 .flyer-dish-title{font-size:9.6pt}.flyer-density-8 .flyer-day,.flyer-density-9 .flyer-day{font-size:9.3pt}.flyer-density-8 .flyer-side,.flyer-density-8 .flyer-info-text{font-size:7.3pt}.flyer-density-9 .flyer-side,.flyer-density-9 .flyer-info-text{font-size:6.9pt}.flyer-density-8 .flyer-day.day-weekly,.flyer-density-9 .flyer-day.day-weekly{font-size:8pt}.flyer-density-8 .flyer-row.info-row,.flyer-density-9 .flyer-row.info-row{min-height:0;height:100%;margin-top:0}.flyer-density-8 .flyer-info-heading,.flyer-density-9 .flyer-info-heading{font-size:9.2pt;margin-bottom:.3mm}
 @media screen{body{padding:10px}.flyer-sheet{box-shadow:0 0 18px rgba(0,0,0,.35)}}
 </style>
 <?php if ($fullDocument): ?></head><body><?php endif; ?>
