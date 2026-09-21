@@ -22,6 +22,28 @@ def load_script(name: str):
 
 
 class FetchScriptTests(unittest.TestCase):
+    def test_menu_fetch_uses_structured_weekly_special_and_ignores_old_saturday(self):
+        module = load_script("fetch_menue")
+        menu = {
+            "weekly_special": {
+                "enabled": True,
+                "title": "Zander vom Grill",
+                "side": "mit Petersilienerdäpfeln und grünem Salat",
+                "price": "€ 16,90",
+            },
+            "saturday_special": {"enabled": True, "title": "Veraltetes Angebot"},
+        }
+        self.assertEqual(
+            module.normalize_weekly_special(menu),
+            {
+                "title": "Zander vom Grill",
+                "description": "mit Petersilienerdäpfeln und grünem Salat",
+                "price": "16,90",
+            },
+        )
+        menu["weekly_special"]["enabled"] = False
+        self.assertIsNone(module.normalize_weekly_special(menu))
+
     def test_event_fetch_normalizes_and_filters_source_data(self):
         module = load_script("fetch_termine")
         payload = {

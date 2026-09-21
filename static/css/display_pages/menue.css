@@ -322,7 +322,7 @@
 
 
 /* =========================================================
-   FREIE MOTIVFOLIEN: HEUTE, MORGEN UND SAMSTAG
+   FREIE MOTIVFOLIEN: HEUTE, MORGEN UND WOCHENSCHMANKERL
    ========================================================= */
 
 .menu-feature-stage {
@@ -386,7 +386,7 @@
     height: auto;
 }
 
-.menu-side-image.menu-saturday-image {
+.menu-side-image.menu-weekly-image {
     width: 1900px;
     height: auto;
 }
@@ -458,7 +458,7 @@
         0 8px 18px rgba(0, 0, 0, 0.72);
 }
 
-.menu-feature-title-saturday {
+.menu-feature-title-weekly {
     font-size: 90px;
 }
 
@@ -499,7 +499,7 @@
         0 0 22px rgba(246, 211, 107, 0.12);
 }
 
-.menu-feature-dish-saturday {
+.menu-feature-dish-weekly {
     font-size: 81px;
 }
 
@@ -600,8 +600,8 @@
 .menu-card-description,
 .menu-day-dish,
 .menu-day-description,
-.menu-saturday-dish,
-.menu-saturday-description {
+.menu-weekly-dish,
+.menu-weekly-description {
     overflow-wrap: normal;
     hyphens: auto;
 }
@@ -609,4 +609,3 @@
 .menu-overview-card:nth-child(n + 5) {
     display: none;
 }
-
