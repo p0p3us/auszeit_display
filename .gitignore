@@ -28,6 +28,11 @@ Thumbs.db
 #publish.env mit API und FTP Zugansdaten
 config/*.env
 
+# Zugangsdaten / lokale Umgebungsdateien
+*.env
+.env
+publish.env
+
 # Webinterface runtime data (created and maintained on the webspace)
 webinterface/config/local.php
 webinterface/data/menus/*
