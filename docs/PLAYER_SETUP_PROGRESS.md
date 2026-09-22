@@ -150,7 +150,15 @@ Langzeittest, Offline-Kaltstart, Renderer-Hänger und Stromausfalltests.
 
 ## Noch nicht umgesetzt
 
-Playlist, lokaler HTTP-Inhaltsdienst, vollständiger Download, atomare Aktivierung,
+Der lokale Wechseltest unter `player/local_test/` ist inzwischen im Repository
+implementiert und auf Windows getestet: synthetische A/B/C-Folien, 20 Sekunden,
+Gültigkeitsintervalle, Ersatzseite und Loopback-HTTP-Dienst. Acht neue Tests und
+die vollständige Suite (48 Tests) bestanden. Testfolie und Ablauf zur Ersatzseite
+wurden im Browser geprüft; Textgrenzen zusätzlich bei 1920×1080 kontrolliert.
+Installation und Abnahme dieses Schritts auf dem Anzeige-Pi stehen noch aus.
+Die Anleitung einschließlich Rückkehr zur Uhr steht in `player/local_test/README.md`.
+
+Noch offen sind persistente echte Playlist, vollständiger Download, atomare Aktivierung,
 Rollback, Gültigkeitsregeln, Statusmeldungen/Empfänger, Wiedergabe-Lebenszeichen,
 begrenzte Logs, endgültiges Bootbild und Ausblenden des Mauszeigers.
 Raspberry Pi Connect ist Fernwartung, kein Ersatz für diese Komponenten.
