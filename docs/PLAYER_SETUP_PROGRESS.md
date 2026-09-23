@@ -148,14 +148,31 @@ Test über Smartphone-Mobilfunk wurde vorgeschlagen, aber noch nicht bestätigt.
 Ebenso offen: Zugriff aus dem Café-Gastnetz, Prüfung unter echten Folien,
 Langzeittest, Offline-Kaltstart, Renderer-Hänger und Stromausfalltests.
 
-## Noch nicht umgesetzt
+## Lokale Tests und nächste Schritte
+
+Nachtrag 23. September: Der Benutzer hat den lokalen Wechseltest, die Endlosschleife
+nach Neustart und anschließend den korrigierten flackerfreien Folienwechsel über
+mehr als fünf Minuten am Pi bestätigt. Zwei abwechselnd sichtbare iframes verhindern
+das kurzzeitige Aufblitzen der Ersatzseite während des Ladens. Der Installer prüft
+die geschützte Browserdienst-Datei inzwischen mit sudo und meldet fehlende Voraussetzungen.
+
+Ein WLAN-Ausfall wurde lokal durch Neuverbinden behoben. Energiesparen war aktiv;
+es wurde im aktuellen Heim-WLAN-Profil deaktiviert und sofort auf `off` gesetzt.
+Das beweist noch nicht die Ursache und noch keine dauerhafte Stabilität. Für das
+spätere Café-Profil muss die Einstellung gesondert übernommen werden.
+
+Das separate Labor `player/update_test/` testet nun geprüften Paketdownload und
+einen atomaren Aktivierungszeiger in einem isolierten Testbestand. Es schaltet
+die laufende Anzeige nicht um. Hardwareabnahme dieses Labors ist noch offen.
 
 Der lokale Wechseltest unter `player/local_test/` ist inzwischen im Repository
 implementiert und auf Windows getestet: synthetische A/B/C-Folien, 20 Sekunden,
 Gültigkeitsintervalle, Ersatzseite und Loopback-HTTP-Dienst. Acht neue Tests und
 die vollständige Suite (48 Tests) bestanden. Testfolie und Ablauf zur Ersatzseite
 wurden im Browser geprüft; Textgrenzen zusätzlich bei 1920×1080 kontrolliert.
-Installation und Abnahme dieses Schritts auf dem Anzeige-Pi stehen noch aus.
+Installation und Abnahme des lokalen Wechseltests am Anzeige-Pi sind inzwischen
+bestätigt, siehe Nachtrag oben. Mit dem Downloadlabor bestehen aktuell 62 Python-
+und vier Browser-Tests auf Windows.
 Die Anleitung einschließlich Rückkehr zur Uhr steht in `player/local_test/README.md`.
 
 Noch offen sind persistente echte Playlist, vollständiger Download, atomare Aktivierung,
