@@ -170,7 +170,20 @@ Die folgende Stufe `player/package_test/` verbindet synthetische geprüfte Paket
 mit der sichtbaren Wiedergabe auf einem separaten Loopback-Dienst (Port 8081).
 Neue Stände werden an Foliengrenzen übernommen, relative Assets sind über die
 Release-ID gebunden. Bisheriger Wechseltest auf Port 8080 bleibt für Rückkehr
-erhalten. Installation und sichtbare Abnahme dieser Stufe am Pi stehen noch aus.
+erhalten. Der Benutzer hat folgende Schritte am Pi bestätigt:
+
+- Stand 1 rotiert sauber; beim Update endet B aus Stand 1 regulär und danach
+  beginnt A aus Stand 2, ohne Schwarzbild oder Ersatzseite.
+- Ein absichtlich beschädigtes Paket wird abgewiesen; Stand 2 läuft ungestört weiter.
+- Nach Neustart startet Stand 2 selbstständig aus dem lokalen Speicher.
+- Auch nach Neustart mit FRITZ!Box-Internetsperre erscheint Stand 2. WLAN und
+  Heimnetz blieben verfügbar; kein Nachweis eines Starts ohne WLAN oder eines
+  Kaltstarts nach Stromtrennung. Nach Aufheben der Sperre ist Connect wieder erreichbar.
+
+Beim Browserstart blitzte die Ersatzseite kurz auf. Die Playeroberfläche hält sie
+nun bis zum Ergebnis des ersten Ladevorgangs verborgen; bei leerem Plan oder
+Ladefehler wird sie weiterhin eingeblendet. Während des erfolgreichen Ladens ist
+nur der ruhige Hintergrund sichtbar. Hardwareabnahme dieser Korrektur steht aus.
 
 Der lokale Wechseltest unter `player/local_test/` ist inzwischen im Repository
 implementiert und auf Windows getestet: synthetische A/B/C-Folien, 20 Sekunden,
@@ -179,7 +192,7 @@ die vollständige Suite (48 Tests) bestanden. Testfolie und Ablauf zur Ersatzsei
 wurden im Browser geprüft; Textgrenzen zusätzlich bei 1920×1080 kontrolliert.
 Installation und Abnahme des lokalen Wechseltests am Anzeige-Pi sind inzwischen
 bestätigt, siehe Nachtrag oben. Mit der Paketwiedergabe bestehen aktuell 67 Python-
-und sechs Browser-Tests auf Windows; auch die Bash-Syntax des neuen Installers
+und zehn Browser-Tests auf Windows; auch die Bash-Syntax des neuen Installers
 wurde geprüft.
 Die Anleitung einschließlich Rückkehr zur Uhr steht in `player/local_test/README.md`.
 

@@ -4,14 +4,16 @@ const vm = require('node:vm');
 const fs = require('node:fs');
 const path = require('node:path');
 const source = fs.readFileSync(path.join(__dirname, '../player/local_test/web/app.js'), 'utf8');
+const html = fs.readFileSync(path.join(__dirname, '../player/local_test/web/index.html'), 'utf8');
 const settle = () => new Promise(resolve => setImmediate(resolve));
 
-function setup() {
+function setup(options = {}) {
   const elements = Object.fromEntries(['slide', 'slide-next', 'fallback'].map(id => {
     const classes = new Set();
-    return [id, {hidden: false, classList: {add: c => classes.add(c), remove: c => classes.delete(c), contains: c => classes.has(c)}}];
+    const hidden = id === 'fallback' && /<main\b[^>]*id="fallback"[^>]*\bhidden\b/.test(html);
+    return [id, {hidden, classList: {add: c => classes.add(c), remove: c => classes.delete(c), contains: c => classes.has(c)}}];
   }));
-  let slide = {id: 'A', path: '/slides/a.html', valid_until: null};
+  let slide = options.empty ? null : {id: 'A', path: '/slides/a.html', valid_until: null};
   let scenario = 'cycle';
   const timers = new Map();
   let counter = 0;
@@ -20,13 +22,48 @@ function setup() {
     setTimeout: (fn, delay) => {timers.set(++counter, {fn, delay}); return counter;},
     clearTimeout: id => timers.delete(id),
     requestAnimationFrame: fn => queueMicrotask(fn),
-    fetch: async () => ({ok: true, json: async () => ({slide, scenario})})
+    fetch: async () => ({ok: !options.unavailable, json: async () => ({slide, scenario})})
   });
   context.window = context;
   vm.runInContext(source, context);
   return {elements, timers, setSlide: value => {slide = value;}, setScenario: value => {scenario = value;},
     poll: () => vm.runInContext('poll()', context)};
 }
+
+test('startup keeps fallback hidden until the first slide is ready', async () => {
+  const state = setup();
+  assert.equal(state.elements.fallback.hidden, true);
+  await settle();
+  assert.equal(state.elements.fallback.hidden, true);
+  assert.equal(state.elements.slide.classList.contains('active'), false);
+  await showFirst(state);
+});
+
+test('startup with empty playlist shows fallback', async () => {
+  const state = setup({empty: true});
+  await settle();
+  assert.equal(state.elements.fallback.hidden, false);
+});
+
+test('startup with unavailable state shows fallback', async () => {
+  const state = setup({unavailable: true});
+  await settle();
+  assert.equal(state.elements.fallback.hidden, false);
+});
+
+test('first slide timeout shows fallback and can recover', async () => {
+  const state = setup();
+  await settle();
+  [...state.timers.values()].find(timer => timer.delay === 5000).fn();
+  await settle();
+  assert.equal(state.elements.fallback.hidden, false);
+  const retry = state.poll();
+  await settle();
+  state.elements.slide.onload();
+  await retry;
+  assert.equal(state.elements.fallback.hidden, true);
+  assert.equal(state.elements.slide.classList.contains('active'), true);
+});
 
 async function showFirst(state) {
   await settle();

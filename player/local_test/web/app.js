@@ -32,7 +32,7 @@ async function poll() {
     const state = await response.json();
     const slide = state.slide;
     if (!slide) {
-      if (current !== null) fallback();
+      if (current !== null || fallbackPage.hidden) fallback();
     } else if (slide.id !== current) {
       // Package test paths are immutable and served only from verified manifests.
       const localSlide = ["/slides/a.html", "/slides/b.html", "/slides/c.html"].includes(slide.path);
