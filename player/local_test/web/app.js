@@ -34,8 +34,11 @@ async function poll() {
     if (!slide) {
       if (current !== null) fallback();
     } else if (slide.id !== current) {
-      // This is a synthetic local test, not an arbitrary HTML feed consumer.
-      if (!["/slides/a.html", "/slides/b.html", "/slides/c.html"].includes(slide.path)) throw new Error("Unknown slide");
+      // Package test paths are immutable and served only from verified manifests.
+      const localSlide = ["/slides/a.html", "/slides/b.html", "/slides/c.html"].includes(slide.path);
+      const packageSlide = state.scenario === "packages" && /^\/releases\/[A-Za-z0-9_-]+\/content\/auszeit-display\/[A-Za-z0-9_./-]+\.html$/.test(slide.path)
+        && !slide.path.split("/").slice(1).some(part => part === "." || part === ".." || part === "");
+      if (!localSlide && !packageSlide) throw new Error("Unknown slide");
       const token = ++generation;
       const next = frames.find(frame => frame !== active);
       const check = await fetch(slide.path, {cache: "no-store", signal: AbortSignal.timeout(2000)});

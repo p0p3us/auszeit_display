@@ -163,7 +163,14 @@ spätere Café-Profil muss die Einstellung gesondert übernommen werden.
 
 Das separate Labor `player/update_test/` testet nun geprüften Paketdownload und
 einen atomaren Aktivierungszeiger in einem isolierten Testbestand. Es schaltet
-die laufende Anzeige nicht um. Hardwareabnahme dieses Labors ist noch offen.
+die laufende Anzeige nicht um. Alle sechs Prüfungen wurden vom Benutzer auf dem
+Anzeige-Pi erfolgreich bestätigt (Testbestand `run-2ok5shj2`).
+
+Die folgende Stufe `player/package_test/` verbindet synthetische geprüfte Pakete
+mit der sichtbaren Wiedergabe auf einem separaten Loopback-Dienst (Port 8081).
+Neue Stände werden an Foliengrenzen übernommen, relative Assets sind über die
+Release-ID gebunden. Bisheriger Wechseltest auf Port 8080 bleibt für Rückkehr
+erhalten. Installation und sichtbare Abnahme dieser Stufe am Pi stehen noch aus.
 
 Der lokale Wechseltest unter `player/local_test/` ist inzwischen im Repository
 implementiert und auf Windows getestet: synthetische A/B/C-Folien, 20 Sekunden,
@@ -171,8 +178,9 @@ Gültigkeitsintervalle, Ersatzseite und Loopback-HTTP-Dienst. Acht neue Tests un
 die vollständige Suite (48 Tests) bestanden. Testfolie und Ablauf zur Ersatzseite
 wurden im Browser geprüft; Textgrenzen zusätzlich bei 1920×1080 kontrolliert.
 Installation und Abnahme des lokalen Wechseltests am Anzeige-Pi sind inzwischen
-bestätigt, siehe Nachtrag oben. Mit dem Downloadlabor bestehen aktuell 62 Python-
-und vier Browser-Tests auf Windows.
+bestätigt, siehe Nachtrag oben. Mit der Paketwiedergabe bestehen aktuell 67 Python-
+und sechs Browser-Tests auf Windows; auch die Bash-Syntax des neuen Installers
+wurde geprüft.
 Die Anleitung einschließlich Rückkehr zur Uhr steht in `player/local_test/README.md`.
 
 Noch offen sind persistente echte Playlist, vollständiger Download, atomare Aktivierung,

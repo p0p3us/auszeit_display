@@ -23,11 +23,12 @@ def timestamp(value):
 
 
 class Playlist:
-    def __init__(self, entries):
+    def __init__(self, entries, allowed_paths=None):
         self.entries = entries
         self.index = None
         self.started = None
         ids = set()
+        allowed_paths = allowed_paths if allowed_paths is not None else ("/slides/a.html", "/slides/b.html", "/slides/c.html")
         for entry in entries:
             if entry["id"] in ids:
                 raise ValueError("Duplicate slide ID")
@@ -35,7 +36,7 @@ class Playlist:
             duration = entry["duration_seconds"]
             if type(duration) is not int or not 5 <= duration <= 300:
                 raise ValueError("Duration must be an integer from 5 to 300")
-            if entry["path"] not in ("/slides/a.html", "/slides/b.html", "/slides/c.html"):
+            if entry["path"] not in allowed_paths:
                 raise ValueError("Unknown local test slide")
             begin, end = timestamp(entry.get("valid_from")), timestamp(entry.get("valid_until"))
             if begin and end and begin >= end:

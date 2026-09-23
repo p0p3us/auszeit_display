@@ -12,6 +12,7 @@ function setup() {
     return [id, {hidden: false, classList: {add: c => classes.add(c), remove: c => classes.delete(c), contains: c => classes.has(c)}}];
   }));
   let slide = {id: 'A', path: '/slides/a.html', valid_until: null};
+  let scenario = 'cycle';
   const timers = new Map();
   let counter = 0;
   const context = vm.createContext({
@@ -19,11 +20,11 @@ function setup() {
     setTimeout: (fn, delay) => {timers.set(++counter, {fn, delay}); return counter;},
     clearTimeout: id => timers.delete(id),
     requestAnimationFrame: fn => queueMicrotask(fn),
-    fetch: async () => ({ok: true, json: async () => ({slide})})
+    fetch: async () => ({ok: true, json: async () => ({slide, scenario})})
   });
   context.window = context;
   vm.runInContext(source, context);
-  return {elements, timers, setSlide: value => {slide = value;},
+  return {elements, timers, setSlide: value => {slide = value;}, setScenario: value => {scenario = value;},
     poll: () => vm.runInContext('poll()', context)};
 }
 
@@ -49,6 +50,31 @@ test('old slide stays visible during delayed load; fallback never flashes', asyn
   assert.equal(state.elements['slide-next'].classList.contains('active'), true);
   assert.equal(state.elements.slide.classList.contains('active'), false);
   assert.equal(state.elements.fallback.hidden, true);
+});
+
+test('verified package URL loads without exposing fallback', async () => {
+  const state = setup();
+  await showFirst(state);
+  state.setScenario('packages');
+  state.setSlide({id: 'display-1:A', path: '/releases/display-1/content/auszeit-display/a.html', valid_until: null});
+  const pending = state.poll();
+  await settle();
+  assert.equal(state.elements.fallback.hidden, true);
+  assert.equal(state.elements['slide-next'].src, '/releases/display-1/content/auszeit-display/a.html');
+  state.elements['slide-next'].onload();
+  await pending;
+  assert.equal(state.elements['slide-next'].classList.contains('active'), true);
+  assert.equal(state.elements.fallback.hidden, true);
+});
+
+test('package URL containing traversal is refused', async () => {
+  const state = setup();
+  await showFirst(state);
+  state.setScenario('packages');
+  state.setSlide({id: 'bad', path: '/releases/display-1/content/auszeit-display/../a.html', valid_until: null});
+  await state.poll();
+  assert.equal(state.elements['slide-next'].src, undefined);
+  assert.equal(state.elements.fallback.hidden, false);
 });
 
 test('empty playlist displays fallback and hides frames', async () => {
