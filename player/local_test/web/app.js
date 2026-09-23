@@ -1,12 +1,29 @@
 "use strict";
-const frame = document.getElementById("slide");
+const frames = [document.getElementById("slide"), document.getElementById("slide-next")];
+const fallbackPage = document.getElementById("fallback");
+let active = null;
 let current = null;
 let generation = 0;
+let expiryTimer = null;
 function fallback() {
   generation++;
-  current = null;
-  frame.hidden = true;
-  frame.removeAttribute("src");
+  clearTimeout(expiryTimer);
+  current = active = null;
+  fallbackPage.hidden = false;
+  for (const frame of frames) frame.classList.remove("active");
+}
+function loadFrame(frame, path) {
+  return new Promise((resolve, reject) => {
+    const timeout = setTimeout(() => finish(new Error("Slide load timed out")), 5000);
+    function finish(error) {
+      clearTimeout(timeout);
+      frame.onload = frame.onerror = null;
+      error ? reject(error) : resolve();
+    }
+    frame.onload = () => finish();
+    frame.onerror = () => finish(new Error("Slide load failed"));
+    frame.src = path;
+  });
 }
 async function poll() {
   try {
@@ -20,12 +37,25 @@ async function poll() {
       // This is a synthetic local test, not an arbitrary HTML feed consumer.
       if (!["/slides/a.html", "/slides/b.html", "/slides/c.html"].includes(slide.path)) throw new Error("Unknown slide");
       const token = ++generation;
-      frame.hidden = true;
+      const next = frames.find(frame => frame !== active);
       const check = await fetch(slide.path, {cache: "no-store", signal: AbortSignal.timeout(2000)});
       if (!check.ok) throw new Error("Slide unavailable");
+      await loadFrame(next, slide.path);
+      // Keep the outgoing slide visible throughout loading and layout.
+      await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+      if (generation !== token) return;
+      const until = slide.valid_until ? Date.parse(slide.valid_until) : null;
+      if (until !== null && (!Number.isFinite(until) || until <= Date.now())) {
+        fallback();
+        return;
+      }
+      next.classList.add("active");
+      if (active) active.classList.remove("active");
+      active = next;
       current = slide.id;
-      frame.onload = () => { if (generation === token) frame.hidden = false; };
-      frame.src = slide.path;
+      fallbackPage.hidden = true;
+      clearTimeout(expiryTimer);
+      if (until !== null) expiryTimer = setTimeout(fallback, Math.min(until - Date.now(), 2147483647));
     }
   } catch (error) {
     fallback();

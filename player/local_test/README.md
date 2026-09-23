@@ -25,7 +25,10 @@ Die Ersatzseite bleibt absichtlich stehen. Ein Browserneustart setzt die Frist
 nicht zurück; ein Neustart des Python-Diensts beginnt einen neuen Test.
 
 Der Browser lädt über HTTP von `127.0.0.1:8080`, alle Dateien liegen auf dem Pi.
-Es gibt genau einen iframe, eine feste Routenliste und keine Verzeichnisfreigabe.
+Zwei feste iframes wechseln sich ab: Die nächste Folie lädt unsichtbar, während
+die bisherige sichtbar bleibt. Erst nach Laden und Layout wird gemeinsam
+umgeschaltet, damit die Ersatzseite nicht bei jedem Wechsel aufblitzt.
+Es gibt eine feste Routenliste und keine Verzeichnisfreigabe.
 Bei API-Ausfall wird die schon geladene lokale Ersatzseite sichtbar. Polling setzt
 sich fort und kann nach Dienstwiederkehr automatisch wieder Folien anzeigen.
 Die Folien sind sandboxed, externe Netzwerkressourcen per CSP ausgeschlossen.
@@ -36,6 +39,7 @@ Aus dem Repository:
 
 ```powershell
 .\.venv\Scripts\python.exe -m unittest discover -s tests -p test_player_local.py -v
+node --test tests/test_player_browser.cjs
 .\.venv\Scripts\python.exe player/local_test/server.py --port 8765
 ```
 
