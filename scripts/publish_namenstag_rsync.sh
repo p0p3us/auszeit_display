@@ -34,6 +34,11 @@ if [ ! -d "$EXPORT_DIR/namenstag" ] || [ ! -f "$EXPORT_DIR/namenstag/index.html"
 fi
 
 echo "===== Upload per rsync ====="
+rsync -avz --relative \
+  "$EXPORT_DIR/./static/js/display_layout.js" \
+  "$EXPORT_DIR/./static/css/display_pages/base_display.css" \
+  "$EXPORT_DIR/./static/css/display_pages/namenstag.css" \
+  "$RSYNC_REMOTE_USER@$RSYNC_REMOTE_HOST:${RSYNC_REMOTE_PATH%/}/"
 rsync -avz --delete \
   "$EXPORT_DIR/namenstag/" \
   "$RSYNC_REMOTE_USER@$RSYNC_REMOTE_HOST:$NAMENSTAG_REMOTE_PATH/"

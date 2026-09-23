@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Auszeit</title>
+    <script defer src="/auszeit-display/static/js/display_layout.js"></script>
     <link rel="stylesheet" href="/auszeit-display/static/css/display_pages/base_display.css">
     <style>
         .fallback-content {
@@ -17,7 +18,7 @@
         .fallback-title {
             margin: 0;
             color: #f1d27a;
-            font-size: clamp(58px, 6vw, 108px);
+            font-size: clamp(58px, calc(var(--display-vw, 1vw) * 6), 108px);
             font-weight: 600;
             letter-spacing: 0.02em;
             text-shadow: 0 3px 18px rgba(0, 0, 0, 0.45);
@@ -25,7 +26,7 @@
 
         .fallback-text {
             margin: 24px 0 0;
-            font-size: clamp(28px, 2.5vw, 46px);
+            font-size: clamp(28px, calc(var(--display-vw, 1vw) * 2.5), 46px);
             line-height: 1.25;
         }
     </style>

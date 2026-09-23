@@ -24,12 +24,14 @@ echo "===== Export-Ordner vorbereiten ====="
 rm -rf "$EXPORT_DIR"
 mkdir -p "$EXPORT_DIR/namenstag"
 mkdir -p "$EXPORT_DIR/static/css/display_pages"
+mkdir -p "$EXPORT_DIR/static/js"
 mkdir -p "$EXPORT_DIR/resources/images"
 
 echo "===== HTML exportieren ====="
 cp "$BASE_DIR/pages/namenstag/anzeige.html" "$EXPORT_DIR/namenstag/index.html"
 
 echo "===== CSS exportieren ====="
+cp "$BASE_DIR/static/js/display_layout.js" "$EXPORT_DIR/static/js/display_layout.js"
 cp "$BASE_DIR/static/css/display_pages/base_display.css" "$EXPORT_DIR/static/css/display_pages/base_display.css"
 cp "$BASE_DIR/static/css/display_pages/namenstag.css" "$EXPORT_DIR/static/css/display_pages/namenstag.css"
 

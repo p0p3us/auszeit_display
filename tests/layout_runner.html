@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="de"><meta charset="utf-8"><title>Folien-Layoutprüfung</title>
+<style>body {font:16px Arial} iframe {border:0; position:absolute; left:0; top:160px; transform:scale(.3); transform-origin:top left} #results {margin-left:600px} .fail {color:#b00}</style>
+<h1>Folien-Layoutprüfung</h1><p id="status">Test läuft …</p><ol id="results"></ol>
+<iframe title="Testfolie"></iframe>
+<script>
+const parameters = new URLSearchParams(location.search);
+const filter = parameters.get('filter');
+const cases = (__CASES__).filter(name => !filter || new RegExp(filter).test(name));
+const frame = document.querySelector('iframe');
+const sizes = parameters.has('allSizes') ? [[1920,1080],[1280,720],[1736,969]] : [[1920,1080]];
+let failures = 0;
+function inspect(doc) {
+  const issues = [];
+  const canvas = doc.body.getBoundingClientRect();
+  const leaves = [...doc.querySelectorAll('main *')].filter(e => !e.children.length && e.textContent.trim() && e.getClientRects().length && e.tagName !== 'SCRIPT');
+  for (const e of leaves) {
+    const range = doc.createRange(); range.selectNodeContents(e);
+    const rect = range.getBoundingClientRect();
+    const name = e.className || e.tagName;
+    if (rect.bottom > canvas.bottom + 1 || rect.top < canvas.top - 1 || rect.right > canvas.right + 1 || rect.left < canvas.left - 1) issues.push(name+': outside canvas');
+    for (let parent=e.parentElement; parent && parent!==doc.body; parent=parent.parentElement) {
+      const style=doc.defaultView.getComputedStyle(parent);
+      if (style.overflow==='hidden' || parent.matches('.menu-card-content')) {
+        const bounds=parent.getBoundingClientRect();
+        if (rect.bottom>bounds.bottom+1 || rect.top<bounds.top-1 || rect.right>bounds.right+1 || rect.left<bounds.left-1) issues.push(name+': clipped by '+parent.className);
+      }
+    }
+  }
+  for (const e of doc.querySelectorAll('[data-layout-overflow="true"]')) issues.push(e.className+': fitting limit exceeded');
+  // Text siblings must not overlap even when overflow is visually hidden.
+  for (const selector of ['.menu-card-header','.menu-card-content','.menu-card-price','.event-title-box','.event-copy']) {
+    for (const e of doc.querySelectorAll(selector)) {
+      if (e.scrollHeight > e.clientHeight+2 || e.scrollWidth > e.clientWidth+2) issues.push(selector+': internal overflow');
+    }
+  }
+  return [...new Set(issues)];
+}
+(async () => {
+  for (const [width,height] of sizes) {
+    frame.width=width; frame.height=height;
+    for (const name of cases) {
+      await new Promise(resolve => {frame.onload=resolve; frame.src='/case/'+encodeURIComponent(name);});
+      await frame.contentDocument.fonts.ready;
+      await new Promise(resolve => frame.contentWindow.requestAnimationFrame(()=>frame.contentWindow.requestAnimationFrame(resolve)));
+      const issues=inspect(frame.contentDocument);
+      if (frame.contentDocument.documentElement.dataset.layoutReady !== 'true') issues.push('layout script missing');
+      const item=document.createElement('li'); item.textContent=`${width}×${height} ${name}: ${issues.length ? issues.join('; ') : 'OK'}`;
+      if(issues.length) {failures++;item.className='fail';}
+      document.querySelector('#results').append(item);
+      document.querySelector('#status').textContent=`${document.querySelectorAll('li').length}/${cases.length*sizes.length}, Fehler: ${failures}`;
+    }
+  }
+  document.querySelector('#status').dataset.complete='true';
+})();
+</script></html>

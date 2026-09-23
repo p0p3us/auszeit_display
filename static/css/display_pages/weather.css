@@ -102,8 +102,9 @@
   position: relative;
   z-index: 6;
 
-  width: 82vw;
+  width: calc(var(--display-vw, 1vw) * 82);
   max-width: 1580px;
+  height: 100%;
 }
 
 .weather-tomorrow-main {
@@ -154,7 +155,7 @@
   letter-spacing: -0.03em;
 
   margin-top: 10px;
-  margin-bottom: 54px;
+  margin-bottom: 28px;
 
   color: #ffffff;
 
@@ -170,7 +171,7 @@
   grid-template-columns: repeat(4, minmax(150px, 1fr));
   gap: 22px;
 
-  width: 76vw;
+  width: calc(var(--display-vw, 1vw) * 76);
   max-width: 1320px;
 }
 
@@ -233,8 +234,9 @@
   position: relative;
   z-index: 6;
 
-  width: 92vw;
+  width: calc(var(--display-vw, 1vw) * 92);
   max-width: 1680px;
+  height: 100%;
 
   margin: 0 auto;
 }
@@ -484,15 +486,16 @@
   position: relative;
   z-index: 6;
 
-  width: 92vw;
+  width: calc(var(--display-vw, 1vw) * 92);
   max-width: 1680px;
+  height: 100%;
   margin: 0 auto;
 }
 
 .weather-deluxe-card h1 {
-  font-size: 102px;
+  font-size: 90px;
   line-height: 1.02;
-  margin-bottom: 30px;
+  margin-bottom: 22px;
 }
 
 .weather-deluxe-layout {

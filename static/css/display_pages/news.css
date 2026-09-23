@@ -18,10 +18,10 @@
 .news-card-default {
   /*
     Breite des Nachrichtenblocks OHNE RSS-Bild.
-    66.666vw = ca. 2/3 der gesamten Bildschirmbreite.
-    Diesen Wert kannst du später selbst anpassen, z. B. 62vw, 70vw, 74vw.
+    66,666 Prozent der logischen Folienbreite, also ungefähr zwei Drittel.
+    Der Faktor lässt sich bei Bedarf auf beispielsweise 62, 70 oder 74 ändern.
   */
-  width: 66.666vw;
+  width: calc(var(--display-vw, 1vw) * 66.666);
   max-width: 1280px;
 }
 
@@ -42,10 +42,10 @@
 
 .news-default-image {
   /*
-    Bild rechts unten bleibt groß, aber nicht mehr 100vw breit.
+    Bild rechts unten bleibt groß, aber schmaler als die gesamte Folie.
     Sonst verdrängt es optisch den Textbereich.
   */
-  width: 72vw;
+  width: calc(var(--display-vw, 1vw) * 72);
   max-width: 1380px;
 
   opacity: 0.86;
@@ -62,7 +62,7 @@
    ========================================================= */
 
 .news-card-photo {
-  width: 78vw;
+  width: calc(var(--display-vw, 1vw) * 78);
   max-width: 1450px;
 
   /*
@@ -80,7 +80,7 @@
   right: 0;
   bottom: 0;
 
-  height: 56vh;
+  height: calc(var(--display-vh, 1vh) * 56);
 
   z-index: -1;
   pointer-events: none;
@@ -106,8 +106,8 @@
   left: 50%;
   transform: translateX(-50%);
 
-  width: 62vw;
-  height: 41vh;
+  width: calc(var(--display-vw, 1vw) * 62);
+  height: calc(var(--display-vh, 1vh) * 41);
 
   z-index: 3;
   pointer-events: none;
@@ -196,7 +196,7 @@
   font-size: 44px;
   font-weight: 400;
   color: rgba(255, 255, 255, 0.9);
-  margin-bottom: 58px;
+  margin-bottom: 30px;
 }
 
 .news-single h2 {
@@ -239,14 +239,16 @@
 }
 
 .news-card-photo h1 {
-  font-size: 118px;
+  font-size: 96px;
   margin-bottom: 6px;
 }
 
 .news-card-photo .news-date {
   font-size: 34px;
-  margin-bottom: 34px;
+  margin-bottom: 20px;
 }
+
+.news-single { overflow-wrap: anywhere; hyphens: auto; }
 
 .news-card-photo .news-single h2 {
   font-size: 58px;

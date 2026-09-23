@@ -1,5 +1,5 @@
 .namenstag-card {
-  width: 78vw;
+  width: calc(var(--display-vw, 1vw) * 78);
   max-width: 1450px;
 
   display: flex;
@@ -116,7 +116,7 @@
 }
 
 .namenstag-image {
-  width: 72vw;
+  width: calc(var(--display-vw, 1vw) * 72);
   max-width: 1400px;
 
   filter:

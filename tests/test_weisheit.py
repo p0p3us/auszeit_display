@@ -39,8 +39,8 @@ class WeisheitTests(unittest.TestCase):
         html = MODULE.render_page()
         current = MODULE.pick_weisheit(MODULE.load_weisheiten(), date.today())
         self.assertEqual(html.count('class="weisheit-line"'), len(current.splitlines()))
-        self.assertIn("widths.some((width) => width > text.clientWidth)", html)
-        self.assertIn("widths[index] * 0.58", html)
+        self.assertIn('/static/js/display_layout.js', html)
+        self.assertNotIn('<script>', html)  # Fitting runs once, on the logical Full-HD canvas.
 
 
 if __name__ == "__main__":

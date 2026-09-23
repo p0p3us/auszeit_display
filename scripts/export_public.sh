@@ -54,6 +54,7 @@ mkdir -p "$STAGING_DIR/bauernregel"
 mkdir -p "$STAGING_DIR/weisheit"
 mkdir -p "$STAGING_DIR/zitat"
 mkdir -p "$STAGING_DIR/static/css/display_pages"
+mkdir -p "$STAGING_DIR/static/js"
 mkdir -p "$STAGING_DIR/resources/images"
 mkdir -p "$STAGING_DIR/resources/zitate"
 mkdir -p "$STAGING_DIR/news"
@@ -76,6 +77,7 @@ cp "$BASE_DIR/pages/menue/"*.html "$STAGING_DIR/menue/"
 cp "$BASE_DIR/pages/termine/"*.html "$STAGING_DIR/termine/" 2>/dev/null || true
 
 echo "===== CSS exportieren ====="
+cp "$BASE_DIR/static/js/display_layout.js" "$STAGING_DIR/static/js/display_layout.js"
 cp "$BASE_DIR/static/css/display_pages/base_display.css" "$STAGING_DIR/static/css/display_pages/base_display.css"
 cp "$BASE_DIR/static/css/display_pages/namenstag.css" "$STAGING_DIR/static/css/display_pages/namenstag.css"
 cp "$BASE_DIR/static/css/display_pages/bauernregel.css" "$STAGING_DIR/static/css/display_pages/bauernregel.css"
@@ -123,6 +125,7 @@ do
 done
 
 echo "===== Änderungen mit Public-Export abgleichen ====="
+"$PYTHON_BIN" "$BASE_DIR/scripts/generate_public_index.py" "$STAGING_DIR"
 mkdir -p "$EXPORT_DIR"
 rsync -r --delete --checksum --itemize-changes "$STAGING_DIR/" "$EXPORT_DIR/"
 

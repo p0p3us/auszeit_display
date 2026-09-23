@@ -25,20 +25,4 @@
     </div>
   </section>
 
-  <script>
-    (() => {
-      const card = document.querySelector('.zitat-card');
-      const quote = document.querySelector('.zitat-text');
-      if (!card || !quote) return;
-
-      let size = 78;
-      const minimum = 42;
-      quote.style.fontSize = `${size}px`;
-
-      while (size > minimum && card.scrollHeight > card.clientHeight) {
-        size -= 2;
-        quote.style.fontSize = `${size}px`;
-      }
-    })();
-  </script>
 {% endblock %}

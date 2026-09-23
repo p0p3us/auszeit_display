@@ -247,6 +247,7 @@ def main() -> int:
   <ul>
     <li><a href="morgen.html">Wetter morgen</a></li>
     <li><a href="5tage.html">5-Tage-Vorschau</a></li>
+    <li><a href="morgen-deluxe.html">Wetter morgen für Angeber</a></li>
   </ul>
 </body>
 </html>

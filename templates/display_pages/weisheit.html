@@ -22,46 +22,6 @@
     </blockquote>
   </section>
 
-  <script>
-    (() => {
-      const text = document.querySelector('.weisheit-text');
-      const card = document.querySelector('.weisheit-card');
-      if (!text || !card) return;
-
-      const lines = [...text.querySelectorAll('.weisheit-line')];
-      const canvas = document.createElement('canvas');
-      const context = canvas.getContext('2d');
-      let size = 88;
-      const minimum = 48;
-
-      const layoutLines = () => {
-        text.style.fontSize = `${size}px`;
-        const style = getComputedStyle(text);
-        context.font = `${style.fontWeight} ${size}px ${style.fontFamily}`;
-
-        lines.forEach((line) => {
-          line.classList.remove('weisheit-line-wrap');
-          line.style.width = '';
-        });
-
-        const widths = lines.map((line) => context.measureText(line.textContent).width);
-        const wrapAll = widths.some((width) => width > text.clientWidth);
-
-        if (wrapAll) {
-          lines.forEach((line, index) => {
-            line.classList.add('weisheit-line-wrap');
-            line.style.width = `${Math.ceil(widths[index] * 0.58)}px`;
-          });
-        }
-      };
-
-      layoutLines();
-      while (size > minimum && card.scrollHeight > card.clientHeight) {
-        size -= 2;
-        layoutLines();
-      }
-    })();
-  </script>
 {% endblock %}
 
 {% block footer_left %}Aktualisiert: {{ updated_text }}{% endblock %}

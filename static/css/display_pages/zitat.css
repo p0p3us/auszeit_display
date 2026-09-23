@@ -1,7 +1,7 @@
 .zitat-card {
-  width: 67vw;
+  width: calc(var(--display-vw, 1vw) * 67);
   max-width: 1280px;
-  height: 680px;
+  height: 100%;
   display: flex;
   flex-direction: column;
   position: relative;
@@ -41,7 +41,7 @@
 }
 
 .zitat-text {
-  width: 57vw;
+  width: calc(var(--display-vw, 1vw) * 57);
   max-width: 1090px;
   margin: 0;
   color: #fff;
@@ -79,11 +79,11 @@
 }
 
 .zitat-image {
-  right: 3.5vw;
+  right: calc(var(--display-vw, 1vw) * 3.5);
   bottom: 0;
   width: auto;
-  height: 74vh;
-  max-width: 35vw;
+  height: calc(var(--display-vh, 1vh) * 74);
+  max-width: calc(var(--display-vw, 1vw) * 35);
   object-fit: contain;
   object-position: right bottom;
   filter:

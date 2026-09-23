@@ -9,6 +9,32 @@ body {
   height: 100%;
 }
 
+html { overflow: hidden; background: #1a0004; }
+
+/* Logical pixels remain 1920 × 1080; display_layout.js scales the whole slide. */
+body.display-canvas {
+  --display-vw: 19.2px;
+  --display-vh: 10.8px;
+  position: absolute;
+  width: 1920px;
+  height: 1080px;
+  transform-origin: top left;
+}
+
+/* Large transparent motifs already contain their lighting. Chained drop-shadow
+   filters inside a transformed canvas can blank the entire Chromium surface. */
+.display-canvas .display-topic-image { filter: none; }
+
+.news-card, .bauernregel-card, .namenstag-card, .weisheit-card, .zitat-card {
+  height: 100%;
+  min-height: 0;
+}
+
+.news-card > *, .bauernregel-card > *, .namenstag-card > *,
+.weisheit-card > *, .zitat-card > * {
+  flex-shrink: 0;
+}
+
 body {
   overflow: hidden;
   font-family: Arial, Helvetica, sans-serif;
@@ -67,7 +93,7 @@ body {
   position: fixed;
   right: 0;
   bottom: 0;
-  width: 56vw;
+  width: calc(var(--display-vw, 1vw) * 56);
   max-width: 1080px;
   height: auto;
   z-index: 2;
@@ -77,8 +103,8 @@ body {
 .display-content {
   position: relative;
   z-index: 5;
-  width: 100vw;
-  height: 100vh;
+  width: calc(var(--display-vw, 1vw) * 100);
+  height: calc(var(--display-vh, 1vh) * 100);
 
   /*
     Einheitlicher Textanker für alle Folien:

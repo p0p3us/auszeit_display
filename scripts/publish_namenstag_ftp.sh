@@ -38,6 +38,11 @@ echo "===== FTP Upload starten ====="
 lftp -u "$FTP_USER","$FTP_PASS" "ftp://$FTP_HOST" <<EOF
 set ftp:ssl-allow no
 mkdir -p "$NAMENSTAG_REMOTE_DIR"
+mkdir -p "$FTP_REMOTE_DIR/static/js"
+mkdir -p "$FTP_REMOTE_DIR/static/css/display_pages"
+put "$EXPORT_DIR/static/js/display_layout.js" -o "$FTP_REMOTE_DIR/static/js/display_layout.js"
+put "$EXPORT_DIR/static/css/display_pages/base_display.css" -o "$FTP_REMOTE_DIR/static/css/display_pages/base_display.css"
+put "$EXPORT_DIR/static/css/display_pages/namenstag.css" -o "$FTP_REMOTE_DIR/static/css/display_pages/namenstag.css"
 mirror -R --delete "$EXPORT_DIR/namenstag" "$NAMENSTAG_REMOTE_DIR"
 bye
 EOF
