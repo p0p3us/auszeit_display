@@ -5,13 +5,27 @@ if [ "$(hostname)" != "auszeit-player-01" ]; then
   echo "Abbruch: Installation nur auf auszeit-player-01, niemals auf dem Inhaltsserver."
   exit 1
 fi
-id player >/dev/null
+if ! id player >/dev/null 2>&1; then
+  echo "Abbruch: Anzeigebenutzer player fehlt." >&2
+  exit 1
+fi
 SOURCE="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 for file in server.py web/index.html web/slide.html web/style.css web/app.js; do
-  test -f "$SOURCE/$file"
+  if [ ! -f "$SOURCE/$file" ]; then
+    echo "Abbruch: Testdatei fehlt: $SOURCE/$file" >&2
+    exit 1
+  fi
 done
-test -x /usr/bin/python3
-test -f /home/player/.config/systemd/user/auszeit-browser.service
+if [ ! -x /usr/bin/python3 ]; then
+  echo "Abbruch: /usr/bin/python3 fehlt oder ist nicht ausführbar." >&2
+  exit 1
+fi
+# player owns .config with mode 0700; the maintenance user cannot traverse it.
+sudo -v
+if ! sudo test -f /home/player/.config/systemd/user/auszeit-browser.service; then
+  echo "Abbruch: Browserdienst von player fehlt; zuerst die Kiosk-Grundeinrichtung prüfen." >&2
+  exit 1
+fi
 sudo install -d -m 0755 /opt/auszeit-player-test /opt/auszeit-player-test/web
 sudo install -m 0644 "$SOURCE/server.py" /opt/auszeit-player-test/server.py
 for file in index.html slide.html style.css app.js; do
