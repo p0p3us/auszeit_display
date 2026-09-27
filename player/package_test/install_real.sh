@@ -12,5 +12,10 @@ sudo -v
 sudo test -f "$DEST/player/package_test/server.py"
 sudo install -m 0644 "$SOURCE/activate_real.py" "$DEST/player/package_test/activate_real.py"
 sudo cp -R "$SOURCE/prepared" "$DEST/player/package_test/"
+# SCP/Windows source modes may exclude the unprivileged display user.
+sudo chown -R root:root "$DEST/player/package_test/prepared"
+sudo find "$DEST/player/package_test/prepared" -type d -exec chmod 0755 {} +
+sudo find "$DEST/player/package_test/prepared" -type f -exec chmod 0644 {} +
+sudo -u player test -r "$DEST/player/package_test/prepared/latest.json"
 cd "$DEST"
 sudo -u player /usr/bin/python3 -m player.package_test.activate_real
