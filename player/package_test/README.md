@@ -1,5 +1,49 @@
 # Gespeicherte Testpakete auf dem Fernseher
 
+## Erste echte Folie: Auszeit-Weisheit
+
+Vom Repository-Hauptverzeichnis auf Windows reproduzierbar erstellen:
+
+```powershell
+.\.venv\Scripts\python.exe -m player.package_test.build_real_slide
+```
+
+Verwendet den vorhandenen Weisheiten-Generator, seine Templates, CSS, Layout-JS,
+Logo, Hintergrund und Weisheitenmotiv. Fester Test-Snapshot vom 27.09.2026,
+keine automatische Tagesaktualisierung. Sieben Dateien, keine externen Fonts;
+Systemschrift Arial/Helvetica bzw. die vorhandene Ersatzschrift des Pi.
+Nur die Paketkopie erhält relative HTML-/CSS-Assetpfade. Release-ID wird aus
+Dateiinhalten gebildet; Quelldateien und produktive Exporte werden nicht verändert.
+Das generierte Verzeichnis `prepared/` ist nicht in Git; Quelle ist der Builder.
+
+Nach dem Erstellen in Windows-PowerShell übertragen:
+
+```powershell
+scp -r -i "$env:USERPROFILE\.ssh\auszeit-player" "C:\Users\marku\OneDrive\02_ChatGPT Orga\06_Auszeit DS\player\package_test" auszeit@192.168.178.55:~/player/
+```
+
+Auf dem Anzeige-Pi:
+
+```bash
+bash ~/player/package_test/install_real.sh
+```
+
+Voraussetzung: bestehende Paketwiedergabe ist installiert. Lädt den vorbereiteten
+Feed über den vorhandenen Downloader, aktiviert ihn nach Hashprüfung und beendet
+den Feed. Kein Browserneustart. Spätestens an der nächsten Foliengrenze erscheint
+die Weisheit. Sie ist die einzige Folie und bleibt deshalb sichtbar; A/B/C werden
+dabei ersetzt. Stand 2 bleibt gespeichert. Rückkehr bei Darstellungsproblemen:
+
+```bash
+cd /opt/auszeit-player-package-test
+sudo -u player python3 -m player.package_test.publish 2
+```
+
+Prüfung: vollständiger Text, Logo rechts oben, Bildmotiv rechts unten, Hintergrund,
+keine fehlenden Bilder/Scrollleisten. Lokale Browserprüfung erfolgte bei 1920×1080;
+die Schriftmetriken auf dem Pi müssen zusätzlich am Fernseher geprüft werden.
+Diese gezielte Anpassung genau einer Folie ist kein allgemeiner Exportadapter.
+
 Diese Stufe verbindet `update_test` mit dem flackerfreien `local_test`.
 Nur synthetische Testinhalte; Inhaltsserver, FTP und Webspace bleiben unverändert.
 

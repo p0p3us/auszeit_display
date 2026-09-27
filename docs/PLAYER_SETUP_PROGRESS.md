@@ -183,7 +183,15 @@ erhalten. Der Benutzer hat folgende Schritte am Pi bestätigt:
 Beim Browserstart blitzte die Ersatzseite kurz auf. Die Playeroberfläche hält sie
 nun bis zum Ergebnis des ersten Ladevorgangs verborgen; bei leerem Plan oder
 Ladefehler wird sie weiterhin eingeblendet. Während des erfolgreichen Ladens ist
-nur der ruhige Hintergrund sichtbar. Hardwareabnahme dieser Korrektur steht aus.
+nur der ruhige Hintergrund sichtbar. Der Benutzer hat die Korrektur am Pi bestätigt.
+Auch ein Neustart mit per `nmcli radio wifi off` abgeschaltetem WLAN zeigte die
+Folien selbstständig; WLAN wurde danach wieder eingeschaltet und die Verbindung
+wiederhergestellt. Ein Kaltstart nach Stromtrennung bleibt separat offen.
+
+Nächster vorbereiteter Schritt: echte Auszeit-Weisheit als festes Testpaket aus
+Generator/Template und sechs Assets, ausschließlich mit relativen Verweisen in
+der Paketkopie. Lokale Sichtprüfung bei 1920×1080 bestanden; Abnahme auf dem Pi offen.
+Anleitung: `player/package_test/README.md`, Abschnitt „Erste echte Folie“.
 
 Der lokale Wechseltest unter `player/local_test/` ist inzwischen im Repository
 implementiert und auf Windows getestet: synthetische A/B/C-Folien, 20 Sekunden,
