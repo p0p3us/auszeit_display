@@ -118,6 +118,24 @@ class ExportTests(unittest.TestCase):
         self.data('menue.json', data)
         self.assertNotIn('menue-tomorrow', [p['id'] for p in self.export().playlist])
 
+    def test_tomorrow_menu_before_period_start_only_from_14(self):
+        from player.local_test.server import Playlist
+        self.data('menue.json', {'status': 'ok',
+            'period': {'start_date': '2026-09-29', 'end_date': '2026-10-02'},
+            'days': [{'date': '2026-09-29', 'title': 'Morgen'}],
+            'has_weekly_special': True, 'weekly_special': {'title': 'Gulasch'}})
+        result = self.export()
+        self.assertEqual([p['id'] for p in result.playlist], ['menue-tomorrow'])
+        playlist = Playlist(result.playlist, allowed_paths=result.files)
+        self.assertIsNone(playlist.select(self.now.replace(hour=13, minute=59), 0))
+        self.assertEqual(playlist.select(self.now.replace(hour=14), 1)['id'], 'menue-tomorrow')
+        self.now = self.now.replace(hour=19)
+        self.assertEqual([p['id'] for p in self.export().playlist], ['menue-tomorrow'])
+        self.now = self.now.replace(day=27)
+        self.assertEqual(self.export().playlist, [])
+        self.now = self.now.replace(month=10, day=3)
+        self.assertEqual(self.export().playlist, [])
+
     def test_menu_switch_uses_vienna_winter_offset_after_clock_change(self):
         from zoneinfo import ZoneInfo
         self.now = datetime(2026, 10, 25, 1, tzinfo=ZoneInfo('Europe/Vienna'))

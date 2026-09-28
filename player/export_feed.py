@@ -163,18 +163,19 @@ class Export:
         # The source period is authoritative; an old file never becomes today's menu.
         start = date.fromisoformat(data['period']['start_date'])
         end = date.fromisoformat(data['period']['end_date'])
-        require(start <= self.day <= end, 'Menu period not current')
+        current = start <= self.day <= end
+        require(current or start == self.day + timedelta(days=1), 'Menu period not current')
         days = menu.get_valid_days(data)
         period = menu.format_period(start, end)
         deadline = self.midnight(end + timedelta(days=1))
-        if days:
+        if current and days:
             self.add('menue-overview', menu.OVERVIEW_TEMPLATE,
                      {'is_fallback': False, 'days': days, 'period_text': period}, deadline)
         special = menu.get_weekly_special(data)
-        if special:
+        if current and special:
             self.add('menue-weekly', menu.WEEKLY_TEMPLATE,
                      {'is_fallback': False, 'special': special, 'period_text': period}, deadline)
-        else:
+        elif current:
             self.omitted.append({'id': 'menue-weekly', 'reason': 'No weekly special'})
         if self.menu_switch is None:
             self.omitted.append({'id': 'menue-daily', 'reason': 'Menu switching hour not configured'})
@@ -184,7 +185,7 @@ class Export:
                 ('today', self.day, self.now, switch),
                 ('tomorrow', self.day + timedelta(days=1), max(self.now, switch), self.midnight(self.day + timedelta(days=1)))):
             entry = menu.find_menu_for_date(days, day)
-            if entry:
+            if entry and start <= day <= end:
                 self.add('menue-' + mode, menu.DAY_TEMPLATE,
                          {'is_fallback': False, 'menu': entry, 'time_mode': mode}, until, begin)
 
