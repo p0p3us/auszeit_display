@@ -238,6 +238,11 @@ Raspberry Pi Connect ist Fernwartung, kein Ersatz für diese Komponenten.
 
 ## Voraussetzungen für ein wiederverwendbares Image
 
+Player-Bereinigung auf Hardware bestätigt: `display-1` und `display-2` entfernt,
+`cleanup.state: ok`, kein Fehler. Webspace-Bereinigung nach erfolgreicher Publikation
+implementiert: sieben Tage Mindestalter, aktueller und vorheriger Paketzeiger
+geschützt, vollständige Dateiliste vor Löschung geprüft. Installation/FTP-Abnahme offen.
+
 Automatische Kette am 28. September bestätigt: Server veröffentlichte
 `content-ec35f7bdf67b75f1af93` mit 20 Folien, nächster Timertermin vorhanden;
 Player-Status anschließend laut Benutzer innerhalb aller erwarteten Parameter.

@@ -1,4 +1,5 @@
 from ftplib import error_perm
+from datetime import datetime, timezone
 import json
 from pathlib import Path
 import posixpath
@@ -6,7 +7,8 @@ import tempfile
 import unittest
 from unittest.mock import patch
 
-from player.publish_feed import FOLDERS, TARGET, snapshot, upload
+from player.publish_feed import FOLDERS, TARGET, snapshot, upload, prune_remote
+from player.update_test.exercise import package
 
 
 class FakeFTP:
@@ -43,8 +45,45 @@ class FakeFTP:
         self.renames.append((source, target))
         self.files[posixpath.join(self.here, target)] = self.files.pop(posixpath.join(self.here, source))
 
+    def mlsd(self):
+        return [(posixpath.basename(p), {'type': 'dir' if p in self.dirs else 'file',
+                                       'modify': '20000101000000'})
+                for p in self.dirs | set(self.files) if p != self.here and posixpath.dirname(p) == self.here]
+
+    def delete(self, name):
+        del self.files[posixpath.join(self.here, name)]
+
+    def rmd(self, name):
+        target = posixpath.join(self.here, name)
+        if any(p.startswith(target + '/') for p in self.dirs | set(self.files)):
+            raise error_perm('550 Directory not empty')
+        self.dirs.remove(target)
+
 
 class FeedPublishTests(unittest.TestCase):
+    def test_remote_retention_preserves_protected_recent_and_unknown_contents(self):
+        ftp = FakeFTP()
+        for name in ('current', 'previous', 'old', 'recent', 'unknown'):
+            for route, body in package(name, name).items():
+                if not route.startswith('/releases/'):
+                    continue
+                if route.endswith('/manifest.json'):
+                    manifest = json.loads(body)
+                    manifest['generated_at'] = ('2026-09-28' if name == 'recent' else '2000-01-01') + 'T00:00:00+00:00'
+                    body = json.dumps(manifest).encode()
+                target = TARGET + route
+                ftp.files[target] = body
+                parent = posixpath.dirname(target)
+                while parent != '/':
+                    ftp.dirs.add(parent)
+                    parent = posixpath.dirname(parent)
+        ftp.files[TARGET + '/releases/unknown/keep.txt'] = b'unrelated'
+        removed = prune_remote(ftp, {'current', 'previous'}, datetime(2026, 9, 28, 20, tzinfo=timezone.utc))
+        self.assertEqual(removed, ['old'])
+        for name in ('current', 'previous', 'recent', 'unknown'):
+            self.assertIn(TARGET + '/releases/' + name + '/manifest.json', ftp.files)
+        self.assertEqual(ftp.files[TARGET + '/latest.json'], b'old')
+
     def test_upload_checks_contents_before_replacing_pointer(self):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)

@@ -90,7 +90,15 @@ Lokaler Pakettest und FTP-Rückleseprüfung gehen der Umbenennung von
 `latest.json.uploading` nach `latest.json` voraus. Bei Fehlern vor dieser Umbenennung
 bleibt der bisherige Paketzeiger erhalten. Lokale temporäre Kopien werden nach dem
 Lauf entfernt; letzter Bericht unter `~/.local/state/auszeit-player-feed/last-publish.json`.
-Automatische Bereinigung alter Releases auf Webspace und Player ist noch offen.
+Nach erfolgreicher Veröffentlichung werden vollständige, bekannte Webspace-Releases
+erst nach sieben Tagen entfernt. Geschützt bleiben neuer und unmittelbar vorheriger
+Paketzeiger. FTP-Verzeichnisdatum und Manifestdatum müssen beide alt genug sein.
+Die MLSD-Prüfung erlaubt nur die im Manifest erwarteten Dateien und Verzeichnisse;
+unbekannte Dateien oder Links verhindern die Löschung. Fehlende MLSD-Unterstützung
+oder Bereinigungsfehler werden im Bericht unter `cleanup.error` festgehalten und
+machen eine zuvor erfolgreiche Veröffentlichung nicht rückgängig. Unvollständige
+oder fremde Ordner werden nicht automatisch gelöscht. Player-Bereinigung siehe
+`player/operations/README.md`.
 
 Maximale Paketgültigkeit sieben Tage, zusätzlich gelten die kürzeren Folienfristen:
 Tagesfolien/News/Wetter bis Mitternacht, Menüs bis Periodenende, Termine bis Ende

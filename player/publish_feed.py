@@ -1,11 +1,11 @@
 """Separate feed publisher; reads source files but never runs production generators."""
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from ftplib import FTP, error_perm
 import hashlib
 import io
 import json
 import os
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 import shutil
 import socket
 import tempfile
@@ -13,7 +13,7 @@ from zoneinfo import ZoneInfo
 
 from player.export_feed import Export
 from player.package_test.activate_real import activate
-from player.update_test.updater import Store, lock
+from player.update_test.updater import Store, lock, ID, validate_manifest
 
 TARGET = '/auszeit-player-feed'
 FOLDERS = ('templates', 'data', 'static', 'resources')
@@ -86,6 +86,74 @@ def upload(ftp, package):
     return release
 
 
+def remote_json(ftp, name):
+    data = bytearray()
+    def receive(chunk):
+        data.extend(chunk)
+        if len(data) > 1024 * 1024:
+            raise ValueError('Remote JSON too large')
+    ftp.retrbinary('RETR ' + name, receive)
+    return json.loads(data)
+
+
+def prune_remote(ftp, protected, now):
+    """Only remove complete known releases older than seven days in the feed."""
+    ftp.cwd(TARGET + '/releases')
+    root = ftp.pwd()
+    removed = []
+    for name, facts in list(ftp.mlsd()):
+        if not ID.fullmatch(name) or name in protected or facts.get('type') != 'dir':
+            continue
+        modified = facts.get('modify', '')
+        try:
+            changed = datetime.strptime(modified.split('.')[0], '%Y%m%d%H%M%S').replace(tzinfo=timezone.utc)
+        except ValueError:
+            continue
+        if now - changed < timedelta(days=7):
+            continue
+        folder = root.rstrip('/') + '/' + name
+        ftp.cwd(folder)
+        manifest = remote_json(ftp, 'manifest.json')
+        validate_manifest(manifest, name)
+        generated = datetime.fromisoformat(manifest['generated_at'])
+        if generated.tzinfo is None or now - generated < timedelta(days=7):
+            continue
+        files = {'manifest.json'} | {'content/' + item['path'] for item in manifest['files']}
+        directories = {str(parent) for file in files for parent in PurePosixPath(file).parents
+                       if str(parent) != '.'}
+        safe = True
+        # Examine only expected directories. Unknown files/links prevent deletion.
+        for relative in sorted({''} | directories):
+            ftp.cwd(folder + ('/' + relative if relative else ''))
+            entries = list(ftp.mlsd())
+            expected = {PurePosixPath(p).name for p in files | directories
+                        if ('' if str(PurePosixPath(p).parent) == '.' else str(PurePosixPath(p).parent)) == relative}
+            actual = set()
+            for child, info in entries:
+                kind = info.get('type')
+                if kind in ('cdir', 'pdir'):
+                    continue
+                path = relative + '/' + child if relative else child
+                actual.add(child)
+                if not ((path in files and kind == 'file') or (path in directories and kind == 'dir')):
+                    safe = False
+            if actual != expected:
+                safe = False
+            if not safe:
+                break
+        if not safe:
+            continue
+        ftp.cwd(folder)
+        for file in sorted(files):
+            ftp.delete(file)
+        for directory in sorted(directories, key=lambda p: len(PurePosixPath(p).parts), reverse=True):
+            ftp.rmd(directory)
+        ftp.cwd(root)
+        ftp.rmd(name)
+        removed.append(name)
+    return removed
+
+
 def main():
     if socket.gethostname() != 'auszeit':
         raise SystemExit('Only run on content server auszeit')
@@ -105,14 +173,30 @@ def main():
         with FTP(timeout=30) as ftp:
             ftp.connect(os.environ['FTP_HOST'])
             ftp.login(os.environ['FTP_USER'], os.environ['FTP_PASS'])
+            ftp.cwd(TARGET)
+            # A valid existing pointer is required for automatic retention.
+            try:
+                previous = remote_json(ftp, 'latest.json')['release_id']
+            except error_perm as error:
+                if not str(error).startswith('550'):
+                    raise
+                previous = None
+            if previous is not None and (not isinstance(previous, str) or not ID.fullmatch(previous)):
+                raise ValueError('Invalid previous pointer')
             release = upload(ftp, package)
+            cleanup = {'removed': [], 'error': None}
+            try:
+                cleanup['removed'] = prune_remote(ftp, {release, previous}, now)
+            except Exception as error:
+                cleanup['error'] = type(error).__name__
         # Save only the latest report; never persist credentials.
         report = json.loads((package / 'report.json').read_text())
-        report.update(release_id=release, published_at=now.isoformat())
+        report.update(release_id=release, published_at=now.isoformat(), cleanup=cleanup)
         pending = state / 'last-publish.new'
         pending.write_text(json.dumps(report, ensure_ascii=False, indent=2))
         pending.replace(state / 'last-publish.json')
         print(f"Published {release}: {len(export.playlist)} slides, {len(export.omitted)} omitted", flush=True)
+        print(f"Cleanup: {len(cleanup['removed'])} removed; error: {cleanup['error'] or 'none'}", flush=True)
 
 
 if __name__ == '__main__':
