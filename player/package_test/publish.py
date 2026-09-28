@@ -31,6 +31,10 @@ def package(version):
                 'playlist': [{'id': letter.upper(), 'path': f'auszeit-display/{letter}.html',
                               'duration_seconds': 20, 'valid_from': None, 'valid_until': None}
                              for letter in 'abc']}
+    if version == 'empty':
+        files = {}
+        manifest['files'] = []
+        manifest['playlist'] = []
     body = json.dumps(manifest).encode()
     manifest_path = f'releases/{release}/manifest.json'
     routes = {'/latest.json': json.dumps({'schema_version': 1, 'release_id': release,
@@ -60,7 +64,7 @@ def main():
         print('Vorhandenen Testbestand beibehalten.')
         return
     try:
-        state = publish(STORE, '1' if args.version == 'init' else args.version)
+        state = publish(STORE, 'empty' if args.version == 'init' else args.version)
     except InvalidRelease as error:
         raise SystemExit(f'Paket abgewiesen; bisheriger Stand unveraendert: {error}')
     print(f"Gepruefter Bestand: {state['active']['release_id']}. Testfeed ist jetzt beendet.")

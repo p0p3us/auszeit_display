@@ -62,4 +62,4 @@ ExecStart=/usr/bin/chromium --ozone-platform=wayland --kiosk --no-first-run --no
 EOF
 sudo chown player:player /home/player/.config/systemd/user/auszeit-browser.service.d/packages-test.conf
 sudo systemctl restart getty@tty1.service
-echo "Paketwiedergabe eingerichtet: Folien A/B/C aus gespeichertem Inhaltsstand."
+echo "Paketwiedergabe eingerichtet: vorhandener Bestand oder lokales Notfallbild."

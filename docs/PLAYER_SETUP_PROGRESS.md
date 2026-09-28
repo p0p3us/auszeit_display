@@ -238,6 +238,16 @@ Raspberry Pi Connect ist Fernwartung, kein Ersatz für diese Komponenten.
 
 ## Voraussetzungen für ein wiederverwendbares Image
 
+Basis-Konfiguration vom Benutzer erneut vollständig ausgelesen und bestätigt:
+tty1-Autologin, Bash-Profil, labwc-Autostart und Browserdienst entsprechen der
+Dokumentation. Beide alten Drop-ins vorhanden; `packages-test.conf` gewinnt
+lexikografisch gegen `local-test.conf` und setzt Port 8081. Der neue Fresh-Install-
+Installer `player/install_base.sh` setzt den Browser direkt auf Port 8081, ohne
+Port-8080-/Uhr-Konfiguration. Er verweigert Änderungen an bestehenden Playern.
+Anleitung und verbleibende Grenzen: `player/INSTALLATION.md`. Noch kein Image-Build
+und keine Hardwareabnahme dieses Gesamtinstallers; keine Bereinigung des Originals.
+Webspace-Publisher einschließlich `Cleanup: 0 removed; error: none` bestätigt.
+
 Player-Bereinigung auf Hardware bestätigt: `display-1` und `display-2` entfernt,
 `cleanup.state: ok`, kein Fehler. Webspace-Bereinigung nach erfolgreicher Publikation
 implementiert: sieben Tage Mindestalter, aktueller und vorheriger Paketzeiger

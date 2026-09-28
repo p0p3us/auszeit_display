@@ -11,6 +11,16 @@ from player.update_test.updater import InvalidRelease
 
 
 class PackagePlaybackTests(unittest.TestCase):
+    def test_empty_initial_release_displays_only_emergency(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            publish(temporary, 'empty')
+            with PackageServer(('127.0.0.1', 0), temporary) as server:
+                state = server.state()
+                self.assertEqual(state['state'], 'fallback')
+                self.assertIsNone(state['slide'])
+                self.assertIsNone(state['last_error'])
+                self.assertEqual(server.routes, {})
+
     def setUp(self):
         self.temp = tempfile.TemporaryDirectory()
         self.addCleanup(self.temp.cleanup)
