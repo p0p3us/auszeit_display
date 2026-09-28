@@ -10,7 +10,7 @@ if ! id player >/dev/null 2>&1; then
   exit 1
 fi
 SOURCE="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
-for file in server.py web/index.html web/slide.html web/style.css web/app.js; do
+for file in server.py web/index.html web/slide.html web/style.css web/app.js web/emergency.css web/emergency.png; do
   if [ ! -f "$SOURCE/$file" ]; then
     echo "Abbruch: Testdatei fehlt: $SOURCE/$file" >&2
     exit 1
@@ -28,7 +28,7 @@ if ! sudo test -f /home/player/.config/systemd/user/auszeit-browser.service; the
 fi
 sudo install -d -m 0755 /opt/auszeit-player-test /opt/auszeit-player-test/web
 sudo install -m 0644 "$SOURCE/server.py" /opt/auszeit-player-test/server.py
-for file in index.html slide.html style.css app.js; do
+for file in index.html slide.html style.css app.js emergency.css emergency.png; do
   sudo install -m 0644 "$SOURCE/web/$file" "/opt/auszeit-player-test/web/$file"
 done
 sudo tee /etc/systemd/system/auszeit-player-test.service >/dev/null <<'EOF'

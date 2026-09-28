@@ -83,7 +83,7 @@ def validate_manifest(manifest, release_id):
     require(manifest.get("generated_at") is not None, "Missing generation date")
     date_value(manifest["generated_at"])
     files, playlist = manifest.get("files"), manifest.get("playlist")
-    require(isinstance(files, list) and 0 < len(files) <= 2000, "Invalid file list")
+    require(isinstance(files, list) and len(files) <= 2000, "Invalid file list")
     require(isinstance(playlist, list) and len(playlist) <= 2000, "Invalid playlist")
     paths, canonical, total = set(), set(), 0
     for entry in files:

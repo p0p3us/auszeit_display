@@ -192,6 +192,15 @@ Nächster vorbereiteter Schritt: echte Auszeit-Weisheit als festes Testpaket aus
 Generator/Template und sechs Assets, ausschließlich mit relativen Verweisen in
 der Paketkopie. Lokale Sichtprüfung bei 1920×1080 bestanden; Abnahme auf dem Pi offen.
 Anleitung: `player/package_test/README.md`, Abschnitt „Erste echte Folie“.
+Die vollständige Darstellung der Weisheit am Pi sowie ihr Neustart mit gesperrtem
+Internetzugang wurden bestätigt; Connect ist anschließend wieder erreichbar.
+
+28. September: Paketexport aus eingefrorener Quellkopie vorbereitet, variable
+Folienzahl, keine Kategorie-Ersatzfolien, Termine einzeln und nur mit allen
+benötigten Dateien. Menüwechsel um 14:00 vom Benutzer bestätigt. Neues lokales
+Notfallbild aus `Downloads/auszeit_standard.png` unverändert übernommen (1280×720,
+16:9; Anzeige proportional auf 1920×1080). Leere Pakete werden akzeptiert und
+aktiviert. Noch nicht am Pi installiert; keine produktive Veröffentlichung.
 
 Der lokale Wechseltest unter `player/local_test/` ist inzwischen im Repository
 implementiert und auf Windows getestet: synthetische A/B/C-Folien, 20 Sekunden,
@@ -199,7 +208,7 @@ Gültigkeitsintervalle, Ersatzseite und Loopback-HTTP-Dienst. Acht neue Tests un
 die vollständige Suite (48 Tests) bestanden. Testfolie und Ablauf zur Ersatzseite
 wurden im Browser geprüft; Textgrenzen zusätzlich bei 1920×1080 kontrolliert.
 Installation und Abnahme des lokalen Wechseltests am Anzeige-Pi sind inzwischen
-bestätigt, siehe Nachtrag oben. Mit der Paketwiedergabe bestehen aktuell 67 Python-
+bestätigt, siehe Nachtrag oben. Mit dem variablen Paketexport bestehen aktuell 79 Python-
 und zehn Browser-Tests auf Windows; auch die Bash-Syntax des neuen Installers
 wurde geprüft.
 Die Anleitung einschließlich Rückkehr zur Uhr steht in `player/local_test/README.md`.

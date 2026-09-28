@@ -101,8 +101,20 @@ Ein Playlisteintrag hat:
 Die Liste wird in ihrer Reihenfolge zyklisch abgespielt. Eine Folie ist nur im
 Intervall `[valid_from, valid_until)` zulässig. Ein erreichtes Ablaufdatum beendet
 auch eine gerade laufende Folie. Leere oder vollständig abgelaufene Listen führen
-zur integrierten neutralen Auszeit-Seite, nicht zu einem schwarzen Bildschirm.
+zum vom Benutzer gelieferten lokalen Bild `auszeit_standard.png` (im Player
+als `emergency.png` installiert), nicht zu Kategorie-Platzhaltern.
 Wiederholungen können durch getrennte Einträge mit unterschiedlichen IDs erfolgen.
+
+Bestätigt am 28. September: Fehlende oder nicht erzeugbare Inhalte werden in
+allen Kategorien ausgelassen. Termine haben keine feste Anzahl. Keine alten
+HTML-Dateien zur Auffüllung übernehmen. Ein erfolgreich erzeugtes leeres Paket
+mit `files: []` und `playlist: []` ist gültig und ersetzt bewusst den alten Stand.
+Ein fehlgeschlagener Download dagegen lässt den bisherigen geprüften Stand unter
+Beachtung seiner Gültigkeitsintervalle bestehen. Tagesmenüwechsel: heute bis
+14:00, morgen ab 14:00; fehlendes Menü auslassen.
+
+Vorbereiteter lokaler Export: `player/export_feed.py`, Anleitung `player/EXPORT_FEED.md`.
+Keine Änderung am laufenden FTP-Export, keine automatische Veröffentlichung.
 
 Version 1 verwendet explizite Zeitintervalle statt frei formulierter Kalenderregeln.
 Der Paketproduzent muss die Intervalle aus fachlichen Regeln ableiten; generierte

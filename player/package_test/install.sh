@@ -5,7 +5,7 @@ if [ "$(hostname)" != "auszeit-player-01" ]; then
   exit 1
 fi
 SOURCE="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
-for file in local_test/server.py local_test/web/index.html local_test/web/app.js local_test/web/style.css update_test/updater.py update_test/exercise.py package_test/server.py package_test/publish.py; do
+for file in local_test/server.py local_test/web/index.html local_test/web/app.js local_test/web/style.css local_test/web/emergency.css local_test/web/emergency.png update_test/updater.py update_test/exercise.py package_test/server.py package_test/publish.py; do
   test -f "$SOURCE/$file" || { echo "Datei fehlt: $file" >&2; exit 1; }
 done
 sudo -v
@@ -14,7 +14,7 @@ DEST=/opt/auszeit-player-package-test
 for folder in local_test local_test/web update_test package_test; do
   sudo install -d -m 0755 "$DEST/player/$folder"
 done
-for file in local_test/server.py local_test/web/index.html local_test/web/app.js local_test/web/style.css update_test/updater.py update_test/exercise.py package_test/server.py package_test/publish.py; do
+for file in local_test/server.py local_test/web/index.html local_test/web/app.js local_test/web/style.css local_test/web/emergency.css local_test/web/emergency.png update_test/updater.py update_test/exercise.py package_test/server.py package_test/publish.py; do
   sudo install -m 0644 "$SOURCE/$file" "$DEST/player/$file"
 done
 sudo install -d -o player -g player -m 0750 /var/lib/auszeit-player-package-test
@@ -45,7 +45,7 @@ sudo systemctl daemon-reload
 sudo systemctl enable auszeit-player-packages.service
 sudo systemctl restart auszeit-player-packages.service
 for attempt in 1 2 3 4 5; do
-  if /usr/bin/python3 -c 'import json, urllib.request; s=json.load(urllib.request.urlopen("http://127.0.0.1:8081/api/state",timeout=2)); assert s["slide"] and not s["last_error"]' 2>/dev/null; then
+  if /usr/bin/python3 -c 'import json, urllib.request; s=json.load(urllib.request.urlopen("http://127.0.0.1:8081/api/state",timeout=2)); assert s["state"] in ("playing", "fallback") and not s["last_error"]' 2>/dev/null; then
     break
   fi
   if [ "$attempt" = 5 ]; then

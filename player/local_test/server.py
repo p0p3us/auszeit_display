@@ -100,7 +100,9 @@ class Handler(BaseHTTPRequestHandler):
     def do_GET(self):
         routes = {"/": ("index.html", "text/html"),
                   "/app.js": ("app.js", "text/javascript"),
-                  "/style.css": ("style.css", "text/css")}
+                  "/style.css": ("style.css", "text/css"),
+                  "/emergency.css": ("emergency.css", "text/css"),
+                  "/emergency.png": ("emergency.png", "image/png")}
         if self.path == "/healthz":
             return self.reply(200, b'{"ok":true}', "application/json")
         if self.path == "/api/state":

@@ -16,3 +16,4 @@ soupsieve==2.8.4
 typing_extensions==4.16.0
 urllib3==2.7.0
 Werkzeug==3.1.8
+tzdata==2026.4; platform_system == "Windows"

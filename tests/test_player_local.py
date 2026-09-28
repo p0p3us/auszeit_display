@@ -84,3 +84,9 @@ class ServerTests(unittest.TestCase):
         with urlopen(self.base + "/slides/b.html") as response:
             self.assertEqual(response.headers["Cache-Control"], "no-store")
             self.assertIn("Folie B", response.read().decode())
+
+    def test_emergency_image_is_available_without_playlist_or_feed(self):
+        with urlopen(self.base + '/emergency.png') as response:
+            self.assertEqual(response.status, 200)
+            self.assertTrue(response.read().startswith(b'\x89PNG\r\n\x1a\n'))
+        self.assertIsNone(self.server.playlist)
