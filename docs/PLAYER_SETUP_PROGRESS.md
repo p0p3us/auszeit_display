@@ -238,6 +238,17 @@ Raspberry Pi Connect ist Fernwartung, kein Ersatz für diese Komponenten.
 
 ## Voraussetzungen für ein wiederverwendbares Image
 
+Priorisierung durch Benutzer: Schwarze Übergänge zurückgestellt, Fertigstellung
+des Players hat Vorrang. Nach Bereitschafts-Korrektur laufen Menü, News und Termine
+ohne Schwarzpause. Bei Namenstag, Weisheit, Zitat und Wetter wird weiterhin die
+gesamte Fläche kurz schwarz; alle Elemente verschwinden/erscheinen gleichzeitig.
+Ursache nicht abschließend bewiesen. Keine weitere Übergangsänderung in diesem Schritt.
+
+Separater stündlicher Feed-Publisher vorbereitet (`player/install_feed.sh`),
+Hardwareinstallation noch offen. Automatische Statusübertragung und erstes echtes
+Paket mit 20 Folien auf dem Player bestätigt. Speicherbereinigung und reproduzierbare
+Gesamtinstallation/Image-Vorbereitung bleiben erforderlich.
+
 Nachtrag 28. September: Erstes HTTPS-Paket mit 20 Folien einschließlich morgigem
 Menü erfolgreich geladen; alle Folien vom Benutzer visuell geprüft. Automatische
 Statusdatei auf dem Hosting aktualisiert sich. Gelegentliche schwarze Übergänge,

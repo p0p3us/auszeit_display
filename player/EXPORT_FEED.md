@@ -71,7 +71,34 @@ Kein fester Beispielpfad wird vom Programm selbst verwendet. Der Paketaufbau ist
 mit variablen Terminzahlen, fehlendem Wochenschmankerl, fehlenden Bildern, alten
 Quellen, Menüwechsel um 14:00 und leerem Paket einschließlich Wiederanlauf getestet.
 
-## Player aktualisieren
+## Regelmäßige Veröffentlichung auf dem Inhaltsserver
+
+Auf `auszeit` aus dem Repository: `bash player/install_feed.sh`.
+Der separate Dienst liest die vorhandene `config/publish.env`, verwendet aber als
+festes Ziel ausschließlich `/auszeit-player-feed`. Bestehende Generatoren, Timer,
+Webordner und Produktionsdaten werden nicht verändert. FTP verwendet wie der
+bereits bestätigte Upload die bestehende unverschlüsselte Verbindung; Passwörter
+werden nur als Prozessumgebung übergeben, nicht als Kommandozeilenargumente.
+
+Lauf bei Minute 06 jeder Stunde und nach Boot. Der bisherige Export aktualisiert
+die Quellen bei Minute 01; der Feed-Publisher stößt ihn nicht selbst an. Eine
+Quellkopie wird vor/nach dem Kopieren per Prüfsummen verglichen; bei Änderungen
+bricht der Lauf ab. Deshalb ist das kein Dateisystem-Snapshot mit Transaktionsgarantie.
+Die nächste reguläre Ausführung versucht es erneut. Gesamtlauf maximal zehn Minuten.
+
+Lokaler Pakettest und FTP-Rückleseprüfung gehen der Umbenennung von
+`latest.json.uploading` nach `latest.json` voraus. Bei Fehlern vor dieser Umbenennung
+bleibt der bisherige Paketzeiger erhalten. Lokale temporäre Kopien werden nach dem
+Lauf entfernt; letzter Bericht unter `~/.local/state/auszeit-player-feed/last-publish.json`.
+Automatische Bereinigung alter Releases auf Webspace und Player ist noch offen.
+
+Maximale Paketgültigkeit sieben Tage, zusätzlich gelten die kürzeren Folienfristen:
+Tagesfolien/News/Wetter bis Mitternacht, Menüs bis Periodenende, Termine bis Ende
+des Veranstaltungstags. Ein Ausfall des Inhaltsservers macht alte Quellen nicht
+automatisch aktuell. Zwischen Mitternacht und dem ersten erfolgreichen neuen Lauf
+können Tagesfolien fehlen; ohne andere gültige Folien erscheint das Notfallbild.
+
+## Player aktualisieren (Darstellung)
 
 Die beiden bestehenden Installer nehmen `emergency.png` und `emergency.css` mit.
 Das Bild wird unverändert installiert und ohne Beschnitt im Seitenverhältnis 16:9
