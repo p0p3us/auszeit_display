@@ -200,7 +200,16 @@ Folienzahl, keine Kategorie-Ersatzfolien, Termine einzeln und nur mit allen
 benötigten Dateien. Menüwechsel um 14:00 vom Benutzer bestätigt. Neues lokales
 Notfallbild aus `Downloads/auszeit_standard.png` unverändert übernommen (1280×720,
 16:9; Anzeige proportional auf 1920×1080). Leere Pakete werden akzeptiert und
-aktiviert. Noch nicht am Pi installiert; keine produktive Veröffentlichung.
+aktiviert. Playeraktualisierung vom Benutzer bestätigt; keine produktive Veröffentlichung.
+
+Nächster Stand: `player/operations/` bereitet systemd-Timer für Download und Status,
+lokale Statusdatei und ein Lebenszeichen der Playeroberfläche vor. `player/web/`
+enthält einen separaten PHP-Status-Empfänger; Ausführung/Hostingprüfung steht aus.
+PHP auf populorum.eu und ein separater Feed-Ordner sind vom Benutzer bestätigt.
+Webspace-Verzeichnisse `/auszeit-player-feed/` und `/auszeit-conf-status/` wurden
+vom Benutzer neben `/auszeit-display/` angelegt. Der private Hostingpfad für
+Konfiguration/Status außerhalb des öffentlichen Webverzeichnisses fehlt noch.
+Keine URLs oder Gerätetokens aktiviert; keine Veröffentlichung, keine Imagebereinigung.
 
 Der lokale Wechseltest unter `player/local_test/` ist inzwischen im Repository
 implementiert und auf Windows getestet: synthetische A/B/C-Folien, 20 Sekunden,

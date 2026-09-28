@@ -5,6 +5,19 @@ let active = null;
 let current = null;
 let generation = 0;
 let expiryTimer = null;
+let lastHeartbeat = 0;
+let heartbeatEnabled = false;
+async function heartbeat() {
+  if (!heartbeatEnabled) return;
+  const now = Date.now();
+  if (now - lastHeartbeat < 10000) return;
+  lastHeartbeat = now;
+  try {
+    await fetch('/api/heartbeat', {method: 'POST', headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({state: current !== null ? 'playing' : fallbackPage.hidden ? 'loading' : 'fallback', slide_id: current}),
+      signal: AbortSignal.timeout(2000)});
+  } catch (_) { /* A status failure must not interrupt playback. */ }
+}
 function fallback() {
   generation++;
   clearTimeout(expiryTimer);
@@ -30,6 +43,7 @@ async function poll() {
     const response = await fetch("/api/state", {cache: "no-store", signal: AbortSignal.timeout(2000)});
     if (!response.ok) throw new Error("State unavailable");
     const state = await response.json();
+    heartbeatEnabled = state.scenario === 'packages';
     const slide = state.slide;
     if (!slide) {
       if (current !== null || fallbackPage.hidden) fallback();
@@ -63,6 +77,7 @@ async function poll() {
   } catch (error) {
     fallback();
   } finally {
+    void heartbeat();
     window.setTimeout(poll, 500);
   }
 }

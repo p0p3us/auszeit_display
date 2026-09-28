@@ -3,6 +3,7 @@ import argparse
 from datetime import datetime, timezone
 from http.server import ThreadingHTTPServer
 import mimetypes
+import json
 import threading
 import time
 
@@ -22,6 +23,7 @@ class PackageServer(ThreadingHTTPServer):
         self.routes = {}
         self.lock = threading.Lock()
         self.last_error = None
+        self.heartbeat = None
         super().__init__(address, Handler)
 
     def load(self, pointer):
@@ -67,7 +69,36 @@ class PackageServer(ThreadingHTTPServer):
 
 
 class Handler(LocalHandler):
+    def do_POST(self):
+        if self.path != '/api/heartbeat' or self.headers.get('Origin') != f'http://127.0.0.1:{self.server.server_port}':
+            return self.reply(403, b'Forbidden', 'text/plain')
+        try:
+            length = int(self.headers.get('Content-Length', '0'))
+            if not 0 < length <= 1024:
+                raise ValueError('Invalid size')
+            self.connection.settimeout(3)
+            data = json.loads(self.rfile.read(length))
+            if data.get('state') not in ('playing', 'fallback', 'loading'):
+                raise ValueError('Invalid state')
+            slide = data.get('slide_id')
+            if slide is not None and (not isinstance(slide, str) or len(slide) > 210):
+                raise ValueError('Invalid slide')
+            with self.server.lock:
+                self.server.heartbeat = {'state': data['state'], 'slide_id': slide,
+                                         'seen': time.monotonic()}
+        except (ValueError, TypeError, AttributeError, OSError):
+            return self.reply(400, b'Invalid heartbeat', 'text/plain')
+        self.reply(200, b'{"ok":true}', 'application/json')
+
     def do_GET(self):
+        if self.path == '/api/heartbeat':
+            with self.server.lock:
+                beat = self.server.heartbeat
+                age = max(0, time.monotonic() - beat['seen']) if beat else None
+                result = {'state': beat['state'] if beat and age < 30 else 'unresponsive',
+                          'slide_id': beat['slide_id'] if beat else None, 'age_seconds': age,
+                          'release_id': self.server.release}
+            return self.reply(200, json.dumps(result).encode(), 'application/json')
         if self.path.startswith('/releases/'):
             with self.server.lock:
                 path = self.server.routes.get(self.path)
