@@ -209,7 +209,16 @@ PHP auf populorum.eu und ein separater Feed-Ordner sind vom Benutzer bestätigt.
 Webspace-Verzeichnisse `/auszeit-player-feed/` und `/auszeit-conf-status/` wurden
 vom Benutzer neben `/auszeit-display/` angelegt. Der private Hostingpfad für
 Konfiguration/Status außerhalb des öffentlichen Webverzeichnisses fehlt noch.
-Keine URLs oder Gerätetokens aktiviert; keine Veröffentlichung, keine Imagebereinigung.
+Dieser Vorbereitungsstand ist durch die folgende Inbetriebnahme ergänzt:
+28. September 2026: Operations-Timer auf dem Player aktiv. Status-Empfänger unter
+`/auszeit-conf-status/status.php` eingerichtet, private Konfiguration und Status
+unter `/var/www/vhosts/populorum.eu/auszeit-player-private`. PHP 8.5.10 und
+Schreibzugriff bestätigt. Gerätetoken ausschließlich auf dem Player, Prüfwert im
+privaten Hosting gespeichert. Zunächst HTTP 401: Authorization-Header fehlte in
+PHP. Verzeichnislokales `CGIPassAuth On` behebt dies. Erfolgreiche Übertragung
+um 16:29:19 UTC bestätigt, `report_error: null`, Wiedergabe `playing`.
+Feed weiterhin unkonfiguriert; keine Imagebereinigung. Sichtprüfung der privaten
+Statusdatei und automatische Folgeübertragung stehen noch aus.
 
 Der lokale Wechseltest unter `player/local_test/` ist inzwischen im Repository
 implementiert und auf Windows getestet: synthetische A/B/C-Folien, 20 Sekunden,

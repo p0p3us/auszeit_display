@@ -1,0 +1,3 @@
+# Deploy only in the dedicated status endpoint directory.
+# Pass the Bearer Authorization header to PHP/FastCGI.
+CGIPassAuth On

@@ -2,7 +2,8 @@
 
 Noch keine produktive Feed-URL eingerichtet. Bestätigte Webspace-Verzeichnisse:
 `/auszeit-player-feed/` für Pakete und `/auszeit-conf-status/` für den PHP-Empfänger.
-Die private PHP-Ablage ist noch zu bestimmen. Kein Eingriff in den bestehenden Inhaltsserver.
+Private PHP-Ablage: `/var/www/vhosts/populorum.eu/auszeit-player-private`,
+mit `config.php` und Unterordner `status`. Kein Eingriff in den bestehenden Inhaltsserver.
 
 ## Player
 
@@ -45,9 +46,13 @@ Korrektheit oder einen intakten iframe-Renderer. Nach 30 Sekunden ohne Lebenszei
 lautet der Zustand `unresponsive`. Die vorhandene systemd-Neustartregel bei einem
 beendeten Browser bleibt aktiv; ein gesonderter Hänger-Watchdog steht noch aus.
 
-## Webspace-Empfänger (vorbereitet, noch nicht veröffentlicht)
+## Webspace-Empfänger
 
-PHP >= 8.1. Nur `player/web/status.php` in einen gesonderten HTTPS-Bereich legen.
+PHP >= 8.1. `player/web/status.php` und `player/web/.htaccess` in den gesonderten
+HTTPS-Bereich `/auszeit-conf-status/` legen. Eine bestehende `.htaccess` nicht
+überschreiben, sondern die Direktive ergänzen. `CGIPassAuth On` reicht den
+Authorization-Header an PHP weiter; auf diesem Hosting war er sonst nicht vorhanden.
+Quelle: https://httpd.apache.org/docs/2.4/mod/core.html#cgipassauth
 `private-config.example.php` ist eine Vorlage, **kein öffentlich zu ladendes Artefakt**.
 Die tatsächliche Konfiguration und das beschreibbare Statusverzeichnis müssen
 außerhalb von DOCUMENT_ROOT liegen. Das Skript verweigert anderenfalls die Annahme.
@@ -60,8 +65,12 @@ prüft Token zeitkonstant, nimmt maximal 16 KiB entgegen und ergänzt serverseit
 `received_at`. Es speichert atomar nur den letzten Status je freigeschaltetem Gerät.
 Keine öffentliche Leseansicht, kein gemeinsames Schreibkennwort für alle Geräte.
 
-Die PHP-Ausführung und HTTPS-/Authorization-Weitergabe müssen auf dem Hosting
-vor Freigabe geprüft werden. Der lokale Windows-Rechner hat aktuell kein PHP-CLI.
+Am 28. September 2026 auf PHP 8.5.10 bestätigt: privater Statusordner beschreibbar,
+Timer aktiv, Wiedergabe-Lebenszeichen vorhanden. Nach Aktivieren von CGIPassAuth
+wurde die authentifizierte Statusübertragung erfolgreich bestätigt
+(`last_status_success` gesetzt, `report_error: null`). Feed weiterhin unkonfiguriert.
+Temporäre Diagnose-Dateien `check.php` und `auth-check.php` nach Prüfung entfernen.
+Der lokale Windows-Rechner hat aktuell kein PHP-CLI.
 Quelle für Tokenvergleich: https://www.php.net/manual/en/function.hash-equals.php
 
 ## Verbleibende Inbetriebnahme
