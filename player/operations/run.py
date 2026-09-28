@@ -82,6 +82,16 @@ def cycle(config, root=ROOT, status_root=STATUS, download_factory=Downloader, se
               'last_update_success': previous.get('last_update_success'),
               'last_status_success': previous.get('last_status_success'),
               'update_state': 'unconfigured', 'update_error': None, 'report_error': None}
+    telemetry = sampler(root)
+    displayed = (telemetry.get('playback') or {}).get('release_id')
+    status['cleanup'] = {'state': 'skipped', 'removed': [], 'error': None}
+    if displayed:
+        try:
+            removed = store.prune(displayed)
+            status['cleanup'] = {'state': 'ok', 'removed': removed, 'error': None}
+        except Exception as error:
+            status['cleanup']['state'] = 'failed'
+            status['cleanup']['error'] = type(error).__name__
     feed = config.get('feed_url')
     if feed:
         try:

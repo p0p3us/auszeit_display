@@ -238,6 +238,13 @@ Raspberry Pi Connect ist Fernwartung, kein Ersatz für diese Komponenten.
 
 ## Voraussetzungen für ein wiederverwendbares Image
 
+Automatische Kette am 28. September bestätigt: Server veröffentlichte
+`content-ec35f7bdf67b75f1af93` mit 20 Folien, nächster Timertermin vorhanden;
+Player-Status anschließend laut Benutzer innerhalb aller erwarteten Parameter.
+Lokale Speicherbereinigung vorbereitet: aktive/vorherige/angezeigte Release
+geschützt, weitere erkannte Bestände erst nach 24 Stunden. Installation noch offen.
+Webspace-Bereinigung bleibt separat offen.
+
 Priorisierung durch Benutzer: Schwarze Übergänge zurückgestellt, Fertigstellung
 des Players hat Vorrang. Nach Bereitschafts-Korrektur laufen Menü, News und Termine
 ohne Schwarzpause. Bei Namenstag, Weisheit, Zitat und Wetter wird weiterhin die

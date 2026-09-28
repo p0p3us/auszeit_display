@@ -75,6 +75,17 @@ Quelle für Tokenvergleich: https://www.php.net/manual/en/function.hash-equals.p
 
 ## Verbleibende Inbetriebnahme
 
+### Speicherbereinigung auf dem Player
+
+Vor dem Download entfernt die Automatik erkannte lokale Releases und abgebrochene
+Downloadordner erst nach 24 Stunden. Aktiver Stand, vorheriger Stand und die vom
+Anzeigedienst gemeldete Release bleiben unabhängig vom Alter erhalten. Ohne bekannte
+Anzeige-Release wird die Bereinigung ausgelassen. Download und Bereinigung verwenden
+dieselbe Bestandssperre; unbekannte Verzeichnisse und Verknüpfungen werden übersprungen.
+`cleanup` in der Statusdatei nennt Ergebnis, entfernte IDs und gegebenenfalls Fehlertyp.
+Junge Releases bleiben als zusätzlicher Puffer erhalten. Die Grenze von 1 GiB freiem
+Speicher vor neuen Downloads gilt weiterhin. Webspace-Bereinigung ist separat offen.
+
 1. FTP-Ziel und privates Hosting-Verzeichnis bestimmen; separaten Feed und Empfänger
    einrichten, ohne den vorhandenen FTP-Spiegel oder dessen Löschregeln zu verändern.
 2. Paketproduzent an eine eingefrorene Quelle aktueller Daten anschließen. Der lokale

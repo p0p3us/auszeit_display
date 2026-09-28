@@ -204,6 +204,46 @@ class Store:
         path = self.root / "active.json"
         return read_json(path.read_bytes()) if path.exists() else {"active": None, "previous": None}
 
+    def prune(self, displayed_release, now=None):
+        """Remove only unprotected, recognized directories older than 24 hours."""
+        require(isinstance(displayed_release, str) and ID.fullmatch(displayed_release), 'Unknown displayed release')
+        now = time.time() if now is None else now
+        removed = []
+        with lock(self.root):
+            protected = {displayed_release}
+            state = self.state()
+            for key in ('active', 'previous'):
+                pointer = state[key]
+                if pointer is not None:
+                    name = pointer['release_id']
+                    require(isinstance(name, str) and ID.fullmatch(name), 'Invalid protected release')
+                    protected.add(name)
+            root = self.releases.resolve()
+            for folder in sorted(self.releases.iterdir()):
+                if folder.name in protected or folder.is_symlink() or not folder.is_dir():
+                    continue
+                if not (ID.fullmatch(folder.name) or folder.name.startswith('.staging-')):
+                    continue
+                if now - folder.stat().st_mtime < 86400:
+                    continue
+                require(folder.resolve().parent == root, 'Unsafe cleanup path')
+                # Never traverse links/junctions or remove unrelated directories.
+                paths = [folder, *folder.rglob('*')]
+                if any(p.is_symlink() or (hasattr(p, 'is_junction') and p.is_junction())
+                       or not p.resolve().is_relative_to(root) for p in paths):
+                    continue
+                if not folder.name.startswith('.staging-'):
+                    try:
+                        manifest = read_json((folder / 'manifest.json').read_bytes())
+                        validate_manifest(manifest, folder.name)
+                    except (OSError, ValueError):
+                        continue
+                shutil.rmtree(folder)
+                removed.append(folder.name)
+            if removed:
+                sync_dir(self.releases)
+        return removed
+
     def verify(self, release_id, manifest_sha256):
         require(isinstance(release_id, str) and ID.fullmatch(release_id), "Invalid release ID")
         folder = self.releases / release_id
