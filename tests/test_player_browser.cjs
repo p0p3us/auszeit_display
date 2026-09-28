@@ -7,6 +7,33 @@ const source = fs.readFileSync(path.join(__dirname, '../player/local_test/web/ap
 const html = fs.readFileSync(path.join(__dirname, '../player/local_test/web/index.html'), 'utf8');
 const settle = () => new Promise(resolve => setImmediate(resolve));
 
+test('slide readiness waits for fonts, decoded images and two rendering frames', async () => {
+  const server = fs.readFileSync(path.join(__dirname, '../player/package_test/server.py'), 'utf8');
+  const bridge = server.match(/SLIDE_READY = """([\s\S]*?)"""/)[1];
+  let onMessage, fontsReady, imageReady;
+  const sent = [], frames = [];
+  const parent = {postMessage: value => sent.push(value)};
+  vm.runInNewContext(bridge, {
+    window: {addEventListener: (_, fn) => {onMessage = fn;}}, parent,
+    document: {fonts: {ready: new Promise(resolve => {fontsReady = resolve;})},
+      images: [{decode: () => new Promise(resolve => {imageReady = resolve;})}]},
+    requestAnimationFrame: fn => frames.push(fn),
+  });
+  await onMessage({source: {}, data: {type: 'auszeit-prepare', token: 7}});
+  const pending = onMessage({source: parent, data: {type: 'auszeit-prepare', token: 7}});
+  assert.equal(sent.length, 0);
+  fontsReady();
+  await settle();
+  assert.equal(sent.length, 0);
+  imageReady();
+  await settle();
+  frames.shift()();
+  assert.equal(sent.length, 0);
+  frames.shift()();
+  await pending;
+  assert.equal(sent[0].token, 7);
+});
+
 function setup(options = {}) {
   const elements = Object.fromEntries(['slide', 'slide-next', 'fallback'].map(id => {
     const classes = new Set();
@@ -17,16 +44,23 @@ function setup(options = {}) {
   let scenario = 'cycle';
   const timers = new Map();
   let counter = 0;
+  const listeners = new Set();
+  for (const element of Object.values(elements)) element.contentWindow = {postMessage: message => {element.message = message;}};
   const context = vm.createContext({
     document: {getElementById: id => elements[id]}, Date, AbortSignal,
     setTimeout: (fn, delay) => {timers.set(++counter, {fn, delay}); return counter;},
     clearTimeout: id => timers.delete(id),
     requestAnimationFrame: fn => queueMicrotask(fn),
+    addEventListener: (type, fn) => listeners.add(fn),
+    removeEventListener: (type, fn) => listeners.delete(fn),
     fetch: async () => ({ok: !options.unavailable, json: async () => ({slide, scenario})})
   });
   context.window = context;
   vm.runInContext(source, context);
   return {elements, timers, setSlide: value => {slide = value;}, setScenario: value => {scenario = value;},
+    ready: (frame, source = frame.contentWindow) => {
+      for (const fn of [...listeners]) fn({source, data: {type: 'auszeit-slide-ready', token: frame.message.token}});
+    },
     poll: () => vm.runInContext('poll()', context)};
 }
 
@@ -99,6 +133,12 @@ test('verified package URL loads without exposing fallback', async () => {
   assert.equal(state.elements.fallback.hidden, true);
   assert.equal(state.elements['slide-next'].src, '/releases/display-1/content/auszeit-display/a.html');
   state.elements['slide-next'].onload();
+  await settle();
+  assert.equal(state.elements.slide.classList.contains('active'), true);
+  state.ready(state.elements['slide-next'], {});
+  await settle();
+  assert.equal(state.elements.slide.classList.contains('active'), true);
+  state.ready(state.elements['slide-next']);
   await pending;
   assert.equal(state.elements['slide-next'].classList.contains('active'), true);
   assert.equal(state.elements.fallback.hidden, true);

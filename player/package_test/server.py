@@ -68,6 +68,23 @@ class PackageServer(ThreadingHTTPServer):
                     'state': 'playing' if entry else 'fallback', 'last_error': self.last_error}
 
 
+SLIDE_READY = """
+'use strict';
+window.addEventListener('message', async event => {
+  if (event.source !== parent || event.data?.type !== 'auszeit-prepare') return;
+  const token = event.data.token;
+  try {
+    if (document.fonts) await document.fonts.ready;
+    await Promise.all(Array.from(document.images, image => image.decode()));
+    await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+    parent.postMessage({type: 'auszeit-slide-ready', token}, '*');
+  } catch (_) {
+    // No readiness acknowledgement for an undecodable image; parent times out.
+  }
+});
+"""
+
+
 class Handler(LocalHandler):
     def do_POST(self):
         if self.path != '/api/heartbeat' or self.headers.get('Origin') != f'http://127.0.0.1:{self.server.server_port}':
@@ -91,6 +108,8 @@ class Handler(LocalHandler):
         self.reply(200, b'{"ok":true}', 'application/json')
 
     def do_GET(self):
+        if self.path == '/slide-ready.js':
+            return self.reply(200, SLIDE_READY.encode(), 'text/javascript')
         if self.path == '/api/heartbeat':
             with self.server.lock:
                 beat = self.server.heartbeat
@@ -108,6 +127,10 @@ class Handler(LocalHandler):
                 body = path.read_bytes()
             except OSError:
                 return self.reply(404, b'Not found', 'text/plain')
+            if path.suffix.lower() == '.html':
+                # Add a player-owned readiness bridge only to the HTTP response.
+                # Verified package files and their hashes remain unchanged.
+                body += b'\n<script src="/slide-ready.js"></script>'
             return self.reply(200, body, mimetypes.guess_type(path.name)[0] or 'application/octet-stream')
         # The earlier synthetic routes are not part of the package display.
         if self.path.startswith('/slides/'):

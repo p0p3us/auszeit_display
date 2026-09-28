@@ -62,7 +62,12 @@ class PackagePlaybackTests(unittest.TestCase):
         self.addCleanup(self.server.shutdown)
         base = f'http://127.0.0.1:{self.server.server_port}'
         with urlopen(base + slide['path']) as response:
-            self.assertIn('Inhaltsstand 1', response.read().decode())
+            body = response.read().decode()
+            self.assertIn('Inhaltsstand 1', body)
+            self.assertIn('<script src="/slide-ready.js"></script>', body)
+        self.assertNotIn(b'/slide-ready.js', self.server.routes[slide['path']].read_bytes())
+        with urlopen(base + '/slide-ready.js') as response:
+            self.assertIn(b'document.fonts.ready', response.read())
         with urlopen(base + '/releases/display-1/content/auszeit-display/style.css') as response:
             self.assertTrue(response.headers['Content-Type'].startswith('text/css'))
         for path in ('/slides/a.html', '/releases/display-1/manifest.json',

@@ -23,17 +23,31 @@ function fallback() {
   clearTimeout(expiryTimer);
   current = active = null;
   fallbackPage.hidden = false;
-  for (const frame of frames) frame.classList.remove("active");
+  for (const frame of frames) {
+    frame.classList.remove("active");
+    frame.classList.remove("preparing");
+  }
 }
-function loadFrame(frame, path) {
+function loadFrame(frame, path, packageSlide, token) {
   return new Promise((resolve, reject) => {
     const timeout = setTimeout(() => finish(new Error("Slide load timed out")), 5000);
     function finish(error) {
       clearTimeout(timeout);
+      window.removeEventListener('message', ready);
       frame.onload = frame.onerror = null;
       error ? reject(error) : resolve();
     }
-    frame.onload = () => finish();
+    function ready(event) {
+      if (event.source === frame.contentWindow && event.data?.type === 'auszeit-slide-ready'
+          && event.data.token === token) finish();
+    }
+    window.addEventListener('message', ready);
+    frame.onload = () => {
+      if (generation !== token) return finish(new Error('Slide superseded'));
+      frame.classList.add('preparing');
+      if (packageSlide) frame.contentWindow.postMessage({type: 'auszeit-prepare', token}, '*');
+      else finish();
+    };
     frame.onerror = () => finish(new Error("Slide load failed"));
     frame.src = path;
   });
@@ -57,7 +71,7 @@ async function poll() {
       const next = frames.find(frame => frame !== active);
       const check = await fetch(slide.path, {cache: "no-store", signal: AbortSignal.timeout(2000)});
       if (!check.ok) throw new Error("Slide unavailable");
-      await loadFrame(next, slide.path);
+      await loadFrame(next, slide.path, packageSlide, token);
       // Keep the outgoing slide visible throughout loading and layout.
       await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
       if (generation !== token) return;
@@ -67,6 +81,7 @@ async function poll() {
         return;
       }
       next.classList.add("active");
+      next.classList.remove("preparing");
       if (active) active.classList.remove("active");
       active = next;
       current = slide.id;

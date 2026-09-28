@@ -238,6 +238,18 @@ Raspberry Pi Connect ist Fernwartung, kein Ersatz für diese Komponenten.
 
 ## Voraussetzungen für ein wiederverwendbares Image
 
+Nachtrag 28. September: Erstes HTTPS-Paket mit 20 Folien einschließlich morgigem
+Menü erfolgreich geladen; alle Folien vom Benutzer visuell geprüft. Automatische
+Statusdatei auf dem Hosting aktualisiert sich. Gelegentliche schwarze Übergänge,
+besonders beim Wetter, gemeldet. Player wartet nun zusätzlich auf eine Meldung
+der Folie nach Schriftladen, Bilddekodierung und zwei Rendering-Frames; Vorbereitung
+hinter der aktuellen Folie statt vollständig unsichtbar. Hardwareabnahme steht aus.
+
+Vorgemerkt, noch nicht umgesetzt: Fünf-Tage-Wettervorschau muss Tagesvarianten der
+Symbole verwenden (Sonne statt Mond). Aktuelles Nachtwetter darf Mondmotive zeigen.
+Regelmäßige Feed-Erzeugung/Veröffentlichung bleibt offen; das erste Testpaket endet
+am 29. September um 00:00 Europe/Vienna.
+
 Vor Image-Erstellung einen separaten dokumentierten Bereinigungslauf entwickeln
 und testen. Kein rohes Abbild des angemeldeten Geräts als Vorlage weitergeben.
 
